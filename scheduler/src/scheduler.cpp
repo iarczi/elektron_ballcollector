@@ -36,7 +36,7 @@ private:
 	actionlib::SimpleActionClient<scheduler::SchedulerAction> deadlock_action_client_;
 	actionlib::SimpleActionClient<scheduler::SchedulerAction> explore_action_client_;
 	actionlib::SimpleActionClient<scheduler::SchedulerAction> go_to_ball_action_client_;
-	MoveBaseClient ac_;
+//	MoveBaseClient ac_;
 
 	bool deadlock_;
 	bool ball_visible_;
@@ -81,8 +81,8 @@ public:
 	Scheduler():
 		deadlock_action_client_("get_out_of_deadlock", true),
 		explore_action_client_("explore", true),
-		go_to_ball_action_client_("go_to_selected_ball", true),
-		ac_("move_base", true)
+		go_to_ball_action_client_("go_to_selected_ball", true)/*,
+		ac_("move_base", true)*/
 		{
 
 		selected_ball_sub_ = nh_.subscribe < geometry_msgs::Point > ("/one_selected_ball", 1, &Scheduler::selectedBallCb, this);
@@ -111,12 +111,12 @@ int main(int argc, char** argv) {
 	Scheduler scheduler;
 	scheduler.sendStartExploreGoal();
 
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(150);
 
 	while (ros::ok()) {
 			ros::spinOnce();
 			loop_rate.sleep();
-
+	
 //			std::cout<<"deadlock: "<<scheduler.isDeadlock()<<"  ball visible: "<<scheduler.isBallVisible()<<"state: "<<scheduler.getState()<<std::endl;
 
 
@@ -125,10 +125,13 @@ int main(int argc, char** argv) {
 			//	metoda isDeadlock jest nadrzedna wzgledem isBallVisible, gdyz jesli robot jest zakleszczony,
 			//	to nawet jesli widzi pileczke, to nie powinien do niej dojezdzac tylko wykonac obsluge zakleszczenia
 			if(scheduler.getState() == EXPLORE){
+				
+			//ROS_INFO("explore");
 				if (scheduler.isDeadlock()) {
 					//	robot podczas eksploracji zakleszczyl sie
 					//	przechodzimy do stanu obslugi zakleszczenia
 
+			ROS_INFO("is deadlock");
 					scheduler.sendStopExploreGoal();
 					scheduler.sendDeadlockGoal();
 					scheduler.setSate(DEADLOCK);
@@ -142,6 +145,7 @@ int main(int argc, char** argv) {
 
 					//scheduler.cancelAllGoals();
 
+			ROS_INFO("ball visible");
 
 					if(scheduler.getDistanceFromSelectedBall() > 0.6){
 						//	pileczka jest dalej niz 0.6 m, przechodzimy do statnu GO_TO_BALL_FIRST_STEP
@@ -168,6 +172,7 @@ int main(int argc, char** argv) {
 			}
 			else if(scheduler.getState() == GO_TO_BALL_FIRST_STEP){
 
+			ROS_INFO("go to ball 1  step");
 				if (scheduler.isDeadlock()) {
 					//	dojezdzal do pileczki, ale sie zakleszczyl
 
@@ -195,6 +200,7 @@ int main(int argc, char** argv) {
 			}
 			else if(scheduler.getState() == GO_TO_BALL_SECOND_STEP){
 
+			ROS_INFO("second step");
 				if(scheduler.isGoToBallServiceDone()){
 					scheduler.sendStartExploreGoal();
 					scheduler.setSate(EXPLORE);
@@ -208,7 +214,7 @@ int main(int argc, char** argv) {
 			// 	ze stanu obslugi zakleszczenia wychodzmy tylko po zakonczeniu
 			//	obslugi zakleszczenia. Przechodzimy wowczas do eksploracji
 			else if(scheduler.getState() == DEADLOCK){
-			//	ROS_INFO("state = DEADLOCK");
+				ROS_INFO("1111state = DEADLOCK111");
 				if(scheduler.isDeadlockServiceDone()){
 					//	zakonczono obsluge deadlocka
 					//	zaczynamy exploracje
@@ -268,7 +274,7 @@ void Scheduler::selectedBallCb(const geometry_msgs::PointConstPtr& selectedBallP
 void Scheduler::deadlockServiceStateCb(const std_msgs::String& state){
 //	ROS_INFO("deadlockServiceStateCb");
 	if(state.data == "DEADLOCK"){
-		deadlock_ = true;
+		deadlock_ = false; // true;
 	}
 	else if(state.data == "NOT_DEADLOCK"){
 		deadlock_ = false;
@@ -276,7 +282,7 @@ void Scheduler::deadlockServiceStateCb(const std_msgs::String& state){
 }
 
 bool Scheduler::isDeadlock(){
-	return deadlock_;
+	return false; // deadlock_;
 
 }
 bool Scheduler::isBallVisible(){
@@ -294,15 +300,17 @@ void Scheduler::sendDeadlockGoal(){
 
 void Scheduler::sendStartExploreGoal(){
 	// send a goal to the action
-//	ROS_INFO("send a goal to the explore action server");
+	ROS_INFO("send a goal to the explore action server");
 	scheduler::SchedulerGoal goal;
 	goal.value = 1;
 	explore_action_client_.sendGoal(goal);
+
+	ROS_INFO("END send a goal to the explore action server");
 }
 
 void Scheduler::sendStopExploreGoal(){
 	// send a goal to the action
-//	ROS_INFO("send a goal to the explore action server");
+	ROS_INFO("send a STOP goal to the explore action server");
 //	scheduler::SchedulerGoal goal;
 //	goal.value = 0;
 
@@ -350,7 +358,7 @@ void Scheduler::setSate(State state){
 }
 
 void Scheduler::cancelAllGoals(){
-	ac_.cancelAllGoals ();
+	//ac_.cancelAllGoals ();
 }
 
 

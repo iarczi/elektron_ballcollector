@@ -1,9 +1,12 @@
 <package>
+  <name>ballcollector_move</name>
+  <version>2.0</version>
   <description brief="ballcollector_move">
 
      ballcollector_move
 
   </description>
+  <maintainer>Artur Latoszewski</maintainer>
   <author>Piotr Majcher</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>

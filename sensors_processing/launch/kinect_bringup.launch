@@ -66,9 +66,10 @@ data_skip: 10
       <arg name="rgb"                   value="$(arg rgb)" />
       <arg name="ir"                    value="$(arg ir)" />
       <arg name="depth"                 value="$(arg depth)" />
-      <arg name="depth_registered"      value="$(arg depth_registered)" />
+      <arg name="depth_registered"      value="$(arg depth_registered)" /> 
       <arg name="projector"             value="$(arg projector)" />
-      <arg name="bond"                  value="$(arg bond_arg)" />
+      <arg name="depth_registration"	value="true"/>
+    <!--  <arg name="bond"                  value="$(arg bond_arg)" /> -->
     </include>
 
   </group> <!-- camera -->

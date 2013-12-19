@@ -1,0 +1,39 @@
+FILE(REMOVE_RECURSE
+  "../msg_gen"
+  "../src/scheduler/msg"
+  "../msg_gen"
+  "CMakeFiles/ROSBUILD_genmsg_lisp"
+  "../msg_gen/lisp/SchedulerAction.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_SchedulerAction.lisp"
+  "../msg_gen/lisp/SchedulerGoal.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_SchedulerGoal.lisp"
+  "../msg_gen/lisp/SchedulerActionGoal.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_SchedulerActionGoal.lisp"
+  "../msg_gen/lisp/SchedulerResult.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_SchedulerResult.lisp"
+  "../msg_gen/lisp/SchedulerActionResult.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_SchedulerActionResult.lisp"
+  "../msg_gen/lisp/SchedulerFeedback.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_SchedulerFeedback.lisp"
+  "../msg_gen/lisp/SchedulerActionFeedback.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_SchedulerActionFeedback.lisp"
+  "../msg/SchedulerAction.msg"
+  "../msg/SchedulerGoal.msg"
+  "../msg/SchedulerActionGoal.msg"
+  "../msg/SchedulerResult.msg"
+  "../msg/SchedulerActionResult.msg"
+  "../msg/SchedulerFeedback.msg"
+  "../msg/SchedulerActionFeedback.msg"
+)
+
+# Per-language clean rules from dependency scanning.
+FOREACH(lang)
+  INCLUDE(CMakeFiles/ROSBUILD_genmsg_lisp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

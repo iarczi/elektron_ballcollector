@@ -1,0 +1,10 @@
+<launch>
+		
+	<node pkg="ballcollector_move" type="move_robot_straight" name="move_robot_straight" output="screen" />
+<!--	<node pkg="move_base" type="move_base" name="move_base" output="screen" />-->
+	<node pkg="scheduler" type="scheduler" name="scheduler" output="screen" />
+	<node pkg="ballcollector_move" type="get_out_of_deadlock" name="get_out_of_deadlock" output="screen" />
+	<node pkg="ballcollector_move" type="go_to_selected_ball" name="go_to_selected_ball" output="screen" />
+	<node pkg="ballcollector_move" type="explore" name="explore" output="screen" />
+			
+</launch>

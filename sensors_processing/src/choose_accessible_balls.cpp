@@ -258,7 +258,7 @@ void ChooseAccessibleBalls::publishPose(float x, float y, geometry_msgs::Quatern
 
 void ChooseAccessibleBalls::setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
 
-	btQuaternion q_result;
+	tf::Quaternion q_result;
 	q_result.setRPY(.0, .0, angle);
 	tf::quaternionTFToMsg(q_result, qMsg);
 
@@ -426,7 +426,7 @@ ROS_INFO("(goal_map_x, goal_map_y) (%f, %f)", goal_map_x, goal_map_y);
 
 
 double roll, pitch, yaw;
-btMatrix3x3(q).getRPY(roll, pitch, yaw);
+tf::Matrix3x3(q).getRPY(roll, pitch, yaw);
 ROS_INFO("angle in map = %f ", yaw*180/PI);
 
 

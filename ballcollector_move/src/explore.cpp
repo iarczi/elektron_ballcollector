@@ -161,8 +161,8 @@ int main(int argc, char** argv) {
 
 	ros::init(argc, argv, "robot_move");
 
-
 	Explore robot_explore(ros::this_node::getName());
+	
 
 //	ros::Subscriber obsMapSub = nh_.subscribe("/move_base/local_costmap/inflated_obstacles", 1, obstaclesMapCallback);
 
@@ -173,22 +173,23 @@ int main(int argc, char** argv) {
 	double infRad = costmap_ros->getInflationRadius();
 	ROS_INFO("infRad =%f",infRad);
 
-	ros::Rate loop_rate(1);
+	ros::Rate loop_rate(110);
 
 //	float rand_theta;
 //	double x_odom, y_odom, rand_x, rand_y, x_map, y_map;
-
 
 	 while (!robot_explore.ac_.waitForServer(ros::Duration(5.0))) {
 		ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
 
+	robot_explore.setExploreState(RANDOM_ROTATE);
+
+	ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
 	while (ros::ok()) {
 
-		ros::spinOnce();
-		loop_rate.sleep();
 /*
+		
 		if(robot_explore.canExplore() == false){
 	//		ROS_INFO("Robot move - no explore - start ...");
 	//		robot_explore.stopExplore();
@@ -198,10 +199,14 @@ int main(int argc, char** argv) {
 		}*/
 
 		if (!robot_explore.isActionServerActive()){
-		      continue;
+
+			ROS_INFO("Explore server action isn't active!");
+
+			continue;
 		}
 		else{
-
+		ROS_INFO("explore else");
+		
 			costmap_ros->getCostmapCopy(costmap);
 
 			if(robot_explore.getExploreState() == STOP){
@@ -278,7 +283,8 @@ int main(int argc, char** argv) {
 
 		*/
 
-
+	ros::spinOnce();
+	loop_rate.sleep();
 	}
 
 
@@ -374,10 +380,10 @@ void Explore::deadlockServiceStateCb(const std_msgs::String& state){
 double getAngle(const geometry_msgs::Quaternion& qMsg){
 
 	  double unused, yaw ;
-	  btQuaternion q_pose;
+	  tf::Quaternion q_pose;
 
 	  tf::quaternionMsgToTF(qMsg, q_pose);
-	  btMatrix3x3 m_pose(q_pose);
+	  tf::Matrix3x3 m_pose(q_pose);
 	  m_pose.getRPY(unused, unused, yaw);
 	 // yaw = yaw * 180 / PI;
 	  return yaw;
@@ -387,7 +393,7 @@ double getAngle(const geometry_msgs::Quaternion& qMsg){
 
 void setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
 
-	btQuaternion q_result;
+	tf::Quaternion q_result;
 	q_result.setRPY(.0, .0, angle);
 	tf::quaternionTFToMsg(q_result, qMsg);
 
@@ -410,12 +416,14 @@ void publishPose(geometry_msgs::Pose2D pose2d ){
 	  ROS_INFO("Sending goal");
 	  ac_.sendGoal(goal);
 
-	  */
+*/
 
 }
 
 void Explore::publishPose(float x, float y, float theta){
-
+	x =500;
+	y=0;
+	theta= 0;
 	  move_base_msgs::MoveBaseGoal goal;
 
 	  goal.target_pose.pose.position.x = x;
@@ -472,16 +480,17 @@ void Explore::robotFullRotate(){
 	goal.target_pose.pose.position.y = goal_map_y;
 	goal.target_pose.pose.position.z = 0;
 
+	ROS_INFO("x= %i, y= %i ", goal.target_pose.pose.position.x, goal.target_pose.pose.position.y);
 
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
 	goal.target_pose.header.frame_id ="/map";
 
-//	ROS_INFO("Sending goal 1");
+	ROS_INFO("Sending goal 1");
 	ac_.sendGoal(goal);
 
-	/*
+	
 
 	ROS_INFO("wait for result");
 	ac_.waitForResult();
@@ -515,7 +524,7 @@ void Explore::robotFullRotate(){
 	ac_.waitForResult();
 
 
-*/
+
 	ROS_INFO("leave robotFullRotate");
 }
 
@@ -602,30 +611,34 @@ void Explore::maxForward(){
 	int counter = 0;
 
 	float d_x = 0, d_y=0, x_map, y_map, x_odom, y_odom;
+	d_x= 500;
+	d_y= 0;
 	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
-	 while (canMove(x_odom, y_odom)){
+/*	 while (canMove(x_odom, y_odom)){
+
 		d_x += 0.1;
 		d_y = 0;
 		transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
-	/*	++counter;
+	
+	ROS_INFO("x_odom = %i, y_odom = %i ",x_odom, y_odom);
+*/	/*	++counter;
 		if(counter > 10){
 			ROS_INFO("leave maxForward, can not move forward");
 			return;
 		}*/
 
-	};
-
-//	ROS_INFO("d_x = %f", d_x);
+/*	}; */
+	ROS_INFO("d_x = %f", d_x);
 
 	float robotAngleInMap = getRobotAngleInMap();
 
 	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
-//	ROS_INFO("robot move to (%f,%f)", x_map, y_map);
+	ROS_INFO("robot move to (%f,%f)", x_map, y_map);
 
 	publishPose(x_map, y_map, robotAngleInMap);
 
-//	ROS_INFO("wait for result");
-//	ac_.waitForResult();
+	ROS_INFO("wait for result");
+	ac_.waitForResult();
 
 	ROS_INFO("leave maxForward");
 }
@@ -680,11 +693,16 @@ bool canMove(float x, float y){
 	  costmap_2d::Costmap2D costmap;
 	  costmap_ros->getCostmapCopy( costmap );
 
+	
+		ROS_INFO("canMove1");
 	  // Coordinate transform.
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
+	
+		ROS_INFO("!costmap x,y =%i, %i, cell_x,y = %i, %i ", x, y, cell_x, cell_y);
 	 //   res.cost = -1.0;
-	    return false;
+	 	//return false;
+		 return true;
 	  }
 
 	  double cost = double( costmap.getCost( cell_x, cell_y ));
@@ -693,7 +711,9 @@ bool canMove(float x, float y){
 		  return true;
 	  }
 	  else{
-		  return false;
+		 // return false;
+	
+		  return true;
 	  }
 	 //ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
 }
@@ -850,12 +870,12 @@ void Explore::goalCB(){
   }
 
 void Explore::preemptCB(){
-	ROS_INFO("%s: Preempted", action_name_.c_str());
+/*	ROS_INFO("%s: Preempted", action_name_.c_str());
 
 //	explore_ = false;
 	explore_state_ = STOP;
 	ac_.cancelAllGoals ();
-	as_.setPreempted();
+	as_.setPreempted(); */
 }
 
 

@@ -178,7 +178,7 @@ int main(int argc, char** argv) {
 
 
 
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(1000);
 
 	int no_ball_counter = 0;
 
@@ -187,11 +187,11 @@ int main(int argc, char** argv) {
 		loop_rate.sleep();
 
 
-		if( goToSelectedBall.getState() == STOP ){
+	/*	if( goToSelectedBall.getState() == STOP ){
 			ROS_INFO("STOP state");
 			continue;
 		}
-		else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
+		else*/ if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
 			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
 			if(goToSelectedBall.isBallPoseSet == false){
 				ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
@@ -380,7 +380,7 @@ void GoToSelectedBall::publishPose(float dist_from_ball){
 
 
 //	float roll, pitch, yaw;
-//	btMatrix3x3(q).getRPY(roll, pitch, yaw);
+//	tf::Matrix3x3(q).getRPY(roll, pitch, yaw);
 //	ROS_INFO("angle in map = %f ", yaw*180/PI);
 
 	geometry_msgs::Quaternion qMsg;
@@ -566,7 +566,7 @@ float GoToSelectedBall::getRobotAngleInOdom(){
 	return tf::getYaw(tfOR.getRotation());
 
 //	float roll, pitch, yaw;
-//	btMatrix3x3( tfOR.getRotation() ).getRPY(roll, pitch, yaw);
+//	tf::Matrix3x3( tfOR.getRotation() ).getRPY(roll, pitch, yaw);
 
 //	return yaw;
 }
@@ -617,10 +617,10 @@ void GoToSelectedBall::stopExplore(){
 void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 	ROS_INFO("enter executeCB, goal = %i", goal->value);
 
-	if(goal->value == 0){
+/*	if(goal->value == 0){
 		state_ = STOP;
 	}
-	else if(goal->value == 1){
+	else*/ if(goal->value == 1){
 		state_ = FIRST_STEP_COLLECT;
 	}
 	else if(goal->value == 2){

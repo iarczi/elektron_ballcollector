@@ -1,0 +1,10 @@
+\subsubsection usage Usage
+\verbatim
+<node name="sensors_processing" pkg="sensors_processing" type="sensors_processing">
+  <param name="double_param1" type="double" value="5.0" />
+  <param name="double_param2" type="double" value="16.0" />
+  <param name="morphIterations" type="int" value="1" />
+  <param name="ringWeight" type="int" value="9" />
+</node>
+\endverbatim
+

@@ -4,7 +4,7 @@
 #=============================================================================
 # Special targets provided by cmake.
 
-# Disable implicit rules so canoncical targets will work.
+# Disable implicit rules so canonical targets will work.
 .SUFFIXES:
 
 # Remove some rules from gmake that .SUFFIXES does not remove.
@@ -38,6 +38,9 @@ CMAKE_SOURCE_DIR = /home/robot/ros/elektron_ballcollector/ballcollector_move
 CMAKE_BINARY_DIR = /home/robot/ros/elektron_ballcollector/ballcollector_move/build
 
 # Utility rule file for rospack_gensrv.
+
+# Include the progress variables for this target.
+include CMakeFiles/rospack_gensrv.dir/progress.make
 
 CMakeFiles/rospack_gensrv:
 

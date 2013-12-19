@@ -40,7 +40,11 @@
 ##  POSSIBILITY OF SUCH DAMAGE.
 ##**********************************************************/
 
-config_description = [{'srcline': 10, 'description': 'A double parameter 1', 'max': 255.0, 'cconsttype': 'const double', 'ctype': 'double', 'srcfile': '../cfg/Tutorials.cfg', 'name': 'double_param1', 'edit_method': '', 'default': 5.0, 'level': 0, 'min': 0.0, 'type': 'double'}, {'srcline': 11, 'description': 'A double parameter 2', 'max': 255.0, 'cconsttype': 'const double', 'ctype': 'double', 'srcfile': '../cfg/Tutorials.cfg', 'name': 'double_param2', 'edit_method': '', 'default': 16.0, 'level': 0, 'min': 0.0, 'type': 'double'}, {'srcline': 12, 'description': 'morph iterations', 'max': 20, 'cconsttype': 'const int', 'ctype': 'int', 'srcfile': '../cfg/Tutorials.cfg', 'name': 'morphIterations', 'edit_method': '', 'default': 1, 'level': 0, 'min': 0, 'type': 'int'}, {'srcline': 13, 'description': 'ring weight', 'max': 20, 'cconsttype': 'const int', 'ctype': 'int', 'srcfile': '../cfg/Tutorials.cfg', 'name': 'ringWeight', 'edit_method': '', 'default': 9, 'level': 0, 'min': 0, 'type': 'int'}]
+from dynamic_reconfigure.encoding import extract_params
+
+inf = float('inf')
+
+config_description = {'upper': 'DEFAULT', 'lower': 'groups', 'srcline': 233, 'name': 'Default', 'parent': 0, 'srcfile': '/opt/ros/fuerte/stacks/dynamic_reconfigure/src/dynamic_reconfigure/parameter_generator.py', 'cstate': 'true', 'parentname': 'Default', 'class': 'DEFAULT', 'field': 'default', 'state': True, 'parentclass': '', 'groups': [], 'parameters': [{'srcline': 259, 'description': 'A double parameter 1', 'max': 255.0, 'cconsttype': 'const double', 'ctype': 'double', 'srcfile': '/opt/ros/fuerte/stacks/dynamic_reconfigure/src/dynamic_reconfigure/parameter_generator.py', 'name': 'double_param1', 'edit_method': '', 'default': 5.0, 'level': 0, 'min': 0.0, 'type': 'double'}, {'srcline': 259, 'description': 'A double parameter 2', 'max': 255.0, 'cconsttype': 'const double', 'ctype': 'double', 'srcfile': '/opt/ros/fuerte/stacks/dynamic_reconfigure/src/dynamic_reconfigure/parameter_generator.py', 'name': 'double_param2', 'edit_method': '', 'default': 16.0, 'level': 0, 'min': 0.0, 'type': 'double'}, {'srcline': 259, 'description': 'morph iterations', 'max': 20, 'cconsttype': 'const int', 'ctype': 'int', 'srcfile': '/opt/ros/fuerte/stacks/dynamic_reconfigure/src/dynamic_reconfigure/parameter_generator.py', 'name': 'morphIterations', 'edit_method': '', 'default': 1, 'level': 0, 'min': 0, 'type': 'int'}, {'srcline': 259, 'description': 'ring weight', 'max': 20, 'cconsttype': 'const int', 'ctype': 'int', 'srcfile': '/opt/ros/fuerte/stacks/dynamic_reconfigure/src/dynamic_reconfigure/parameter_generator.py', 'name': 'ringWeight', 'edit_method': '', 'default': 9, 'level': 0, 'min': 0, 'type': 'int'}], 'type': '', 'id': 0}
 
 min = {}
 max = {}
@@ -49,7 +53,14 @@ level = {}
 type = {}
 all_level = 0
 
-for param in config_description:
+#def extract_params(config):
+#    params = []
+#    params.extend(config['parameters'])    
+#    for group in config['groups']:
+#        params.extend(extract_params(group))
+#    return params
+
+for param in extract_params(config_description):
     min[param['name']] = param['min']
     max[param['name']] = param['max']
     defaults[param['name']] = param['default']

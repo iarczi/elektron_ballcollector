@@ -4,7 +4,7 @@
 #=============================================================================
 # Special targets provided by cmake.
 
-# Disable implicit rules so canoncical targets will work.
+# Disable implicit rules so canonical targets will work.
 .SUFFIXES:
 
 # Remove some rules from gmake that .SUFFIXES does not remove.
@@ -49,103 +49,67 @@ include CMakeFiles/move_robot_straight.dir/flags.make
 CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: CMakeFiles/move_robot_straight.dir/flags.make
 CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: ../src/move_robot_straight.cpp
 CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: ../manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/ros/core/rosbuild/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/ros/core/roslang/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/utilities/cpp_common/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/clients/cpp/roscpp_traits/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/utilities/rostime/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/clients/cpp/roscpp_serialization/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/ros/tools/rospack/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/ros/core/roslib/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/utilities/xmlrpcpp/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosconsole/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/messages/std_msgs/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/messages/rosgraph_msgs/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/clients/cpp/roscpp/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/clients/rospy/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/ros/tools/rosclean/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosgraph/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosparam/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosmaster/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosout/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/roslaunch/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/ros/tools/rosunit/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rostest/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/topic_tools/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosbag/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosbagmigration/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/geometry_msgs/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/nav_msgs/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/actionlib_msgs/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common/actionlib/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/move_base_msgs/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/sensor_msgs/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/bullet/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/geometry/angles/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosnode/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosmsg/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rostopic/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/rosservice/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/utilities/roswtf/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/utilities/message_filters/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/geometry/tf/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/eigen/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/laser_pipeline/laser_geometry/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/voxel_grid/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/visualization_msgs/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common/yaml_cpp/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/map_server/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/perception_pcl/cminpack/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/perception_pcl/flann/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/perception_pcl/pcl/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/pluginlib/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/bond_core/bond/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/bond_core/smclib/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/bond_core/bondcpp/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/nodelet_core/nodelet/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/nodelet_core/nodelet_topic_tools/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/driver_common/dynamic_reconfigure/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/perception_pcl/pcl_ros/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/costmap_2d/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/nav_core/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/navfn/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/vision_opencv/opencv2/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/vision_opencv/cv_bridge/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/image_common/image_transport/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ecl_tools/ecl_license/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ecl_tools/ecl_build/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ecl_lite/ecl_config/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ecl_lite/ecl_errors/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ecl_core/ecl_exceptions/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ecl_lite/ecl_time_lite/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ecl_core/ecl_time/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ecl_core/ecl_ipc/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/vision_opencv/image_geometry/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/nav_msgs/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/actionlib_msgs/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/actionlib/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/roslib/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/move_base_msgs/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/common_rosdeps/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/laser_pipeline/laser_geometry/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/voxel_grid/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/visualization_msgs/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/rosbag/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/map_server/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/pcl/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/ros/core/rosbuild/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/pluginlib/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/bond_core/bond/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/bond_core/smclib/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/bond_core/bondcpp/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/share/rosservice/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet_topic_tools/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/perception_pcl/pcl_ros/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/costmap_2d/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/nav_core/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/navfn/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/vision_opencv/opencv2/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/vision_opencv/cv_bridge/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/image_common/image_transport/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/ecl_tools/ecl_license/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/ecl_tools/ecl_build/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_config/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_errors/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/ecl_core/ecl_exceptions/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_time_lite/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/ecl_core/ecl_time/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/ecl_core/ecl_ipc/manifest.xml
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/vision_opencv/image_geometry/manifest.xml
 CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /home/robot/ros/elektron_ballcollector/sensors_processing/manifest.xml
 CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /home/robot/ros/elektron_ballcollector/scheduler/manifest.xml
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/messages/std_msgs/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/messages/rosgraph_msgs/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/clients/cpp/roscpp/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/clients/cpp/roscpp/srv_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/ros_comm/tools/topic_tools/srv_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/nav_msgs/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/nav_msgs/srv_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/actionlib_msgs/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common/actionlib/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/move_base_msgs/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/sensor_msgs/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/sensor_msgs/srv_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/geometry/tf/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/geometry/tf/srv_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/common_msgs/visualization_msgs/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/perception_pcl/pcl/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/bond_core/bond/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/nodelet_core/nodelet/srv_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/driver_common/dynamic_reconfigure/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/driver_common/dynamic_reconfigure/srv_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/costmap_2d/msg_gen/generated
-CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/electric/stacks/navigation/navfn/srv_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/move_base_msgs/msg_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/bond_core/bond/msg_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet/srv_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/msg_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/srv_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/costmap_2d/msg_gen/generated
+CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /opt/ros/fuerte/stacks/navigation/navfn/srv_gen/generated
 CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o: /home/robot/ros/elektron_ballcollector/scheduler/msg_gen/generated
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/ros/elektron_ballcollector/ballcollector_move/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o"
@@ -167,7 +131,6 @@ CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o.provides: CMakeFile
 .PHONY : CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o.provides
 
 CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o.provides.build: CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o
-.PHONY : CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o.provides.build
 
 # Object files for target move_robot_straight
 move_robot_straight_OBJECTS = \
@@ -177,17 +140,6 @@ move_robot_straight_OBJECTS = \
 move_robot_straight_EXTERNAL_OBJECTS =
 
 ../bin/move_robot_straight: CMakeFiles/move_robot_straight.dir/src/move_robot_straight.o
-../bin/move_robot_straight: /usr/lib/libopencv_contrib.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_legacy.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_objdetect.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_calib3d.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_features2d.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_video.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_highgui.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_ml.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_imgproc.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_flann.so.2.3.1
-../bin/move_robot_straight: /usr/lib/libopencv_core.so.2.3.1
 ../bin/move_robot_straight: CMakeFiles/move_robot_straight.dir/build.make
 ../bin/move_robot_straight: CMakeFiles/move_robot_straight.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../bin/move_robot_straight"

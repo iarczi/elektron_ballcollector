@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
 
 
 //	int deadlock_service_counter = 0;
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(100);
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
@@ -167,8 +167,8 @@ void GetOutOfDeadlock::insertCurrentPosition(geometry_msgs::Point position){
 
 bool GetOutOfDeadlock::isRobotInDeadlock(){
 //	ROS_INFO("prev_positions_ = %d", prev_positions_.size());
-
-	if(prev_positions_.size() < FRAME_SIZE){
+return false;
+/*	if(prev_positions_.size() < FRAME_SIZE){
 		//	zabezpieczenie przed ciaglym wchodzeniem w stan zakleszczenia
 		return false;
 	}
@@ -193,6 +193,7 @@ bool GetOutOfDeadlock::isRobotInDeadlock(){
 	else{
 		return true;
 	}
+*/
 }
 
 void GetOutOfDeadlock::deadlockService(){
@@ -449,7 +450,7 @@ void GetOutOfDeadlock::publishPose(float x, float y, float theta){
 
 void GetOutOfDeadlock::setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
 
-	btQuaternion q_result;
+	tf::Quaternion q_result;
 	q_result.setRPY(.0, .0, angle);
 	tf::quaternionTFToMsg(q_result, qMsg);
 
