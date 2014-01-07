@@ -66,7 +66,7 @@ public:
 
 	~ChooseAccessibleBalls() {
 	}
-	void allBallsCb(const geometry_msgs::PoseArrayConstPtr& all_balls_msg);
+	void 1(const geometry_msgs::PoseArrayConstPtr& all_balls_msg);
 
 	void publishPose(float x, float y, geometry_msgs::Quaternion qMsg);
 	void setAngle(double angle,  geometry_msgs::Quaternion& qMsg);
@@ -92,12 +92,12 @@ int main(int argc, char** argv) {
 	alghoritm_state_sub_ =   nh.subscribe("alghoritm_state", 1, alghoritmStateCallBack);
 
 
-	/*
+	
 	//wait for the action server to come up
 	  while(!chooseAccessibleBalls.ac.waitForServer(ros::Duration(5.0))){
 	    ROS_INFO("Waiting for the move_base action server to come up");
 	  }
-*/
+
 
 	ros::spin();
 	return 0;
@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
 }
 
 void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& all_balls_msg){
-//	ROS_INFO("enter ChooseOneBall");
+	ROS_INFO("enter Choose accessible balls");
 
 	/*
 
@@ -122,7 +122,7 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 //	ROS_INFO("(robot_odom_x, robot_odom_y) (%f, %f)", robot_odom_x, robot_odom_y);
 
 	std::vector<geometry_msgs::Pose> allBalls = all_balls_msg->poses;
-//	ROS_INFO("number of balls = %d", (int)allBalls.size());
+	ROS_INFO("number of balls = %d", (int)allBalls.size());
 
 /*	if(first != false){
 		return;
@@ -291,7 +291,7 @@ void ChooseAccessibleBalls::transFromCameraToOdomPosition(double x_cam_pose, dou
 bool ChooseAccessibleBalls::canMove(float x, float y){
 	return true;
 
-//	  ROS_INFO("enter canMove");
+	  ROS_INFO("enter canMove");
 	  // Get a copy of the current costmap to test. (threadsafe)
 	  costmap_2d::Costmap2D costmap;
 //	  ROS_INFO("aaa");
