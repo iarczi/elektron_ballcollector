@@ -152,7 +152,6 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 
 
 	for (unsigned int i = 0; i < allBalls.size(); i++){
-
 		double x = allBalls[i].position.x;
 		double y = allBalls[i].position.y;
 		double z = allBalls[i].position.z;
@@ -195,9 +194,6 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 		pose.orientation = allBalls[i].orientation;
 
 		poses.push_back(pose);
-
-
-
 
 
 		bool canMove1 = canMove(goal_odom_x, goal_odom_y);
