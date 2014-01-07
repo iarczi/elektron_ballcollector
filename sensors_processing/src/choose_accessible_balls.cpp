@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
 }
 
 void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& all_balls_msg){
-	ROS_INFO("enter Choose accessible balls");
+//	ROS_INFO("enter Choose accessible balls");
 
 	/*
 
@@ -122,7 +122,7 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 //	ROS_INFO("(robot_odom_x, robot_odom_y) (%f, %f)", robot_odom_x, robot_odom_y);
 
 	std::vector<geometry_msgs::Pose> allBalls = all_balls_msg->poses;
-	ROS_INFO("number of balls = %d", (int)allBalls.size());
+//	ROS_INFO("number of balls = %d", (int)allBalls.size());
 
 /*	if(first != false){
 		return;
@@ -152,11 +152,13 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 
 
 	for (unsigned int i = 0; i < allBalls.size(); i++){
+	
+
 		double x = allBalls[i].position.x;
 		double y = allBalls[i].position.y;
 		double z = allBalls[i].position.z;
 
-//		ROS_INFO("(x, y) (%f, %f)", x, y);
+		ROS_INFO("choose accesible baalls (x, y, z) (%f, %f, %f)", x, y,z);
 
 
 
@@ -165,6 +167,7 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 
 		transFromCameraToOdomPosition(x, y, z, ball_odom_x, ball_odom_y, ball_odom_z, tfOC);
 
+		ROS_INFO("accesible baalls odom position (x, y, z) (%f, %f, %f)", ball_odom_x, ball_odom_y, ball_odom_z);
 
 		if(ball_odom_z < 0.03 ||ball_odom_z > 0.05){
 			continue;
@@ -194,6 +197,9 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 		pose.orientation = allBalls[i].orientation;
 
 		poses.push_back(pose);
+
+
+
 
 
 		bool canMove1 = canMove(goal_odom_x, goal_odom_y);
