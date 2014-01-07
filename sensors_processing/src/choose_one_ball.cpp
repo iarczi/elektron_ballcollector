@@ -290,7 +290,7 @@ void ChooseOneBall::publishSelectedBall() {
 	pose.x = tracedBall.getX();
 	pose.y = tracedBall.getY();
 	pose.z = 0;
-	ROS_INFO("PUNKT x= %d, y= %d", pose.x, pose.y);
+	ROS_INFO("PUNKT x= %f, y= %f", pose.x, pose.y);
 	selected_ball_pub_.publish(pose);
 
 	visualization_msgs::Marker marker;
