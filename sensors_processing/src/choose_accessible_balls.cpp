@@ -203,7 +203,7 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 		bool canMove1 = canMove(goal_odom_x, goal_odom_y);
 
 		if(canMove1==true){
-	//		ROS_INFO("              can move to ball at (%f, %f)", goal_odom_x, goal_odom_y);
+			ROS_INFO("              can move to ball at (%f, %f)", goal_odom_x, goal_odom_y);
 
 			geometry_msgs::Pose pose;
 
@@ -217,7 +217,7 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 
 		}
 		else{
-	//		ROS_INFO("              can not move to ball at (%f, %f)",goal_odom_x, goal_odom_y);
+			ROS_INFO("              can not move to ball at (%f, %f)",goal_odom_x, goal_odom_y);
 		}
 
 

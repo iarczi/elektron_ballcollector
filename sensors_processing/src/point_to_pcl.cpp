@@ -175,8 +175,8 @@ void PointToPCL::convert(const std::vector<geometry_msgs::Pose> poses) {
 		pose.orientation.z = 0.0;
 		pose.orientation.w = 1.0;
 
-//		ROS_INFO("(x, y, z) = (%f, %f, %f)", pose.position.x, pose.position.y,
-//				pose.position.z);
+		ROS_INFO("(x, y, z) = (%f, %f, %f)", pose.position.x, pose.position.y,
+				pose.position.z);
 
 		posesXYZ.push_back(pose);
 	}
