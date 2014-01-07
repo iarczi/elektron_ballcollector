@@ -160,10 +160,10 @@ void PointToPCL::convert(const std::vector<geometry_msgs::Pose> poses) {
 		int depth = poses[i].position.z;
 		// float depth = depth_image_.data[img_y*depth_image_.width +  img_x];
 
-//		ROS_INFO("img_x = %d, img_y = %d, depth = %d", img_x, img_y, depth);
-//		ROS_INFO(
-//				"center_x = %f, center_y = %f, constant_x = %f,  constant_x=%f",
-//				center_x, center_y, constant_x, constant_y);
+		ROS_INFO("img_x = %d, img_y = %d, depth = %d", img_x, img_y, depth);
+		ROS_INFO(
+				"center_x = %f, center_y = %f, constant_x = %f,  constant_x=%f",
+				center_x, center_y, constant_x, constant_y);
 
 		geometry_msgs::Pose pose;
 		pose.position.x = (img_x - center_x) * depth * constant_x;
