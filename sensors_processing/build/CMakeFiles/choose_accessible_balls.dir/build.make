@@ -31,11 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot/ros/elektron_ballcollector/sensors_processing
+CMAKE_SOURCE_DIR = /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot/ros/elektron_ballcollector/sensors_processing/build
+CMAKE_BINARY_DIR = /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/choose_accessible_balls.dir/depend.make
@@ -46,97 +49,113 @@ include CMakeFiles/choose_accessible_balls.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/choose_accessible_balls.dir/flags.make
 
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: CMakeFiles/choose_accessible_balls.dir/flags.make
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: ../src/choose_accessible_balls.cpp
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: ../manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/roslang/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/roscpp/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/rospy/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/rosservice/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/vision_opencv/opencv2/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/vision_opencv/cv_bridge/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/ros/core/rosbuild/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/roslib/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/pluginlib/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/message_filters/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/image_common/image_transport/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/ecl_tools/ecl_license/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/ecl_tools/ecl_build/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_config/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_errors/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/ecl_core/ecl_exceptions/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_time_lite/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/ecl_core/ecl_time/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/ecl_core/ecl_ipc/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/rostest/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/roswtf/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/common_rosdeps/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/laser_pipeline/laser_geometry/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/voxel_grid/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/visualization_msgs/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/rosbag/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/map_server/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/pcl/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/bond_core/bond/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/bond_core/smclib/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/bond_core/bondcpp/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet_topic_tools/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/perception_pcl/pcl_ros/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/costmap_2d/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/actionlib_msgs/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/move_base_msgs/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/nav_core/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/navfn/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/vision_opencv/image_geometry/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/share/actionlib/manifest.xml
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/msg_gen/generated
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/srv_gen/generated
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/bond_core/bond/msg_gen/generated
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet/srv_gen/generated
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/costmap_2d/msg_gen/generated
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/move_base_msgs/msg_gen/generated
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o: /opt/ros/fuerte/stacks/navigation/navfn/srv_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o -c /home/robot/ros/elektron_ballcollector/sensors_processing/src/choose_accessible_balls.cpp
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: CMakeFiles/choose_accessible_balls.dir/flags.make
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: ../src/choose_accessible_balls.cpp
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: ../manifest.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/cpp_common/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rostime/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/roscpp_traits/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/roscpp_serialization/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/genmsg/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/genpy/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/message_runtime/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosconsole/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/std_msgs/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosgraph_msgs/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/xmlrpcpp/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/roscpp/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/catkin/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rospack/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/roslib/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosgraph/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rospy/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/topic_tools/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosbag/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosmsg/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosservice/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/dynamic_reconfigure/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/opencv2/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/geometry_msgs/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/sensor_msgs/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/cv_bridge/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/message_filters/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/console_bridge/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/class_loader/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/pluginlib/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/image_transport/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /home/alatosze/ros_workspace/ecl_tools/ecl_license/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /home/alatosze/ros_workspace/ecl_tools/ecl_build/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /home/alatosze/ros_workspace/ecl_lite/ecl_config/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /home/alatosze/ros_workspace/ecl_lite/ecl_errors/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /home/alatosze/ros_workspace/ecl_lite/ecl_time_lite/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /home/alatosze/ros_workspace/ecl_core/ecl_exceptions/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /home/alatosze/ros_workspace/ecl_core/ecl_time/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /home/alatosze/ros_workspace/ecl_core/ecl_ipc/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/tf/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/angles/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/laser_geometry/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/voxel_grid/manifest.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/gencpp/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/genlisp/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/message_generation/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/actionlib_msgs/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/nav_msgs/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/visualization_msgs/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/map_server/manifest.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/bond/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/smclib/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/bondcpp/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/nodelet/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/nodelet_topic_tools/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/flann/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/pcl_msgs/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/pcl/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/pcl_ros/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/costmap_2d/manifest.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/move_base_msgs/manifest.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/nav_core/manifest.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/navfn/manifest.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/image_geometry/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosclean/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosmaster/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosout/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosparam/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/roslaunch/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rosunit/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/rostest/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/share/actionlib/package.xml
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/costmap_2d/msg_gen/generated
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/move_base_msgs/msg_gen/generated
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o: /opt/ros/groovy/stacks/navigation/navfn/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o -c /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/src/choose_accessible_balls.cpp
 
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/robot/ros/elektron_ballcollector/sensors_processing/src/choose_accessible_balls.cpp > CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.i
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/src/choose_accessible_balls.cpp > CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.i
 
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/robot/ros/elektron_ballcollector/sensors_processing/src/choose_accessible_balls.cpp -o CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.s
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/src/choose_accessible_balls.cpp -o CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.s
 
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o.requires:
-.PHONY : CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o.requires
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o.requires:
+.PHONY : CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o.requires
 
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o.provides: CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o.requires
-	$(MAKE) -f CMakeFiles/choose_accessible_balls.dir/build.make CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o.provides.build
-.PHONY : CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o.provides
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o.provides: CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o.requires
+	$(MAKE) -f CMakeFiles/choose_accessible_balls.dir/build.make CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o.provides.build
+.PHONY : CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o.provides
 
-CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o.provides.build: CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o
+CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o.provides.build: CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o
 
 # Object files for target choose_accessible_balls
 choose_accessible_balls_OBJECTS = \
-"CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o"
+"CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o"
 
 # External object files for target choose_accessible_balls
 choose_accessible_balls_EXTERNAL_OBJECTS =
 
-../bin/choose_accessible_balls: CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o
+../bin/choose_accessible_balls: CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o
 ../bin/choose_accessible_balls: CMakeFiles/choose_accessible_balls.dir/build.make
 ../bin/choose_accessible_balls: CMakeFiles/choose_accessible_balls.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../bin/choose_accessible_balls"
@@ -146,7 +165,7 @@ choose_accessible_balls_EXTERNAL_OBJECTS =
 CMakeFiles/choose_accessible_balls.dir/build: ../bin/choose_accessible_balls
 .PHONY : CMakeFiles/choose_accessible_balls.dir/build
 
-CMakeFiles/choose_accessible_balls.dir/requires: CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o.requires
+CMakeFiles/choose_accessible_balls.dir/requires: CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o.requires
 .PHONY : CMakeFiles/choose_accessible_balls.dir/requires
 
 CMakeFiles/choose_accessible_balls.dir/clean:
@@ -154,6 +173,6 @@ CMakeFiles/choose_accessible_balls.dir/clean:
 .PHONY : CMakeFiles/choose_accessible_balls.dir/clean
 
 CMakeFiles/choose_accessible_balls.dir/depend:
-	cd /home/robot/ros/elektron_ballcollector/sensors_processing/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot/ros/elektron_ballcollector/sensors_processing /home/robot/ros/elektron_ballcollector/sensors_processing /home/robot/ros/elektron_ballcollector/sensors_processing/build /home/robot/ros/elektron_ballcollector/sensors_processing/build /home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles/choose_accessible_balls.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles/choose_accessible_balls.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/choose_accessible_balls.dir/depend
 

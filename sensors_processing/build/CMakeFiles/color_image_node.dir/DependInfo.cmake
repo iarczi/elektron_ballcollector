@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/robot/ros/elektron_ballcollector/sensors_processing/src/color_image_node.cpp" "/home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles/color_image_node.dir/src/color_image_node.o"
+  "/home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/src/color_image_node.cpp" "/home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles/color_image_node.dir/src/color_image_node.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

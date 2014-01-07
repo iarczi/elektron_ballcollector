@@ -741,7 +741,7 @@ public:
 		
 
 		std::vector<geometry_msgs::Pose> poses;
-
+		ROS_INFO("Ile pilek: %d", circleList.size());
 		for (unsigned int i = 0; i < circleList.size(); ++i) {
 
 			geometry_msgs::Pose pose;

@@ -1,5 +1,5 @@
 FILE(REMOVE_RECURSE
-  "CMakeFiles/ptpcl.dir/src/point_to_pcl.o"
+  "CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o"
   "../bin/ptpcl.pdb"
   "../bin/ptpcl"
 )

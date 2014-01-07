@@ -1,6 +1,6 @@
 FILE(REMOVE_RECURSE
-  "CMakeFiles/choose_one_ball.dir/src/choose_one_ball.o"
-  "CMakeFiles/choose_one_ball.dir/src/TracedBall.o"
+  "CMakeFiles/choose_one_ball.dir/src/choose_one_ball.cpp.o"
+  "CMakeFiles/choose_one_ball.dir/src/TracedBall.cpp.o"
   "../bin/choose_one_ball.pdb"
   "../bin/choose_one_ball"
 )
