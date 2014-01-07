@@ -66,7 +66,7 @@ public:
 
 	~ChooseAccessibleBalls() {
 	}
-	void 1(const geometry_msgs::PoseArrayConstPtr& all_balls_msg);
+	void (const geometry_msgs::PoseArrayConstPtr& all_balls_msg);
 
 	void publishPose(float x, float y, geometry_msgs::Quaternion qMsg);
 	void setAngle(double angle,  geometry_msgs::Quaternion& qMsg);
