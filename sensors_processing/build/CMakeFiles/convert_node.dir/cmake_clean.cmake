@@ -1,5 +1,5 @@
 FILE(REMOVE_RECURSE
-  "CMakeFiles/convert_node.dir/src/convert_node.cpp.o"
+  "CMakeFiles/convert_node.dir/src/convert_node.o"
   "../bin/convert_node.pdb"
   "../bin/convert_node"
 )

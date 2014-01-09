@@ -169,7 +169,7 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 
 		ROS_INFO("accesible baalls odom position (x, y, z) (%f, %f, %f)", ball_odom_x, ball_odom_y, ball_odom_z);
 
-		if(ball_odom_z < 0.03 ||ball_odom_z > 0.05){
+		if(ball_odom_z < 0.01 ||ball_odom_z > 0.1){
 			continue;
 		}
 

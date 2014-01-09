@@ -17,8 +17,9 @@
 
 	<include file="$(find elektron_bringup)/launch/elektron_base.launch" />
 	<include file="$(find elektron_bringup)/launch/elektron_sensors.launch" />		
-	<include file="$(find elektron_navigation)/launch/local_sick.launch" />	
-	<include file="$(find sensors_processing)/launch/laser_to_odom.launch" /		
+
+<!--	<include file="$(find elektron_navigation)/launch/local_sick.launch" />	-->
+<!--	<include file="$(find sensors_processing)/launch/laser_to_odom.launch" /		-->
 
 
 </launch>

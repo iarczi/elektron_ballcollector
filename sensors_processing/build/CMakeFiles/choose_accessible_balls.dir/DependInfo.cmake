@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/src/choose_accessible_balls.cpp" "/home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o"
+  "/home/robot/ros/elektron_ballcollector/sensors_processing/src/choose_accessible_balls.cpp" "/home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

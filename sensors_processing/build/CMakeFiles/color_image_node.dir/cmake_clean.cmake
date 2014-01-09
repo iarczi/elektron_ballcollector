@@ -1,5 +1,5 @@
 FILE(REMOVE_RECURSE
-  "CMakeFiles/color_image_node.dir/src/color_image_node.cpp.o"
+  "CMakeFiles/color_image_node.dir/src/color_image_node.o"
   "../bin/color_image_node.pdb"
   "../bin/color_image_node"
 )

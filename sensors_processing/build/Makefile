@@ -35,68 +35,24 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing
+CMAKE_SOURCE_DIR = /home/robot/ros/elektron_ballcollector/sensors_processing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build
+CMAKE_BINARY_DIR = /home/robot/ros/elektron_ballcollector/sensors_processing/build
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
 edit_cache/fast: edit_cache
 .PHONY : edit_cache/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: install/local
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -110,9 +66,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles /home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -205,19 +161,6 @@ ROSBUILD_gensrv_lisp/fast:
 .PHONY : ROSBUILD_gensrv_lisp/fast
 
 #=============================================================================
-# Target rules for targets named _catkin_empty_exported_target
-
-# Build rule for target.
-_catkin_empty_exported_target: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _catkin_empty_exported_target
-.PHONY : _catkin_empty_exported_target
-
-# fast build rule for target.
-_catkin_empty_exported_target/fast:
-	$(MAKE) -f CMakeFiles/_catkin_empty_exported_target.dir/build.make CMakeFiles/_catkin_empty_exported_target.dir/build
-.PHONY : _catkin_empty_exported_target/fast
-
-#=============================================================================
 # Target rules for targets named choose_accessible_balls
 
 # Build rule for target.
@@ -244,17 +187,17 @@ choose_one_ball/fast:
 .PHONY : choose_one_ball/fast
 
 #=============================================================================
-# Target rules for targets named clean_test_results
+# Target rules for targets named clean-test-results
 
 # Build rule for target.
-clean_test_results: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 clean_test_results
-.PHONY : clean_test_results
+clean-test-results: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 clean-test-results
+.PHONY : clean-test-results
 
 # fast build rule for target.
-clean_test_results/fast:
-	$(MAKE) -f CMakeFiles/clean_test_results.dir/build.make CMakeFiles/clean_test_results.dir/build
-.PHONY : clean_test_results/fast
+clean-test-results/fast:
+	$(MAKE) -f CMakeFiles/clean-test-results.dir/build.make CMakeFiles/clean-test-results.dir/build
+.PHONY : clean-test-results/fast
 
 #=============================================================================
 # Target rules for targets named color_image_node
@@ -283,19 +226,6 @@ convert_node/fast:
 .PHONY : convert_node/fast
 
 #=============================================================================
-# Target rules for targets named doxygen
-
-# Build rule for target.
-doxygen: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 doxygen
-.PHONY : doxygen
-
-# fast build rule for target.
-doxygen/fast:
-	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
-.PHONY : doxygen/fast
-
-#=============================================================================
 # Target rules for targets named ptpcl
 
 # Build rule for target.
@@ -307,19 +237,6 @@ ptpcl: cmake_check_build_system
 ptpcl/fast:
 	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/build
 .PHONY : ptpcl/fast
-
-#=============================================================================
-# Target rules for targets named rosbuild_clean-test-results
-
-# Build rule for target.
-rosbuild_clean-test-results: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosbuild_clean-test-results
-.PHONY : rosbuild_clean-test-results
-
-# fast build rule for target.
-rosbuild_clean-test-results/fast:
-	$(MAKE) -f CMakeFiles/rosbuild_clean-test-results.dir/build.make CMakeFiles/rosbuild_clean-test-results.dir/build
-.PHONY : rosbuild_clean-test-results/fast
 
 #=============================================================================
 # Target rules for targets named rosbuild_precompile
@@ -413,19 +330,6 @@ rospack_gensrv/fast:
 .PHONY : rospack_gensrv/fast
 
 #=============================================================================
-# Target rules for targets named run_tests
-
-# Build rule for target.
-run_tests: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 run_tests
-.PHONY : run_tests
-
-# fast build rule for target.
-run_tests/fast:
-	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
-.PHONY : run_tests/fast
-
-#=============================================================================
 # Target rules for targets named test
 
 # Build rule for target.
@@ -490,175 +394,95 @@ tests/fast:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
 .PHONY : tests/fast
 
-#=============================================================================
-# Target rules for targets named gtest
-
-# Build rule for target.
-gtest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gtest
-.PHONY : gtest
-
-# fast build rule for target.
-gtest/fast:
-	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/build
-.PHONY : gtest/fast
-
-#=============================================================================
-# Target rules for targets named gtest_main
-
-# Build rule for target.
-gtest_main: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gtest_main
-.PHONY : gtest_main
-
-# fast build rule for target.
-gtest_main/fast:
-	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
-.PHONY : gtest_main/fast
-
-src/TracedBall.o: src/TracedBall.cpp.o
+# target to build an object file
+src/TracedBall.o:
+	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/TracedBall.o
 .PHONY : src/TracedBall.o
 
-# target to build an object file
-src/TracedBall.cpp.o:
-	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/TracedBall.cpp.o
-.PHONY : src/TracedBall.cpp.o
-
-src/TracedBall.i: src/TracedBall.cpp.i
+# target to preprocess a source file
+src/TracedBall.i:
+	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/TracedBall.i
 .PHONY : src/TracedBall.i
 
-# target to preprocess a source file
-src/TracedBall.cpp.i:
-	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/TracedBall.cpp.i
-.PHONY : src/TracedBall.cpp.i
-
-src/TracedBall.s: src/TracedBall.cpp.s
+# target to generate assembly for a file
+src/TracedBall.s:
+	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/TracedBall.s
 .PHONY : src/TracedBall.s
 
-# target to generate assembly for a file
-src/TracedBall.cpp.s:
-	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/TracedBall.cpp.s
-.PHONY : src/TracedBall.cpp.s
-
-src/choose_accessible_balls.o: src/choose_accessible_balls.cpp.o
+# target to build an object file
+src/choose_accessible_balls.o:
+	$(MAKE) -f CMakeFiles/choose_accessible_balls.dir/build.make CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o
 .PHONY : src/choose_accessible_balls.o
 
-# target to build an object file
-src/choose_accessible_balls.cpp.o:
-	$(MAKE) -f CMakeFiles/choose_accessible_balls.dir/build.make CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o
-.PHONY : src/choose_accessible_balls.cpp.o
-
-src/choose_accessible_balls.i: src/choose_accessible_balls.cpp.i
+# target to preprocess a source file
+src/choose_accessible_balls.i:
+	$(MAKE) -f CMakeFiles/choose_accessible_balls.dir/build.make CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.i
 .PHONY : src/choose_accessible_balls.i
 
-# target to preprocess a source file
-src/choose_accessible_balls.cpp.i:
-	$(MAKE) -f CMakeFiles/choose_accessible_balls.dir/build.make CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.i
-.PHONY : src/choose_accessible_balls.cpp.i
-
-src/choose_accessible_balls.s: src/choose_accessible_balls.cpp.s
+# target to generate assembly for a file
+src/choose_accessible_balls.s:
+	$(MAKE) -f CMakeFiles/choose_accessible_balls.dir/build.make CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.s
 .PHONY : src/choose_accessible_balls.s
 
-# target to generate assembly for a file
-src/choose_accessible_balls.cpp.s:
-	$(MAKE) -f CMakeFiles/choose_accessible_balls.dir/build.make CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.s
-.PHONY : src/choose_accessible_balls.cpp.s
-
-src/choose_one_ball.o: src/choose_one_ball.cpp.o
+# target to build an object file
+src/choose_one_ball.o:
+	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/choose_one_ball.o
 .PHONY : src/choose_one_ball.o
 
-# target to build an object file
-src/choose_one_ball.cpp.o:
-	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/choose_one_ball.cpp.o
-.PHONY : src/choose_one_ball.cpp.o
-
-src/choose_one_ball.i: src/choose_one_ball.cpp.i
+# target to preprocess a source file
+src/choose_one_ball.i:
+	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/choose_one_ball.i
 .PHONY : src/choose_one_ball.i
 
-# target to preprocess a source file
-src/choose_one_ball.cpp.i:
-	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/choose_one_ball.cpp.i
-.PHONY : src/choose_one_ball.cpp.i
-
-src/choose_one_ball.s: src/choose_one_ball.cpp.s
+# target to generate assembly for a file
+src/choose_one_ball.s:
+	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/choose_one_ball.s
 .PHONY : src/choose_one_ball.s
 
-# target to generate assembly for a file
-src/choose_one_ball.cpp.s:
-	$(MAKE) -f CMakeFiles/choose_one_ball.dir/build.make CMakeFiles/choose_one_ball.dir/src/choose_one_ball.cpp.s
-.PHONY : src/choose_one_ball.cpp.s
-
-src/color_image_node.o: src/color_image_node.cpp.o
+# target to build an object file
+src/color_image_node.o:
+	$(MAKE) -f CMakeFiles/color_image_node.dir/build.make CMakeFiles/color_image_node.dir/src/color_image_node.o
 .PHONY : src/color_image_node.o
 
-# target to build an object file
-src/color_image_node.cpp.o:
-	$(MAKE) -f CMakeFiles/color_image_node.dir/build.make CMakeFiles/color_image_node.dir/src/color_image_node.cpp.o
-.PHONY : src/color_image_node.cpp.o
-
-src/color_image_node.i: src/color_image_node.cpp.i
+# target to preprocess a source file
+src/color_image_node.i:
+	$(MAKE) -f CMakeFiles/color_image_node.dir/build.make CMakeFiles/color_image_node.dir/src/color_image_node.i
 .PHONY : src/color_image_node.i
 
-# target to preprocess a source file
-src/color_image_node.cpp.i:
-	$(MAKE) -f CMakeFiles/color_image_node.dir/build.make CMakeFiles/color_image_node.dir/src/color_image_node.cpp.i
-.PHONY : src/color_image_node.cpp.i
-
-src/color_image_node.s: src/color_image_node.cpp.s
+# target to generate assembly for a file
+src/color_image_node.s:
+	$(MAKE) -f CMakeFiles/color_image_node.dir/build.make CMakeFiles/color_image_node.dir/src/color_image_node.s
 .PHONY : src/color_image_node.s
 
-# target to generate assembly for a file
-src/color_image_node.cpp.s:
-	$(MAKE) -f CMakeFiles/color_image_node.dir/build.make CMakeFiles/color_image_node.dir/src/color_image_node.cpp.s
-.PHONY : src/color_image_node.cpp.s
-
-src/convert_node.o: src/convert_node.cpp.o
+# target to build an object file
+src/convert_node.o:
+	$(MAKE) -f CMakeFiles/convert_node.dir/build.make CMakeFiles/convert_node.dir/src/convert_node.o
 .PHONY : src/convert_node.o
 
-# target to build an object file
-src/convert_node.cpp.o:
-	$(MAKE) -f CMakeFiles/convert_node.dir/build.make CMakeFiles/convert_node.dir/src/convert_node.cpp.o
-.PHONY : src/convert_node.cpp.o
-
-src/convert_node.i: src/convert_node.cpp.i
+# target to preprocess a source file
+src/convert_node.i:
+	$(MAKE) -f CMakeFiles/convert_node.dir/build.make CMakeFiles/convert_node.dir/src/convert_node.i
 .PHONY : src/convert_node.i
 
-# target to preprocess a source file
-src/convert_node.cpp.i:
-	$(MAKE) -f CMakeFiles/convert_node.dir/build.make CMakeFiles/convert_node.dir/src/convert_node.cpp.i
-.PHONY : src/convert_node.cpp.i
-
-src/convert_node.s: src/convert_node.cpp.s
+# target to generate assembly for a file
+src/convert_node.s:
+	$(MAKE) -f CMakeFiles/convert_node.dir/build.make CMakeFiles/convert_node.dir/src/convert_node.s
 .PHONY : src/convert_node.s
 
-# target to generate assembly for a file
-src/convert_node.cpp.s:
-	$(MAKE) -f CMakeFiles/convert_node.dir/build.make CMakeFiles/convert_node.dir/src/convert_node.cpp.s
-.PHONY : src/convert_node.cpp.s
-
-src/point_to_pcl.o: src/point_to_pcl.cpp.o
+# target to build an object file
+src/point_to_pcl.o:
+	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/src/point_to_pcl.o
 .PHONY : src/point_to_pcl.o
 
-# target to build an object file
-src/point_to_pcl.cpp.o:
-	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o
-.PHONY : src/point_to_pcl.cpp.o
-
-src/point_to_pcl.i: src/point_to_pcl.cpp.i
+# target to preprocess a source file
+src/point_to_pcl.i:
+	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/src/point_to_pcl.i
 .PHONY : src/point_to_pcl.i
 
-# target to preprocess a source file
-src/point_to_pcl.cpp.i:
-	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.i
-.PHONY : src/point_to_pcl.cpp.i
-
-src/point_to_pcl.s: src/point_to_pcl.cpp.s
-.PHONY : src/point_to_pcl.s
-
 # target to generate assembly for a file
-src/point_to_pcl.cpp.s:
-	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.s
-.PHONY : src/point_to_pcl.cpp.s
+src/point_to_pcl.s:
+	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/src/point_to_pcl.s
+.PHONY : src/point_to_pcl.s
 
 # Help Target
 help:
@@ -671,21 +495,14 @@ help:
 	@echo "... ROSBUILD_genmsg_lisp"
 	@echo "... ROSBUILD_gensrv_cpp"
 	@echo "... ROSBUILD_gensrv_lisp"
-	@echo "... _catkin_empty_exported_target"
 	@echo "... choose_accessible_balls"
 	@echo "... choose_one_ball"
-	@echo "... clean_test_results"
+	@echo "... clean-test-results"
 	@echo "... color_image_node"
 	@echo "... convert_node"
-	@echo "... doxygen"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... ptpcl"
 	@echo "... rebuild_cache"
-	@echo "... rosbuild_clean-test-results"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
 	@echo "... rospack_gencfg"
@@ -693,14 +510,11 @@ help:
 	@echo "... rospack_genmsg"
 	@echo "... rospack_genmsg_libexe"
 	@echo "... rospack_gensrv"
-	@echo "... run_tests"
 	@echo "... test"
 	@echo "... test-future"
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
-	@echo "... gtest"
-	@echo "... gtest_main"
 	@echo "... src/TracedBall.o"
 	@echo "... src/TracedBall.i"
 	@echo "... src/TracedBall.s"

@@ -31,14 +31,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing
+CMAKE_SOURCE_DIR = /home/robot/ros/elektron_ballcollector/sensors_processing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build
+CMAKE_BINARY_DIR = /home/robot/ros/elektron_ballcollector/sensors_processing/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ptpcl.dir/depend.make
@@ -49,113 +46,97 @@ include CMakeFiles/ptpcl.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ptpcl.dir/flags.make
 
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: CMakeFiles/ptpcl.dir/flags.make
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: ../src/point_to_pcl.cpp
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: ../manifest.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/cpp_common/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rostime/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/roscpp_traits/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/roscpp_serialization/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/genmsg/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/genpy/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/message_runtime/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosconsole/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/std_msgs/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosgraph_msgs/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/xmlrpcpp/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/roscpp/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/catkin/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rospack/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/roslib/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosgraph/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rospy/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/topic_tools/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosbag/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosmsg/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosservice/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/dynamic_reconfigure/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/opencv2/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/geometry_msgs/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/sensor_msgs/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/cv_bridge/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/message_filters/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/console_bridge/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/class_loader/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/pluginlib/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/image_transport/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /home/alatosze/ros_workspace/ecl_tools/ecl_license/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /home/alatosze/ros_workspace/ecl_tools/ecl_build/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /home/alatosze/ros_workspace/ecl_lite/ecl_config/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /home/alatosze/ros_workspace/ecl_lite/ecl_errors/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /home/alatosze/ros_workspace/ecl_lite/ecl_time_lite/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /home/alatosze/ros_workspace/ecl_core/ecl_exceptions/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /home/alatosze/ros_workspace/ecl_core/ecl_time/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /home/alatosze/ros_workspace/ecl_core/ecl_ipc/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/tf/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/angles/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/laser_geometry/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/voxel_grid/manifest.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/gencpp/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/genlisp/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/message_generation/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/actionlib_msgs/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/nav_msgs/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/visualization_msgs/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/map_server/manifest.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/bond/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/smclib/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/bondcpp/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/nodelet/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/nodelet_topic_tools/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/flann/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/pcl_msgs/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/pcl/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/pcl_ros/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/costmap_2d/manifest.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/move_base_msgs/manifest.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/nav_core/manifest.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/navfn/manifest.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/image_geometry/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosclean/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosmaster/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosout/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosparam/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/roslaunch/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rosunit/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/rostest/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/share/actionlib/package.xml
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/costmap_2d/msg_gen/generated
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/move_base_msgs/msg_gen/generated
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o: /opt/ros/groovy/stacks/navigation/navfn/srv_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o -c /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/src/point_to_pcl.cpp
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: CMakeFiles/ptpcl.dir/flags.make
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: ../src/point_to_pcl.cpp
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: ../manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/rosservice/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/vision_opencv/opencv2/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/vision_opencv/cv_bridge/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/ros/core/rosbuild/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/roslib/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/pluginlib/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/image_common/image_transport/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/ecl_tools/ecl_license/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/ecl_tools/ecl_build/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_config/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_errors/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/ecl_core/ecl_exceptions/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/ecl_lite/ecl_time_lite/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/ecl_core/ecl_time/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/ecl_core/ecl_ipc/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/common_rosdeps/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/laser_pipeline/laser_geometry/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/voxel_grid/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/nav_msgs/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/visualization_msgs/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/rosbag/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/map_server/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/pcl/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/bond_core/bond/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/bond_core/smclib/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/bond_core/bondcpp/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet_topic_tools/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/perception_pcl/pcl_ros/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/costmap_2d/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/actionlib_msgs/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/move_base_msgs/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/nav_core/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/navfn/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/vision_opencv/image_geometry/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/share/actionlib/manifest.xml
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/msg_gen/generated
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/srv_gen/generated
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/bond_core/bond/msg_gen/generated
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet/srv_gen/generated
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/costmap_2d/msg_gen/generated
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/move_base_msgs/msg_gen/generated
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o: /opt/ros/fuerte/stacks/navigation/navfn/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ptpcl.dir/src/point_to_pcl.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/ptpcl.dir/src/point_to_pcl.o -c /home/robot/ros/elektron_ballcollector/sensors_processing/src/point_to_pcl.cpp
 
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/src/point_to_pcl.cpp > CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.i
+CMakeFiles/ptpcl.dir/src/point_to_pcl.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ptpcl.dir/src/point_to_pcl.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/robot/ros/elektron_ballcollector/sensors_processing/src/point_to_pcl.cpp > CMakeFiles/ptpcl.dir/src/point_to_pcl.i
 
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/src/point_to_pcl.cpp -o CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.s
+CMakeFiles/ptpcl.dir/src/point_to_pcl.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ptpcl.dir/src/point_to_pcl.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/robot/ros/elektron_ballcollector/sensors_processing/src/point_to_pcl.cpp -o CMakeFiles/ptpcl.dir/src/point_to_pcl.s
 
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o.requires:
-.PHONY : CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o.requires
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o.requires:
+.PHONY : CMakeFiles/ptpcl.dir/src/point_to_pcl.o.requires
 
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o.provides: CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o.requires
-	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o.provides.build
-.PHONY : CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o.provides
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o.provides: CMakeFiles/ptpcl.dir/src/point_to_pcl.o.requires
+	$(MAKE) -f CMakeFiles/ptpcl.dir/build.make CMakeFiles/ptpcl.dir/src/point_to_pcl.o.provides.build
+.PHONY : CMakeFiles/ptpcl.dir/src/point_to_pcl.o.provides
 
-CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o.provides.build: CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o
+CMakeFiles/ptpcl.dir/src/point_to_pcl.o.provides.build: CMakeFiles/ptpcl.dir/src/point_to_pcl.o
 
 # Object files for target ptpcl
 ptpcl_OBJECTS = \
-"CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o"
+"CMakeFiles/ptpcl.dir/src/point_to_pcl.o"
 
 # External object files for target ptpcl
 ptpcl_EXTERNAL_OBJECTS =
 
-../bin/ptpcl: CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o
+../bin/ptpcl: CMakeFiles/ptpcl.dir/src/point_to_pcl.o
 ../bin/ptpcl: CMakeFiles/ptpcl.dir/build.make
 ../bin/ptpcl: CMakeFiles/ptpcl.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../bin/ptpcl"
@@ -165,7 +146,7 @@ ptpcl_EXTERNAL_OBJECTS =
 CMakeFiles/ptpcl.dir/build: ../bin/ptpcl
 .PHONY : CMakeFiles/ptpcl.dir/build
 
-CMakeFiles/ptpcl.dir/requires: CMakeFiles/ptpcl.dir/src/point_to_pcl.cpp.o.requires
+CMakeFiles/ptpcl.dir/requires: CMakeFiles/ptpcl.dir/src/point_to_pcl.o.requires
 .PHONY : CMakeFiles/ptpcl.dir/requires
 
 CMakeFiles/ptpcl.dir/clean:
@@ -173,6 +154,6 @@ CMakeFiles/ptpcl.dir/clean:
 .PHONY : CMakeFiles/ptpcl.dir/clean
 
 CMakeFiles/ptpcl.dir/depend:
-	cd /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles/ptpcl.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/robot/ros/elektron_ballcollector/sensors_processing/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot/ros/elektron_ballcollector/sensors_processing /home/robot/ros/elektron_ballcollector/sensors_processing /home/robot/ros/elektron_ballcollector/sensors_processing/build /home/robot/ros/elektron_ballcollector/sensors_processing/build /home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles/ptpcl.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ptpcl.dir/depend
 

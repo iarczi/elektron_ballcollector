@@ -80,7 +80,7 @@ data_skip: 10
 		<param name="pitch"  value="-0.46"/>
 		<param name="roll"  value="0.0"/>
 		<param name="x"  value="-0.075"/>
-		<param name="z"  value="0.54"/>
+		<param name="z"  value="0.44"/>
 	</node>
 
 	<!-- throttling -->

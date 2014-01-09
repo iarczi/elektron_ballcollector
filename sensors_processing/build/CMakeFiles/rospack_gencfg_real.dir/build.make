@@ -31,14 +31,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing
+CMAKE_SOURCE_DIR = /home/robot/ros/elektron_ballcollector/sensors_processing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build
+CMAKE_BINARY_DIR = /home/robot/ros/elektron_ballcollector/sensors_processing/build
 
 # Utility rule file for rospack_gencfg_real.
 
@@ -60,6 +57,6 @@ CMakeFiles/rospack_gencfg_real.dir/clean:
 .PHONY : CMakeFiles/rospack_gencfg_real.dir/clean
 
 CMakeFiles/rospack_gencfg_real.dir/depend:
-	cd /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build /home/alatosze/ros_workspace/elektron_ballcollector/sensors_processing/build/CMakeFiles/rospack_gencfg_real.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/robot/ros/elektron_ballcollector/sensors_processing/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot/ros/elektron_ballcollector/sensors_processing /home/robot/ros/elektron_ballcollector/sensors_processing /home/robot/ros/elektron_ballcollector/sensors_processing/build /home/robot/ros/elektron_ballcollector/sensors_processing/build /home/robot/ros/elektron_ballcollector/sensors_processing/build/CMakeFiles/rospack_gencfg_real.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/rospack_gencfg_real.dir/depend
 

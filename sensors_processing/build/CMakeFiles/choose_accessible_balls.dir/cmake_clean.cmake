@@ -1,5 +1,5 @@
 FILE(REMOVE_RECURSE
-  "CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.cpp.o"
+  "CMakeFiles/choose_accessible_balls.dir/src/choose_accessible_balls.o"
   "../bin/choose_accessible_balls.pdb"
   "../bin/choose_accessible_balls"
 )
