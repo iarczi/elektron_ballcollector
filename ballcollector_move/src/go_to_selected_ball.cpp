@@ -178,7 +178,7 @@ int main(int argc, char** argv) {
 
 
 
-	ros::Rate loop_rate(1000);
+	ros::Rate loop_rate(100);
 
 	int no_ball_counter = 0;
 
@@ -187,11 +187,11 @@ int main(int argc, char** argv) {
 		loop_rate.sleep();
 
 
-	/*	if( goToSelectedBall.getState() == STOP ){
+		if( goToSelectedBall.getState() == STOP ){
 			ROS_INFO("STOP state");
 			continue;
 		}
-		else*/ if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
+		else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
 			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
 			if(goToSelectedBall.isBallPoseSet == false){
 				ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
@@ -617,10 +617,10 @@ void GoToSelectedBall::stopExplore(){
 void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 	ROS_INFO("enter executeCB, goal = %i", goal->value);
 
-/*	if(goal->value == 0){
+	if(goal->value == 0){
 		state_ = STOP;
 	}
-	else*/ if(goal->value == 1){
+	else if(goal->value == 1){
 		state_ = FIRST_STEP_COLLECT;
 	}
 	else if(goal->value == 2){

@@ -36,7 +36,7 @@ private:
 	actionlib::SimpleActionClient<scheduler::SchedulerAction> deadlock_action_client_;
 	actionlib::SimpleActionClient<scheduler::SchedulerAction> explore_action_client_;
 	actionlib::SimpleActionClient<scheduler::SchedulerAction> go_to_ball_action_client_;
-//	MoveBaseClient ac_;
+	MoveBaseClient ac_;
 
 	bool deadlock_;
 	bool ball_visible_;
@@ -81,8 +81,8 @@ public:
 	Scheduler():
 		deadlock_action_client_("get_out_of_deadlock", true),
 		explore_action_client_("explore", true),
-		go_to_ball_action_client_("go_to_selected_ball", true)/*,
-		ac_("move_base", true)*/
+		go_to_ball_action_client_("go_to_selected_ball", true),
+		ac_("move_base", true)
 		{
 
 		selected_ball_sub_ = nh_.subscribe < geometry_msgs::Point > ("/one_selected_ball", 1, &Scheduler::selectedBallCb, this);
@@ -111,7 +111,7 @@ int main(int argc, char** argv) {
 	Scheduler scheduler;
 	scheduler.sendStartExploreGoal();
 
-	ros::Rate loop_rate(150);
+	ros::Rate loop_rate(10);
 
 	while (ros::ok()) {
 			ros::spinOnce();
@@ -164,9 +164,9 @@ int main(int argc, char** argv) {
 						ROS_INFO("EXPLORE ---> GO_TO_BALL_SECOND_STEP");
 					}
 
-		//			scheduler.sendGoToBallGoal();
-		//			scheduler.setSate(GO_TO_BALL);
-		//			ROS_INFO("EXPLORE ---> GO_TO_BALL");
+				//	scheduler.sendGoToBallGoal();
+				//	scheduler.setSate(GO_TO_BALL);
+				//	ROS_INFO("EXPLORE ---> GO_TO_BALL");
 				}
 
 			}
@@ -274,7 +274,7 @@ void Scheduler::selectedBallCb(const geometry_msgs::PointConstPtr& selectedBallP
 void Scheduler::deadlockServiceStateCb(const std_msgs::String& state){
 //	ROS_INFO("deadlockServiceStateCb");
 	if(state.data == "DEADLOCK"){
-		deadlock_ = false; // true;
+		deadlock_ =  true;
 	}
 	else if(state.data == "NOT_DEADLOCK"){
 		deadlock_ = false;
@@ -282,7 +282,7 @@ void Scheduler::deadlockServiceStateCb(const std_msgs::String& state){
 }
 
 bool Scheduler::isDeadlock(){
-	return false; // deadlock_;
+	return deadlock_;
 
 }
 bool Scheduler::isBallVisible(){
@@ -358,7 +358,7 @@ void Scheduler::setSate(State state){
 }
 
 void Scheduler::cancelAllGoals(){
-	//ac_.cancelAllGoals ();
+	ac_.cancelAllGoals ();
 }
 
 

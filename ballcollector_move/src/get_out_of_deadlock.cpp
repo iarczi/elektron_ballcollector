@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
 
 
 //	int deadlock_service_counter = 0;
-	ros::Rate loop_rate(100);
+	ros::Rate loop_rate(10);
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
@@ -167,8 +167,8 @@ void GetOutOfDeadlock::insertCurrentPosition(geometry_msgs::Point position){
 
 bool GetOutOfDeadlock::isRobotInDeadlock(){
 //	ROS_INFO("prev_positions_ = %d", prev_positions_.size());
-return false;
-/*	if(prev_positions_.size() < FRAME_SIZE){
+//return false;
+	if(prev_positions_.size() < FRAME_SIZE){
 		//	zabezpieczenie przed ciaglym wchodzeniem w stan zakleszczenia
 		return false;
 	}
@@ -193,7 +193,7 @@ return false;
 	else{
 		return true;
 	}
-*/
+
 }
 
 void GetOutOfDeadlock::deadlockService(){
