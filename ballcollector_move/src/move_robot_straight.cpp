@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
 
 void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 
-//	ROS_INFO("enter odomCb");
+	ROS_INFO("enter odomCb");
 	last_position_ = odometry->pose.pose.position;
 
 	if(first_request_recived == false){
@@ -66,8 +66,8 @@ void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 	}
 
 	float distFromStart = getDistanceFromStart();
-//	ROS_INFO("distFromStart = %f", distFromStart);
-//	ROS_INFO("distance to go = %f", fabs(distance_ - distFromStart));
+	ROS_INFO("distFromStart = %f", distFromStart);
+	ROS_INFO("distance to go = %f", fabs(distance_ - distFromStart));
 	if(goal_done_ == false && fabs(distance_ - distFromStart) < 0.05){
 		//	stop
 		geometry_msgs::Twist vel;
@@ -80,18 +80,18 @@ void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 	}
 
 	if(goal_done_ == true){
-//		publishStateNothing();
+		publishStateNothing();
 	}else{
 		publishStateRunning();
 	}
 }
 
 void MoveRobotStraight::requestCb(const std_msgs::Float32& request ){
-//	ROS_INFO("enter requestCb");
+	ROS_INFO("enter requestCb");
 	start_position_ = last_position_;
 	distance_ = request.data;
 
-//	ROS_INFO("enter distance_ = %f", distance_);
+	ROS_INFO("enter distance_ = %f", distance_);
 
 
 	geometry_msgs::Twist vel;
@@ -119,21 +119,21 @@ void MoveRobotStraight::publishStateNothing(){
 	std_msgs::Int16 message;
 	message.data = 0;
 	state_publisher_.publish(message);
-//	ROS_INFO("Nothing");
+	ROS_INFO("Nothing");
 }
 
 void MoveRobotStraight::publishStateRunning(){
 	std_msgs::Int16 message;
 	message.data = 1;
 	state_publisher_.publish(message);
-//	ROS_INFO("Running");
+	ROS_INFO("Running");
 }
 
 void MoveRobotStraight::publishStateDone(){
 	std_msgs::Int16 message;
 	message.data = 2;
 	state_publisher_.publish(message);
-//	ROS_INFO("Done");
+	ROS_INFO("Done");
 }
 
 
