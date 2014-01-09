@@ -202,11 +202,13 @@ int main(int argc, char** argv) {
 
 			ROS_INFO("second step");
 				if(scheduler.isGoToBallServiceDone()){
+					ROS_INFO("GO_TO_BALL_SECOND_STEP ---> EXPLORE");
 					scheduler.sendStartExploreGoal();
 					scheduler.setSate(EXPLORE);
-					ROS_INFO("GO_TO_BALL_SECOND_STEP ---> EXPLORE");
+					
 				}
 				else{
+					ROS_INFO("second step koniec");
 					continue;
 				}
 			}

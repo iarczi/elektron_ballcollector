@@ -178,7 +178,7 @@ int main(int argc, char** argv) {
 
 
 
-	ros::Rate loop_rate(100);
+	ros::Rate loop_rate(10);
 
 	int no_ball_counter = 0;
 
