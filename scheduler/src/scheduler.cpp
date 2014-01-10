@@ -84,12 +84,14 @@ public:
 		go_to_ball_action_client_("go_to_selected_ball", true),
 		ac_("move_base", true)
 		{
-
-		selected_ball_sub_ = nh_.subscribe < geometry_msgs::Point > ("/one_selected_ball", 1, &Scheduler::selectedBallCb, this);
-		deadlock_service_state_sub_ = nh_.subscribe("/deadlock_service_state", 1, &Scheduler::deadlockServiceStateCb, this);
+			
 		deadlock_ = false;
 		ball_visible_ = false;
 		state_ = EXPLORE;
+		
+		selected_ball_sub_ = nh_.subscribe < geometry_msgs::Point > ("/one_selected_ball", 1, &Scheduler::selectedBallCb, this);
+		deadlock_service_state_sub_ = nh_.subscribe("/deadlock_service_state", 1, &Scheduler::deadlockServiceStateCb, this);
+		
 
 		ROS_INFO("Waiting for deadlock action server to start.");
 		// wait for the action server to start
@@ -114,9 +116,7 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(10);
 
 	while (ros::ok()) {
-			ros::spinOnce();
-			loop_rate.sleep();
-	
+			
 //			std::cout<<"deadlock: "<<scheduler.isDeadlock()<<"  ball visible: "<<scheduler.isBallVisible()<<"state: "<<scheduler.getState()<<std::endl;
 
 
@@ -199,8 +199,6 @@ int main(int argc, char** argv) {
 				}
 			}
 			else if(scheduler.getState() == GO_TO_BALL_SECOND_STEP){
-
-			ROS_INFO("second step");
 				if(scheduler.isGoToBallServiceDone()){
 					ROS_INFO("GO_TO_BALL_SECOND_STEP ---> EXPLORE");
 					scheduler.sendStartExploreGoal();
@@ -208,7 +206,6 @@ int main(int argc, char** argv) {
 					
 				}
 				else{
-					ROS_INFO("second step koniec");
 					continue;
 				}
 			}
@@ -251,7 +248,9 @@ int main(int argc, char** argv) {
 
 			*/
 
-
+			ros::spinOnce();
+			loop_rate.sleep();
+	
 	}
 
 

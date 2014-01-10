@@ -104,12 +104,15 @@ public:
 		action_name_(name),
 		ac_("move_base", true)
 	{
-
+		explore_state_ = STOP;
+		explore_ = false;
+		firstGoalSend = false;
+		
 		as_.registerGoalCallback(boost::bind(&Explore::goalCB, this));
 		as_.registerPreemptCallback(boost::bind(&Explore::preemptCB, this));
 
 		as_.start();
-		firstGoalSend = false;
+		
 
 		//all_balls = nh_.subscribe < geometry_msgs::PoseArray > ("allBalls", 10, &ChooseAccessibleBalls::allBallsCb, this);
 
@@ -118,8 +121,7 @@ public:
 		deadlock_service_state_sub = nh_.subscribe("/deadlock_service_state", 1, &Explore::deadlockServiceStateCb, this);
 
 
-		explore_state_ = STOP;
-		explore_ = false;
+		
 	}
 	void publishPose(float x, float y, float theta);
 	void stopExplore();
@@ -166,14 +168,13 @@ int main(int argc, char** argv) {
 
 //	ros::Subscriber obsMapSub = nh_.subscribe("/move_base/local_costmap/inflated_obstacles", 1, obstaclesMapCallback);
 
-
 	costmap_ros = new costmap_2d::Costmap2DROS("local_costmap", robot_explore.tf_listener_);
 	//costmap_ros->getCostmapCopy(costmap);
 
 	double infRad = costmap_ros->getInflationRadius();
 	ROS_INFO("infRad =%f",infRad);
 
-	ros::Rate loop_rate(1);
+	ros::Rate loop_rate(100);
 
 //	float rand_theta;
 //	double x_odom, y_odom, rand_x, rand_y, x_map, y_map;
@@ -185,7 +186,7 @@ int main(int argc, char** argv) {
 
 	robot_explore.setExploreState(RANDOM_ROTATE);
 
-	ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
+	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
 	while (ros::ok()) {
 
 
