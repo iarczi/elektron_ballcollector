@@ -18,10 +18,6 @@ class MoveRobotStraight{
 	geometry_msgs::Point last_position_;
 	bool first_request_recived;
 
-	float distance_;					//	odleglosc do przejechania w [m]
-	geometry_msgs::Twist vel;
-	bool goal_done_;
-
 public:
 	float distance_;					//	odleglosc do przejechania w [m]
 	geometry_msgs::Twist vel;
@@ -55,17 +51,8 @@ int main(int argc, char** argv) {
 	//TODO
 	ros::init(argc, argv, "move_robot_straight");
 	MoveRobotStraight mrs;
-	mrs.vel.angular.z = 0;
-	mrs.vel.linear.x = 0;
-		ros::Rate loop_rate(10);
-	while(ros::ok()){
-		if(mrs.goal_done_==false){
-			mrs.cmd_vel_publisher_.publish(vel);
-		}
-		ros::spinOnce();
-		
-		loop_rate.sleep();
-	}
+
+
 	ros::spin();
 	return 0;
 }
