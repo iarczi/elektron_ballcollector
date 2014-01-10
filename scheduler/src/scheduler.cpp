@@ -131,7 +131,7 @@ int main(int argc, char** argv) {
 					//	robot podczas eksploracji zakleszczyl sie
 					//	przechodzimy do stanu obslugi zakleszczenia
 
-			ROS_INFO("is deadlock");
+					ROS_INFO("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 is deadlock");
 					scheduler.sendStopExploreGoal();
 					scheduler.sendDeadlockGoal();
 					scheduler.setSate(DEADLOCK);
@@ -145,7 +145,7 @@ int main(int argc, char** argv) {
 
 					//scheduler.cancelAllGoals();
 
-			ROS_INFO("ball visible");
+					ROS_INFO("ball visible");
 
 					if(scheduler.getDistanceFromSelectedBall() > 0.6){
 						//	pileczka jest dalej niz 0.6 m, przechodzimy do statnu GO_TO_BALL_FIRST_STEP

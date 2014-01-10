@@ -205,8 +205,7 @@ int main(int argc, char** argv) {
 			continue;
 		}
 		else{
-		ROS_INFO("explore else");
-		
+			
 			costmap_ros->getCostmapCopy(costmap);
 
 			if(robot_explore.getExploreState() == STOP){

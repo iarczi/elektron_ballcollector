@@ -49,6 +49,7 @@ public:
 };
 
 int main(int argc, char** argv) {
+	//TODO
 	ros::init(argc, argv, "move_robot_straight");
 	MoveRobotStraight mrs;
 	ros::spin();
@@ -57,7 +58,7 @@ int main(int argc, char** argv) {
 
 void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 
-	ROS_INFO("enter odomCb");
+	ROS_INFO("enter odomCb move robot straight");
 	last_position_ = odometry->pose.pose.position;
 
 	if(first_request_recived == false){
@@ -87,7 +88,7 @@ void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 }
 
 void MoveRobotStraight::requestCb(const std_msgs::Float32& request ){
-	ROS_INFO("enter requestCb");
+	ROS_INFO("enter requestCb move robot straight");
 	start_position_ = last_position_;
 	distance_ = request.data;
 
@@ -97,12 +98,13 @@ void MoveRobotStraight::requestCb(const std_msgs::Float32& request ){
 	geometry_msgs::Twist vel;
 	vel.angular.z = 0;
 	if(distance_ > 0){
-		vel.linear.x = 0.1;
+		vel.linear.x = 0.3;
 	}
 	else{
-		vel.linear.x = -0.1;
+		vel.linear.x = -0.3;
 		distance_ = -distance_;
 	}
+	
 	cmd_vel_publisher_.publish(vel);
 
 	first_request_recived = true;
