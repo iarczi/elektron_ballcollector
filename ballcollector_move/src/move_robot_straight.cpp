@@ -23,6 +23,9 @@ class MoveRobotStraight{
 	bool goal_done_;
 
 public:
+	float distance_;					//	odleglosc do przejechania w [m]
+	geometry_msgs::Twist vel;
+	bool goal_done_;
 	MoveRobotStraight()  {
 		odom_subscriber_ = nh_.subscribe ("/odom", 1, &MoveRobotStraight::odomCb, this);
 		request_subscriber_ = nh_.subscribe("/robot_go_straight", 1, &MoveRobotStraight::requestCb, this);
@@ -50,15 +53,15 @@ public:
 
 int main(int argc, char** argv) {
 	//TODO
-	vel.angular.z = 0;
-	vel.linear.x = 0;
 	ros::init(argc, argv, "move_robot_straight");
 	MoveRobotStraight mrs;
+	mrs.vel.angular.z = 0;
+	mrs.vel.linear.x = 0;
 		ros::Rate loop_rate(10);
 	while(ros::ok()){
-		if(goal_done_==false){
-		cmd_vel_publisher_.publish(vel);
-	}
+		if(mrs.goal_done_==false){
+			mrs.cmd_vel_publisher_.publish(vel);
+		}
 		ros::spinOnce();
 		
 		loop_rate.sleep();
