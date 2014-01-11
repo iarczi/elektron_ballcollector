@@ -206,11 +206,12 @@ int main(int argc, char** argv) {
 					if(angleDiffRobotGoal > 2.5){
 						goToSelectedBall.publishAngle();
 						goToSelectedBall.ac.waitForResult();
-						goToSelectedBall.goForward(0.1);
+						//goToSelectedBall.goForward(0.1);
+						goToSelectedBall.publishPose(0.1);
 					}
 					else{
-					//	goToSelectedBall.publishPose(0.2);
-						goToSelectedBall.goForward(0.1);
+						goToSelectedBall.publishPose(0.1);
+						//goToSelectedBall.goForward(0.1);
 					}
 				}
 				else{
@@ -637,9 +638,11 @@ void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 		float dist = getDistanceFromSelectedBall();
 			ROS_INFO("dist = %f", dist);
 		onHoover();
-		goForward(dist - 0.3);
+		publishPose(dist - 0.3);
+		//goForward(dist - 0.3);
 		ros::Duration(4.0).sleep();
-		goForward(-(dist - 0.3));//- 0.3s
+		//goForward(-(dist - 0.3));//- 0.3s
+		publishPose(-(dist - 0.3));
 		ros::Duration(4.0).sleep();
 		offHoover();
 		ROS_INFO("leave SECOND_STEP_COLLECT");
