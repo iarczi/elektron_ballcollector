@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
 
 
 //	int deadlock_service_counter = 0;
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(110);
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
@@ -221,7 +221,7 @@ void GetOutOfDeadlock::publishNotDeadlock(){
 void GetOutOfDeadlock::rotate(float time_s_){
 
 	geometry_msgs::Twist vel;
-	vel.angular.z = 0.3;
+	vel.angular.z = 0.8;
 	vel.linear.x = 0;
 	cmd_vel_publisher_.publish(vel);
 
@@ -235,7 +235,7 @@ void GetOutOfDeadlock::rotate(float time_s_){
 void GetOutOfDeadlock::startRotate(){
 
 	geometry_msgs::Twist vel;
-	vel.angular.z = 0.3;
+	vel.angular.z = 0.8;
 	vel.linear.x = 0;
 	cmd_vel_publisher_.publish(vel);
 }
