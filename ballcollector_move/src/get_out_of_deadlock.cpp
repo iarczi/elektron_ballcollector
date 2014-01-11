@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
 
 
 //	int deadlock_service_counter = 0;
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(100);
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
