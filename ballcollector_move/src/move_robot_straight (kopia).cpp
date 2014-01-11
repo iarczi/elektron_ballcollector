@@ -18,11 +18,10 @@ class MoveRobotStraight{
 	geometry_msgs::Point last_position_;
 	bool first_request_recived;
 
-	float distance_;					//	odleglosc do przejechania w [m]
-
-	bool goal_done_;
-
 public:
+	float distance_;					//	odleglosc do przejechania w [m]
+	geometry_msgs::Twist vel;
+	bool goal_done_;
 	MoveRobotStraight()  {
 		odom_subscriber_ = nh_.subscribe ("/odom", 1, &MoveRobotStraight::odomCb, this);
 		request_subscriber_ = nh_.subscribe("/robot_go_straight", 1, &MoveRobotStraight::requestCb, this);
@@ -49,15 +48,18 @@ public:
 };
 
 int main(int argc, char** argv) {
+	//TODO
 	ros::init(argc, argv, "move_robot_straight");
 	MoveRobotStraight mrs;
+
+
 	ros::spin();
 	return 0;
 }
 
 void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 
-//	ROS_INFO("enter odomCb");
+	ROS_INFO("enter odomCb move robot straight");
 	last_position_ = odometry->pose.pose.position;
 
 	if(first_request_recived == false){
@@ -66,8 +68,8 @@ void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 	}
 
 	float distFromStart = getDistanceFromStart();
-//	ROS_INFO("distFromStart = %f", distFromStart);
-//	ROS_INFO("distance to go = %f", fabs(distance_ - distFromStart));
+	ROS_INFO("distFromStart = %f", distFromStart);
+	ROS_INFO("distance to go = %f", fabs(distance_ - distFromStart));
 	if(goal_done_ == false && fabs(distance_ - distFromStart) < 0.05){
 		//	stop
 		geometry_msgs::Twist vel;
@@ -80,21 +82,21 @@ void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 	}
 
 	if(goal_done_ == true){
-//		publishStateNothing();
+		publishStateNothing();
 	}else{
 		publishStateRunning();
 	}
 }
 
 void MoveRobotStraight::requestCb(const std_msgs::Float32& request ){
-//	ROS_INFO("enter requestCb");
+	ROS_INFO("enter requestCb move robot straight");
 	start_position_ = last_position_;
 	distance_ = request.data;
 
-//	ROS_INFO("enter distance_ = %f", distance_);
+	ROS_INFO("enter distance_ = %f", distance_);
 
 
-	geometry_msgs::Twist vel;
+	//geometry_msgs::Twist vel;
 	vel.angular.z = 0;
 	if(distance_ > 0){
 		vel.linear.x = 0.1;
@@ -103,6 +105,7 @@ void MoveRobotStraight::requestCb(const std_msgs::Float32& request ){
 		vel.linear.x = -0.1;
 		distance_ = -distance_;
 	}
+	
 	cmd_vel_publisher_.publish(vel);
 
 	first_request_recived = true;
@@ -119,21 +122,21 @@ void MoveRobotStraight::publishStateNothing(){
 	std_msgs::Int16 message;
 	message.data = 0;
 	state_publisher_.publish(message);
-//	ROS_INFO("Nothing");
+	ROS_INFO("Nothing");
 }
 
 void MoveRobotStraight::publishStateRunning(){
 	std_msgs::Int16 message;
 	message.data = 1;
 	state_publisher_.publish(message);
-//	ROS_INFO("Running");
+	ROS_INFO("Running");
 }
 
 void MoveRobotStraight::publishStateDone(){
 	std_msgs::Int16 message;
 	message.data = 2;
 	state_publisher_.publish(message);
-//	ROS_INFO("Done");
+	ROS_INFO("Done");
 }
 
 
