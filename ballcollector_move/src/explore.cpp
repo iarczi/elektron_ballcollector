@@ -165,7 +165,6 @@ int main(int argc, char** argv) {
 
 	Explore robot_explore(ros::this_node::getName());
 	
-
 //	ros::Subscriber obsMapSub = nh_.subscribe("/move_base/local_costmap/inflated_obstacles", 1, obstaclesMapCallback);
 
 	costmap_ros = new costmap_2d::Costmap2DROS("local_costmap", robot_explore.tf_listener_);
@@ -174,7 +173,7 @@ int main(int argc, char** argv) {
 	double infRad = costmap_ros->getInflationRadius();
 	ROS_INFO("infRad =%f",infRad);
 
-	ros::Rate loop_rate(100);
+	ros::Rate loop_rate(1);
 
 //	float rand_theta;
 //	double x_odom, y_odom, rand_x, rand_y, x_map, y_map;
@@ -186,7 +185,7 @@ int main(int argc, char** argv) {
 
 	robot_explore.setExploreState(RANDOM_ROTATE);
 
-	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
+	ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
 	while (ros::ok()) {
 
 
