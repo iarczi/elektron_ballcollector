@@ -44,7 +44,7 @@ public:
 	void requestCb(const std_msgs::Float32& request );
 	float getDistanceFromStart();
 
-
+	void publish();
 	void publishStateNothing();
 	void publishStateRunning();
 	void publishStateDone();
@@ -63,7 +63,10 @@ int main(int argc, char** argv) {
 	ros::spin();
 	return 0;
 }
-
+void MoveRobotStraight::publish(){
+	cmd_vel_publisher_.publish(vel);
+	
+}
 void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 
 //	ROS_INFO("enter odomCb");
