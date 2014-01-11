@@ -637,9 +637,9 @@ void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 		float dist = getDistanceFromSelectedBall();
 			ROS_INFO("dist = %f", dist);
 		onHoover();
-		goForward(dist );//- 0.3);
+		goForward(dist - 0.3);
 		ros::Duration(4.0).sleep();
-		goForward(-(dist ));//- 0.3s
+		goForward(-(dist - 0.3));//- 0.3s
 		ros::Duration(4.0).sleep();
 		offHoover();
 		ROS_INFO("leave SECOND_STEP_COLLECT");

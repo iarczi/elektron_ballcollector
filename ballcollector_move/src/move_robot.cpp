@@ -29,8 +29,8 @@ public:
 		cmd_vel_publisher_ = nh_.advertise<geometry_msgs::Twist> ("/cmd_vel", 1);
 		state_publisher_ = nh_.advertise<std_msgs::Int16> ("/robot_go_straight_state", 1);
 
-		vel.angular.z = 0;
-		vel.linear.x = 0;
+		vel.angular.z = 0.0;
+		vel.linear.x = 0.0;
 		
 		first_request_recived = false;
 		goal_done_ = false;

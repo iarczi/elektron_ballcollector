@@ -179,7 +179,7 @@ int main(int argc, char** argv) {
 //	double x_odom, y_odom, rand_x, rand_y, x_map, y_map;
 
 	 while (!robot_explore.ac_.waitForServer(ros::Duration(5.0))) {
-		ROS_INFO("Waiting for the move_base action server to come up");
+		//ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
 
@@ -200,7 +200,7 @@ int main(int argc, char** argv) {
 
 		if (!robot_explore.isActionServerActive()){
 
-			ROS_INFO("Explore server action isn't active!");
+			//ROS_INFO("Explore server action isn't active!");
 
 			continue;
 		}
