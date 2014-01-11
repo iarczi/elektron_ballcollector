@@ -173,7 +173,7 @@ int main(int argc, char** argv) {
 	double infRad = costmap_ros->getInflationRadius();
 	ROS_INFO("infRad =%f",infRad);
 
-	ros::Rate loop_rate(1);
+	ros::Rate loop_rate(100);
 
 //	float rand_theta;
 //	double x_odom, y_odom, rand_x, rand_y, x_map, y_map;
