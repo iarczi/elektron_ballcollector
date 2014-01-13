@@ -545,8 +545,8 @@ void Explore::randomRotate(){
 
 	move_base_msgs::MoveBaseGoal goal;
 
-	goal.target_pose.pose.position.x = goal_map_x;
-	goal.target_pose.pose.position.y = goal_map_y;
+	goal.target_pose.pose.position.x = robot_odom_x;
+	goal.target_pose.pose.position.y = robot_odom_y;
 	goal.target_pose.pose.position.z = 0;
 
 	goal.target_pose.pose.orientation = qMsg;
@@ -554,8 +554,10 @@ void Explore::randomRotate(){
 	goal.target_pose.header.stamp = ros::Time::now();
 	goal.target_pose.header.frame_id ="/base_link";
 
+	publishPose(robot_odom_x, robot_odom_y, angle);
+
 //	ROS_INFO("Sending goal");
-	ac_.sendGoal(goal);
+//	ac_.sendGoal(goal);
 
 //	ROS_INFO("wait for result");
 //	ac_.waitForResult();
@@ -605,25 +607,35 @@ void Explore::randomForward(){
 void Explore::maxForward(){
 	ROS_INFO("enter maxForward ");
 
-	int counter = 0;
+	//int counter = 0;
 
-	float d_x = 0.1, d_y=0.1, x_map, y_map, x_odom, y_odom;
-	
+	float d_x = 0.1, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get;
+	getRobotPositionInOdom(x_odom_get, y_odom_get);
 	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
-	 while (canMove(x_odom, y_odom)){
+	 ROS_INFO(" GET x_odom = %f, y_odom = %f ",x_odom_get, y_odom_get);
+	 while (canMove(x_odom_get, y_odom_get)){
+
+		x_odom_get += 0.1;
+	//	d_y = 0;
+	//	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
+	
+		ROS_INFO("x_odom = %f, y_odom = %f ",x_odom, y_odom);
+	
+	}; 
+	 /*while (canMove(x_odom, y_odom)){
 
 		d_x += 0.1;
 		d_y = 0;
 		transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 	
-		ROS_INFO("x_odom = %f, y_odom = %f ",x_odom, y_odom);
+		ROS_INFO("x_odom = %f, y_odom = %f ",x_odom, y_odom);*/
 	/*	++counter;
 		if(counter > 10){
 			ROS_INFO("leave maxForward, can not move forward");
 			return;
 		}*/
 
-	}; 
+	//}; 
 	ROS_INFO("d_x = %f", d_x);
 
 	float robotAngleInMap = getRobotAngleInMap();
@@ -631,7 +643,7 @@ void Explore::maxForward(){
 	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
 	ROS_INFO("robot move to (%f,%f)", x_map, y_map);
 
-	publishPose(x_map, y_map, robotAngleInMap);
+	publishPose(x_odom_get, y_odom_get, robotAngleInMap);
 
 	//ROS_INFO("wait for result");
 	//ac_.waitForResult();
@@ -695,7 +707,7 @@ bool canMove(float x, float y){
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
 	
-		ROS_INFO("!costmap x,y =%f, %f, cell_x,y = %f, %f ", x, y, cell_x, cell_y);
+		ROS_INFO("!costmap x,y =%f, %f, cell_x,y = %i, %i ", x, y, cell_x, cell_y);
 	 //   res.cost = -1.0;
 	 	return false;
 		 //return true;
@@ -779,7 +791,7 @@ void Explore::transfromRobotToMapPosition(float x_robot, float y_robot, float &x
 	tf::Transform tfMO = tfOM.inverse();
 
 
-	tf::Transform tfRM = tfMO*tfOR;
+	//tf::Transform tfRM = tfMO*tfOR;
 
 	float noused = 0.0;
 
