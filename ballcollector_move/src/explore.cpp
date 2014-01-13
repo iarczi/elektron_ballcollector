@@ -554,7 +554,7 @@ void Explore::randomRotate(){
 	goal.target_pose.header.stamp = ros::Time::now();
 	goal.target_pose.header.frame_id ="/base_link";
 
-	publishPose(robot_odom_x, robot_odom_y, angle);
+	publishPose(0,0, angle);
 
 //	ROS_INFO("Sending goal");
 //	ac_.sendGoal(goal);

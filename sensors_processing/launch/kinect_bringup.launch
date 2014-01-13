@@ -77,8 +77,8 @@ data_skip: 10
 
 
 	<node pkg="pcl_to_scan" type="kinect_tf_broadcaster.py" name="kinect_tf_broadcaster">
-		<param name="pitch"  value="-0.38"/>
-		<param name="roll"  value="0.0555"/>
+		<param name="pitch"  value="-0.555"/>
+		<param name="roll"  value="-0.038"/>
 		<param name="x"  value="0.04"/>
 		<param name="z"  value="0.52"/>
 	</node>
