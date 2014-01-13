@@ -612,7 +612,7 @@ void Explore::randomForward(){
 void Explore::maxForward(){
 	ROS_INFO("enter maxForward ");
 
-	//int counter = 0;
+	int counter = 0;
 
 	float d_x = 0.1, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get, x_map_get, y_map_get;
 	getRobotPositionInOdom(x_odom_get, y_odom_get);
@@ -626,10 +626,12 @@ void Explore::maxForward(){
 		//d_y = 0;
 		//transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 		x_map_get += 0.1;
-		ROS_INFO("WHILE CAN MOVE 		x_odom = %f, y_odom = %f ",x_odom, y_odom);
+//		ROS_INFO("WHILE CAN MOVE 		x_odom = %f, y_odom = %f ",x_odom, y_odom);
+			if(counter >5)
+			break;
 
 	}; 
-	ROS_INFO("d_x = %f", d_x);
+//	ROS_INFO("d_x = %f", d_x);
 
 	float robotAngleInMap = getRobotAngleInMap();
 
@@ -718,7 +720,7 @@ bool canMove(float x, float y){
 	  }
 
 	  double cost = double( costmap.getCost( cell_x, cell_y ));
-	 ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
+//	 ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
 	 
 	  if(cost <= 1){
 		  return true;
@@ -885,12 +887,12 @@ void Explore::goalCB(){
   }
 
 void Explore::preemptCB(){
-	ROS_INFO("%s: Preempted", action_name_.c_str());
-
+//	ROS_INFO("%s: Preempted", action_name_.c_str());
+// TEST
 //	explore_ = false;
-	explore_state_ = STOP;
-	ac_.cancelAllGoals ();
-	as_.setPreempted(); 
+//ss	explore_state_ = STOP;
+//	ac_.cancelAllGoals ();
+//	as_.setPreempted(); 
 }
 
 
