@@ -433,7 +433,7 @@ void Explore::publishPose(float x, float y, float theta){
 	  goal.target_pose.pose.orientation = qMsg;
 
 	  goal.target_pose.header.stamp = ros::Time::now();
-	  goal.target_pose.header.frame_id ="/map";
+	  goal.target_pose.header.frame_id ="/base_link";
 
 
 	  ROS_INFO("Sending goal...");
@@ -483,7 +483,7 @@ void Explore::robotFullRotate(){
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/base_link";
 
 	ROS_INFO("Sending goal 1");
 	ac_.sendGoal(goal);
@@ -513,7 +513,7 @@ void Explore::robotFullRotate(){
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/base_link";
 
 	ROS_INFO("Sending goal 2");
 	ac_.sendGoal(goal);
@@ -553,7 +553,7 @@ void Explore::randomRotate(){
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/base_link";
 
 //	ROS_INFO("Sending goal");
 	ac_.sendGoal(goal);
