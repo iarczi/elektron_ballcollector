@@ -541,14 +541,13 @@ void Explore::randomRotate(){
 
 	geometry_msgs::Quaternion qMsg;
 	tf::quaternionTFToMsg(q, qMsg);
-
+	ROS_INFO("randomRotate robot_odom_x = %f, robot_odom_y = %f, angle = %f, goal_map_x = %f, goal_map_y = %f", robot_odom_x, robot_odom_y, angle, goal_map_x, goal_map_y);
 
 	move_base_msgs::MoveBaseGoal goal;
 
 	goal.target_pose.pose.position.x = goal_map_x;
 	goal.target_pose.pose.position.y = goal_map_y;
 	goal.target_pose.pose.position.z = 0;
-
 
 	goal.target_pose.pose.orientation = qMsg;
 
@@ -691,7 +690,7 @@ bool canMove(float x, float y){
 	  costmap_ros->getCostmapCopy( costmap );
 
 	
-		ROS_INFO("canMove1");
+		
 	  // Coordinate transform.
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
@@ -703,7 +702,8 @@ bool canMove(float x, float y){
 	  }
 
 	  double cost = double( costmap.getCost( cell_x, cell_y ));
-	  ROS_INFO("cost = %f", cost);
+	 ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
+	 
 	  if(cost <= 1){
 		  return true;
 	  }
@@ -712,7 +712,7 @@ bool canMove(float x, float y){
 	
 		 // return true;
 	  }
-	 //ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
+	 
 }
 
 double getCost(float x, float y){
@@ -760,7 +760,7 @@ void Explore::transfromRobotToOdomPosition(float x_robot, float y_robot, float &
 	 x_odom = tfOD.getOrigin ()[0];				//	wspolrzedna x_robot w ukladzie odom
 	 y_odom = tfOD.getOrigin ()[1];				//	wspolrzedna y_robot w ukladzie odom
 
-//	 ROS_INFO("x_odom = %f,  y_odom = %f", x_odom, y_odom);
+	 ROS_INFO("ROBOT TO ODOM x_odom = %f,  y_odom = %f", x_odom, y_odom);
 }
 
 void Explore::transfromRobotToMapPosition(float x_robot, float y_robot, float &x_map, float &y_map){
@@ -795,7 +795,7 @@ void Explore::transfromRobotToMapPosition(float x_robot, float y_robot, float &x
 	x_map = tfMD.getOrigin ()[0];				//	wspolrzedne docelowe w ukladzie mapy
 	y_map = tfMD.getOrigin ()[1];				//	wspolrzedne docelowe w ukladzie mapy
 
-
+	ROS_INFO("ROBOT TO MAP x_robot = %f,  y_robot = %f, x_map = %f,  y_map = %f", x_odom, y_odom, x_map, y_map);
 }
 
 
@@ -822,6 +822,8 @@ void Explore::transFromOdomToMapPosition(float x_odom_pose, float y_odom_pose, f
 	x_map_pose = tfMD.getOrigin ()[0];				//	wspolrzedne docelowe w ukladzie map
 	y_map_pose = tfMD.getOrigin ()[1];				//	wspolrzedne docelowe w ukladzie map
 	q = tfMD.getRotation();
+	
+	ROS_INFO("ODOM TO MAP x_odom = %f,  y_odom = %f, x_map = %f,  y_map = %f", x_odom_pose, y_odom_pose, x_map_pose, y_map_pose);
 }
 
 
