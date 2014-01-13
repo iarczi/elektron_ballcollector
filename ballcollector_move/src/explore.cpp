@@ -557,7 +557,7 @@ void Explore::randomRotate(){
 	publishPose(0,0, angle);
 
 //	ROS_INFO("Sending goal");
-//	ac_.sendGoal(goal);
+	ac_.sendGoal(goal);
 
 //	ROS_INFO("wait for result");
 //	ac_.waitForResult();
