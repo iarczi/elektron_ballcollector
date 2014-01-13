@@ -188,7 +188,7 @@ int main(int argc, char** argv) {
 
 
 		if( goToSelectedBall.getState() == STOP ){
-			ROS_INFO("STOP state");
+			//ROS_INFO("STOP state");
 			continue;
 		}
 		else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){

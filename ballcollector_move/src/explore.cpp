@@ -608,7 +608,7 @@ void Explore::maxForward(){
 
 	int counter = 0;
 
-	float d_x = 0, d_y=0, x_map, y_map, x_odom, y_odom;
+	float d_x = 0.1, d_y=0.1, x_map, y_map, x_odom, y_odom;
 	
 	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 	 while (canMove(x_odom, y_odom)){
@@ -617,7 +617,7 @@ void Explore::maxForward(){
 		d_y = 0;
 		transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 	
-	ROS_INFO("x_odom = %i, y_odom = %i ",x_odom, y_odom);
+		ROS_INFO("x_odom = %i, y_odom = %i ",x_odom, y_odom);
 	/*	++counter;
 		if(counter > 10){
 			ROS_INFO("leave maxForward, can not move forward");
