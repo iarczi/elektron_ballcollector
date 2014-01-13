@@ -478,7 +478,7 @@ void Explore::robotFullRotate(){
 	goal.target_pose.pose.position.y = goal_map_y;
 	goal.target_pose.pose.position.z = 0;
 
-	ROS_INFO("x= %i, y= %i ", goal.target_pose.pose.position.x, goal.target_pose.pose.position.y);
+	ROS_INFO("x= %f, y= %f ", goal.target_pose.pose.position.x, goal.target_pose.pose.position.y);
 
 	goal.target_pose.pose.orientation = qMsg;
 
@@ -616,7 +616,7 @@ void Explore::maxForward(){
 		d_y = 0;
 		transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 	
-		ROS_INFO("x_odom = %i, y_odom = %i ",x_odom, y_odom);
+		ROS_INFO("x_odom = %f, y_odom = %f ",x_odom, y_odom);
 	/*	++counter;
 		if(counter > 10){
 			ROS_INFO("leave maxForward, can not move forward");
@@ -695,7 +695,7 @@ bool canMove(float x, float y){
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
 	
-		ROS_INFO("!costmap x,y =%i, %i, cell_x,y = %i, %i ", x, y, cell_x, cell_y);
+		ROS_INFO("!costmap x,y =%f, %f, cell_x,y = %f, %f ", x, y, cell_x, cell_y);
 	 //   res.cost = -1.0;
 	 	return false;
 		 //return true;
@@ -795,7 +795,7 @@ void Explore::transfromRobotToMapPosition(float x_robot, float y_robot, float &x
 	x_map = tfMD.getOrigin ()[0];				//	wspolrzedne docelowe w ukladzie mapy
 	y_map = tfMD.getOrigin ()[1];				//	wspolrzedne docelowe w ukladzie mapy
 
-	ROS_INFO("ROBOT TO MAP x_robot = %f,  y_robot = %f, x_map = %f,  y_map = %f", x_odom, y_odom, x_map, y_map);
+	ROS_INFO("ROBOT TO MAP x_robot = %f,  y_robot = %f, x_map = %f,  y_map = %f", x_robot, y_robot, x_map, y_map);
 }
 
 
