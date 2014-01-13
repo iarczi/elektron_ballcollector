@@ -173,7 +173,7 @@ int main(int argc, char** argv) {
 	double infRad = costmap_ros->getInflationRadius();
 	ROS_INFO("infRad =%f",infRad);
 
-	ros::Rate loop_rate(1);
+	
 
 //	float rand_theta;
 //	double x_odom, y_odom, rand_x, rand_y, x_map, y_map;
@@ -183,9 +183,10 @@ int main(int argc, char** argv) {
 	 }
 
 
-	robot_explore.setExploreState(RANDOM_ROTATE);
+	//robot_explore.setExploreState(RANDOM_ROTATE);
 
-	ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
+	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
+	ros::Rate loop_rate(1);
 	while (ros::ok()) {
 
 

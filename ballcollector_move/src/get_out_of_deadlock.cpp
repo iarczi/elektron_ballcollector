@@ -167,7 +167,7 @@ void GetOutOfDeadlock::insertCurrentPosition(geometry_msgs::Point position){
 
 bool GetOutOfDeadlock::isRobotInDeadlock(){
 //	ROS_INFO("prev_positions_ = %d", prev_positions_.size());
-//return false;
+	return false;
 	if(prev_positions_.size() < FRAME_SIZE){
 		//	zabezpieczenie przed ciaglym wchodzeniem w stan zakleszczenia
 		return false;
