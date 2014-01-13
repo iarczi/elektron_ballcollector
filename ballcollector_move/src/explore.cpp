@@ -135,7 +135,8 @@ public:
 			float &x_map_pose, float &y_map_pose, tf::Quaternion& q);
 
 	void getRobotPositionInOdom(float &x_odom_pose, float &y_odom_pose);
-
+	void getRobotPositionInMap(float &x_odom_pose, float &y_odom_pose);
+	
 	float getRobotAngleInMap();
 	float getRobotAngleInOdom();
 	float addPiToAngle(float angle);
@@ -189,8 +190,12 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(1);
 	while (ros::ok()) {
 
-
-		
+				if(robot_explore.isCurrentGoalDone()){
+					robot_explore.setExploreState(MAX_FORWARD);
+					robot_explore.maxForward();
+					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
+				}
+//ddddddddddddddddduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuupa
 		/*if(robot_explore.canExplore() == false){
 	//		ROS_INFO("Robot move - no explore - start ...");
 	//		robot_explore.stopExplore();
@@ -199,53 +204,53 @@ int main(int argc, char** argv) {
 			continue;
 		}*/
 
-		if (!robot_explore.isActionServerActive()){
+		//if (!robot_explore.isActionServerActive()){
 
-			//ROS_INFO("Explore server action isn't active!");
+			////ROS_INFO("Explore server action isn't active!");
 
-			continue;
-		}
-		else{
+			//continue;
+		//}
+		//else{
 			
-			costmap_ros->getCostmapCopy(costmap);
+			//costmap_ros->getCostmapCopy(costmap);
 
-			if(robot_explore.getExploreState() == STOP){
-				//if(robot_explore.canExplore()){
-					robot_explore.setExploreState(FULL_ROTATE);
-					robot_explore.robotFullRotate();
-					ROS_INFO("Start Explore STOP --> FULL_ROTATE");
+			//if(robot_explore.getExploreState() == STOP){
+				////if(robot_explore.canExplore()){
+					//robot_explore.setExploreState(FULL_ROTATE);
+					//robot_explore.robotFullRotate();
+					//ROS_INFO("Start Explore STOP --> FULL_ROTATE");
+				////}
+			//}
+			//else if(robot_explore.getExploreState() == FULL_ROTATE){
+
+				//if(robot_explore.isCurrentGoalDone()){
+					//robot_explore.setExploreState(RANDOM_ROTATE);
+					//robot_explore.randomRotate();
+					//ROS_INFO("go to FULL_ROTATE --> RANDOM_ROTATE");
 				//}
-			}
-			else if(robot_explore.getExploreState() == FULL_ROTATE){
 
-				if(robot_explore.isCurrentGoalDone()){
-					robot_explore.setExploreState(RANDOM_ROTATE);
-					robot_explore.randomRotate();
-					ROS_INFO("go to FULL_ROTATE --> RANDOM_ROTATE");
-				}
+			//}
+			//else if(robot_explore.getExploreState() == RANDOM_ROTATE){
 
-			}
-			else if(robot_explore.getExploreState() == RANDOM_ROTATE){
+				//if(robot_explore.isCurrentGoalDone()){
+					//robot_explore.setExploreState(MAX_FORWARD);
+					//robot_explore.maxForward();
+					//ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
+				//}
+			//}
+			//else if(robot_explore.getExploreState() == MAX_FORWARD){
 
-				if(robot_explore.isCurrentGoalDone()){
-					robot_explore.setExploreState(MAX_FORWARD);
-					robot_explore.maxForward();
-					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
-				}
-			}
-			else if(robot_explore.getExploreState() == MAX_FORWARD){
-
-				if(robot_explore.isCurrentGoalDone()){
-					robot_explore.setExploreState(RANDOM_ROTATE);
-					robot_explore.randomRotate();
-					ROS_INFO("go to   MAX_FORWARD --> RANDOM_ROTATE");
-				}
-			}
-		}
+				//if(robot_explore.isCurrentGoalDone()){
+					//robot_explore.setExploreState(RANDOM_ROTATE);
+					//robot_explore.randomRotate();
+					//ROS_INFO("go to   MAX_FORWARD --> RANDOM_ROTATE");
+				//}
+			//}
+		//}
 
 
 
-
+//ddddddddddddddddduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuupa
 
 
 		/*
@@ -609,18 +614,19 @@ void Explore::maxForward(){
 
 	//int counter = 0;
 
-	float d_x = 0.1, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get;
+	float d_x = 0.1, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get, x_map_get, y_map_get;
 	getRobotPositionInOdom(x_odom_get, y_odom_get);
+	getRobotPositionInMap(x_map_get, y_map_get);
 	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
-	 ROS_INFO(" GET x_odom = %f, y_odom = %f ",x_odom_get, y_odom_get);
+	 ROS_INFO(" GET x_odom = %f, y_odom = %f,  x_odom_get = %f, y_odom_get = %f  x_map_get = %f, y_map_get = %f", x_odom, y_odom,x_odom_get, y_odom_get, x_map_get, y_map_get);
 	
-	 while (canMove(x_odom, y_odom)){
+	 while (canMove(x_map_get, y_map_get)){
 
-		d_x += 0.1;
-		d_y = 0;
-		transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
-	
-		ROS_INFO("x_odom = %f, y_odom = %f ",x_odom, y_odom);
+		//d_x += 0.1;
+		//d_y = 0;
+		//transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
+		x_map_get += 0.1;
+		ROS_INFO("WHILE CAN MOVE 		x_odom = %f, y_odom = %f ",x_odom, y_odom);
 
 	}; 
 	ROS_INFO("d_x = %f", d_x);
@@ -630,7 +636,7 @@ void Explore::maxForward(){
 	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
 	ROS_INFO("robot move to (%f,%f)", x_map, y_map);
 
-	publishPose(x_odom_get, y_odom_get, robotAngleInMap);
+	publishPose(x_map_get, y_map_get, robotAngleInMap);
 
 	//ROS_INFO("wait for result");
 	//ac_.waitForResult();
@@ -646,6 +652,17 @@ void Explore::getRobotPositionInOdom(float &x_odom_pose, float &y_odom_pose){
 	tf::StampedTransform tfOR;								//	robot w odom
 	tf_listener_.waitForTransform("/odom", "/base_link", now, ros::Duration(1.0));
 	tf_listener_.lookupTransform ("/odom", "/base_link", now,  tfOR);
+
+	x_odom_pose = tfOR.getOrigin ()[0];				//	wspolrzedne robota w ukladzie odom
+	y_odom_pose = tfOR.getOrigin ()[1];				//	wspolrzedne robota w ukladzie odom
+
+}
+void Explore::getRobotPositionInMap(float &x_odom_pose, float &y_odom_pose){
+
+	ros::Time now = ros::Time(0);
+	tf::StampedTransform tfOR;								//	robot w odom
+	tf_listener_.waitForTransform("/map", "/base_link", now, ros::Duration(1.0));
+	tf_listener_.lookupTransform ("/map", "/base_link", now,  tfOR);
 
 	x_odom_pose = tfOR.getOrigin ()[0];				//	wspolrzedne robota w ukladzie odom
 	y_odom_pose = tfOR.getOrigin ()[1];				//	wspolrzedne robota w ukladzie odom
