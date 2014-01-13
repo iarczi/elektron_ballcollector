@@ -694,7 +694,7 @@ bool canMove(float x, float y){
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
 	
-		ROS_INFO("!cost`map x,y =%f, %f, cell_x,y = %i, %i ", x, y, cell_x, cell_y);
+		ROS_INFO("!costmap x,y =%f, %f, cell_x,y = %i, %i ", x, y, cell_x, cell_y);
 	 //   res.cost = -1.0;
 	 	return false;
 		 //return true;
