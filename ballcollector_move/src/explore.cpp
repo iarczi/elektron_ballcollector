@@ -491,7 +491,7 @@ void Explore::robotFullRotate(){
 	
 
 	ROS_INFO("wait for result");
-	ac_.waitForResult();
+//	ac_.waitForResult();
 
 
 	getRobotPositionInOdom(robot_odom_x, robot_odom_y);
@@ -519,7 +519,7 @@ void Explore::robotFullRotate(){
 	ac_.sendGoal(goal);
 
 	ROS_INFO("wait for result");
-	ac_.waitForResult();
+//	ac_.waitForResult();
 
 
 
@@ -557,11 +557,7 @@ void Explore::randomRotate(){
 	publishPose(goal_map_x, goal_map_y, angle);
 
 //	ROS_INFO("Sending goal");
-<<<<<<< HEAD
 	ac_.sendGoal(goal);
-=======
- 	ac_.sendGoal(goal);
->>>>>>> bdbdea056eaf632d7c92ca5f8b5e5f13e9efd8da
 
 //	ROS_INFO("wait for result");
 //	ac_.waitForResult();
@@ -624,7 +620,7 @@ void Explore::maxForward(){
 		d_y = 0;
 		transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 	
-		ROS_INFO("x_odom = %f, y_odom = %f ",x_odom, y_odom);*/
+		ROS_INFO("x_odom = %f, y_odom = %f ",x_odom, y_odom);
 
 	}; 
 	ROS_INFO("d_x = %f", d_x);
