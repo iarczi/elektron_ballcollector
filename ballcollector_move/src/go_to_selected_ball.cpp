@@ -178,7 +178,7 @@ int main(int argc, char** argv) {
 
 
 
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(5);
 
 	int no_ball_counter = 0;
 
@@ -398,7 +398,7 @@ void GoToSelectedBall::publishPose(float dist_from_ball){
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/base_link";
 
 
 	ROS_INFO("Sending goal");
@@ -459,7 +459,7 @@ void GoToSelectedBall::publishAngle(){
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/base_link";
 
 
 	ROS_INFO("Sending goal");

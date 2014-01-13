@@ -113,7 +113,7 @@ int main(int argc, char** argv) {
 	Scheduler scheduler;
 	scheduler.sendStartExploreGoal();
 
-	ros::Rate loop_rate(100);
+	ros::Rate loop_rate(1);
 
 	while (ros::ok()) {
 			
