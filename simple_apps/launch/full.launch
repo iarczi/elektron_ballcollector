@@ -3,8 +3,13 @@
 	<include file="$(find elektron_bringup)/launch/elektron_base.launch" />
 	<include file="$(find elektron_bringup)/launch/elektron_sensors.launch" />		
 	<include file="$(find elektron_navigation)/launch/local_sick.launch" />			
-			
-	<include file="$(find sensors_processing)/launch/laser_to_odom.launch" />
+	<include file="$(find elektron_navigation)/launch/local_sick.launch" />
+	<node pkg="laser_scan_splitter" type="laser_scan_splitter_node" name="splitter" output="screen">
+	    <param name="sizes" value="180 720 180"/>
+	    <param name="topics" value="scan1 scan2 scan3"/>
+	    <param name="frames" value="base_laser_link base_laser_link base_laser_link"/>
+	  </node>	
+	<!--<include file="$(find sensors_processing)/launch/laser_to_odom.launch" />-->
 	
 	<include file="$(find sensors_processing)/launch/kinect_bringup.launch" />		
 <!-- <include file="$(find sensors_processing)/launch/full_ball.launch" /> -->			
