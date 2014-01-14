@@ -569,6 +569,8 @@ void Explore::testRotate(){
 	float robotAngleInMap = getRobotAngleInMap();
 	float angle_in_odom = getRobotAngleInOdom();		//	kat od -PI do + PI
 	float anglePlusPI = addPiToAngle(angle_in_odom);
+	tf::Quaternion q;
+	
 	transFromOdomToMapPosition(x_odom_get, y_odom_get, anglePlusPI, goal_map_x, goal_map_y, q);
 	
 	ROS_INFO("x_map = %f, y_map = %f,  robotAngleInMap = %f, angle_in_odom  = %f, anglePlusPI = %f, goal_map_x  = %f, goal_map_y  = %f, robotAngleInMap  = %f" , x_map, y_map, robotAngleInMap,  angle_in_odom, anglePlusPI, goal_map_x, goal_map_y, robotAngleInMap);
@@ -585,14 +587,14 @@ void Explore::testRotate(){
 	publishPose(x_map_get, y_map_get, angle);
 
 //	ROS_INFO("Sending goal");
-	ac_.sendGoal(goal);
+	//ac_.sendGoal(goal);
 
 //	ROS_INFO("wait for result");
-	ac_.waitForResult();
+	//ac_.waitForResult();
 }
 
 void Explore::testForward(){
-	
+	float x_odom_get, y_odom_get;
 	getRobotPositionInOdom(x_odom_get, y_odom_get);
 	publishPose2(x_odom_get+0.5, y_odom_get, getRobotAngleInOdom());
 	
@@ -600,10 +602,10 @@ void Explore::testForward(){
 	//publishPose(x_map_get, y_map_get, angle);
 
 //	ROS_INFO("Sending goal");
-	ac_.sendGoal(goal);
+	//ac_.sendGoal(goal);
 
 //	ROS_INFO("wait for result");
-	ac_.waitForResult();
+	//ac_.waitForResult();
 }
 void Explore::randomRotate(){
 
