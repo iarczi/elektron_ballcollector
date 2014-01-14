@@ -597,8 +597,7 @@ void Explore::testRotate(){
 
 void Explore::testForward(){
 	float x_odom_get, y_odom_get;
-	getRobotPositionInOdom(x_odom_get, y_odom_get);
-	publishPose2(x_odom_get+0.5, y_odom_get, getRobotAngleInOdom());
+	publishPose2(0.3, 0, 0);
 	
 	//getRobotPositionInMap(x_map_get, y_map_get);
 	//publishPose(x_map_get, y_map_get, angle);
