@@ -195,7 +195,7 @@ int main(int argc, char** argv) {
 
 				if(robot_explore.isCurrentGoalDone()){
 					robot_explore.setExploreState(MAX_FORWARD);
-					robot_explore.testRotate();
+					robot_explore.testForward();
 					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
 				}
 //ddddddddddddddddduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuupa
@@ -468,7 +468,9 @@ void Explore::publishPose2(float x, float y, float theta){
 
 	  ROS_INFO("Sending goal...");
 	  ac_.sendGoal(goal);
+	  ac_.waitForResult();
 
+	  ROS_INFO("END OF GOAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	  firstGoalSend = true;
 
 }
@@ -578,13 +580,13 @@ void Explore::testRotate(){
 	ROS_INFO("enter randomRotate ");
 	
 	float angle = (90 * PI)/180;
-	
-	//getRobotPositionInOdom(x_odom_get, y_odom_get);
+	angle += angle_in_odom;
+	getRobotPositionInOdom(x_odom_get, y_odom_get);
 	// 0, 0
-	//publishPose2(x_odom_get, y_odom_get, angle);
+	publishPose2(x_odom_get, y_odom_get, angle);
 	
-	getRobotPositionInMap(x_map_get, y_map_get);
-	publishPose(x_map_get, y_map_get, angle);
+//	getRobotPositionInMap(x_map_get, y_map_get);
+//	publishPose(x_map_get, y_map_get, angle);
 
 //	ROS_INFO("Sending goal");
 	//ac_.sendGoal(goal);
