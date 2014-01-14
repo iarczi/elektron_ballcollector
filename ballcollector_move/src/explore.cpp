@@ -614,11 +614,20 @@ void Explore::maxForward(){
 
 	int counter = 0;
 
-	float d_x = 0.1, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get, x_map_get, y_map_get;
+	float d_x = 1.0, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get, x_map_get, y_map_get;
 	getRobotPositionInOdom(x_odom_get, y_odom_get);
 	getRobotPositionInMap(x_map_get, y_map_get);
 	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
-	 ROS_INFO(" GET x_odom = %f, y_odom = %f,  x_odom_get = %f, y_odom_get = %f  x_map_get = %f, y_map_get = %f", x_odom, y_odom,x_odom_get, y_odom_get, x_map_get, y_map_get);
+
+	
+	ROS_INFO(" GET x_odom = %f, y_odom = %f,  x_odom_get = %f, y_odom_get = %f  x_map_get = %f, y_map_get = %f", x_odom, y_odom,x_odom_get, y_odom_get, x_map_get, y_map_get);
+	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
+	float robotAngleInMap = getRobotAngleInMap();
+	float angle_in_odom = getRobotAngleInOdom();		//	kat od -PI do + PI
+	float anglePlusPI = addPiToAngle(angle_in_odom);
+	transFromOdomToMapPosition(x_odom_get, y_odom_get, anglePlusPI, goal_map_x, goal_map_y, q);
+	
+	ROS_INFO("x_map = %f, y_map = %f,  robotAngleInMap = %f, angle_in_odom  = %f, anglePlusPI = %f, goal_map_x  = %f, goal_map_y  = %f, robotAngleInMap  = %f" , x_map, y_map, robotAngleInMap,  angle_in_odom, anglePlusPI, goal_map_x, goal_map_y, robotAngleInMap);
 	
 	 while (canMove(x_map_get, y_map_get)){
 
@@ -633,7 +642,7 @@ void Explore::maxForward(){
 	}; 
 //	ROS_INFO("d_x = %f", d_x);
 
-	float robotAngleInMap = getRobotAngleInMap();
+	//float robotAngleInMap = getRobotAngleInMap();
 
 	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
 	ROS_INFO("robot move to (%f,%f)", x_map, y_map);
