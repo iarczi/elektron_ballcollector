@@ -124,6 +124,7 @@ public:
 		
 	}
 	void publishPose(float x, float y, float theta);
+	void publishPose2(float x, float y, float theta);
 	void stopExplore();
 	void alghoritmStateCallBack(const std_msgs::String& msg);
 	void deadlockServiceStateCb(const std_msgs::String& state);
@@ -142,6 +143,8 @@ public:
 	float addPiToAngle(float angle);
 
 	void randomRotate();
+	void testRotate();
+	void testForward();
 	void randomForward();
 	void robotFullRotate();
 	void maxForward();
@@ -192,7 +195,7 @@ int main(int argc, char** argv) {
 
 				if(robot_explore.isCurrentGoalDone()){
 					robot_explore.setExploreState(MAX_FORWARD);
-					robot_explore.maxForward();
+					robot_explore.testRotate();
 					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
 				}
 //ddddddddddddddddduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuupa
@@ -448,6 +451,28 @@ void Explore::publishPose(float x, float y, float theta){
 
 }
 
+void Explore::publishPose2(float x, float y, float theta){
+
+	  move_base_msgs::MoveBaseGoal goal;
+
+	  goal.target_pose.pose.position.x = x;
+	  goal.target_pose.pose.position.y = y;
+
+	  geometry_msgs::Quaternion qMsg;
+	  setAngle(theta, qMsg);
+
+	  goal.target_pose.pose.orientation = qMsg;
+
+	  goal.target_pose.header.stamp = ros::Time::now();
+	  goal.target_pose.header.frame_id ="/base_link";
+
+	  ROS_INFO("Sending goal...");
+	  ac_.sendGoal(goal);
+
+	  firstGoalSend = true;
+
+}
+
 float Explore::addPiToAngle(float angle){
 	angle += PI;								//	kąt od 0 do 2PI
 	angle += PI;								//	kąt od 0 do 2PI przekręcony o PI
@@ -531,12 +556,60 @@ void Explore::robotFullRotate(){
 	ROS_INFO("leave robotFullRotate");
 }
 
+void Explore::testRotate(){
+
+	float d_x = 1.0, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get, x_map_get, y_map_get, goal_map_x, goal_map_y;
+	getRobotPositionInOdom(x_odom_get, y_odom_get);
+	getRobotPositionInMap(x_map_get, y_map_get);
+	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
+
+	
+	ROS_INFO(" GET x_odom = %f, y_odom = %f,  x_odom_get = %f, y_odom_get = %f  x_map_get = %f, y_map_get = %f", x_odom, y_odom,x_odom_get, y_odom_get, x_map_get, y_map_get);
+	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
+	float robotAngleInMap = getRobotAngleInMap();
+	float angle_in_odom = getRobotAngleInOdom();		//	kat od -PI do + PI
+	float anglePlusPI = addPiToAngle(angle_in_odom);
+	transFromOdomToMapPosition(x_odom_get, y_odom_get, anglePlusPI, goal_map_x, goal_map_y, q);
+	
+	ROS_INFO("x_map = %f, y_map = %f,  robotAngleInMap = %f, angle_in_odom  = %f, anglePlusPI = %f, goal_map_x  = %f, goal_map_y  = %f, robotAngleInMap  = %f" , x_map, y_map, robotAngleInMap,  angle_in_odom, anglePlusPI, goal_map_x, goal_map_y, robotAngleInMap);
+
+	ROS_INFO("enter randomRotate ");
+	
+	float angle = (90 * PI)/180;
+	
+	//getRobotPositionInOdom(x_odom_get, y_odom_get);
+	// 0, 0
+	//publishPose2(x_odom_get, y_odom_get, angle);
+	
+	getRobotPositionInMap(x_map_get, y_map_get);
+	publishPose(x_map_get, y_map_get, angle);
+
+//	ROS_INFO("Sending goal");
+	ac_.sendGoal(goal);
+
+//	ROS_INFO("wait for result");
+	ac_.waitForResult();
+}
+
+void Explore::testForward(){
+	
+	getRobotPositionInOdom(x_odom_get, y_odom_get);
+	publishPose2(x_odom_get+0.5, y_odom_get, getRobotAngleInOdom());
+	
+	//getRobotPositionInMap(x_map_get, y_map_get);
+	//publishPose(x_map_get, y_map_get, angle);
+
+//	ROS_INFO("Sending goal");
+	ac_.sendGoal(goal);
+
+//	ROS_INFO("wait for result");
+	ac_.waitForResult();
+}
 void Explore::randomRotate(){
 
 	ROS_INFO("enter randomRotate ");
 	float robot_odom_x, robot_odom_y;
 	getRobotPositionInOdom(robot_odom_x, robot_odom_y);
-
 
 	float angle = (((rand() % 360) - 180) * PI) / 180.0;
 
@@ -559,7 +632,8 @@ void Explore::randomRotate(){
 	goal.target_pose.header.stamp = ros::Time::now();
 	goal.target_pose.header.frame_id ="/map";
 
-	publishPose(goal_map_x, goal_map_y, angle);
+	getRobotPositionInMap(x_map_get, y_map_get);
+	publishPose(x_map_get, y_map_get, angle);
 
 //	ROS_INFO("Sending goal");
 	ac_.sendGoal(goal);
@@ -577,6 +651,8 @@ void Explore::randomRotate(){
 void Explore::randomForward(){
 
 	ROS_INFO("enter randomForward ");
+
+	
 
 	int counter = 0;
 
