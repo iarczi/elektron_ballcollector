@@ -53,8 +53,6 @@ costmap_2d::Costmap2DROS* costmap_ros;
 costmap_2d::Costmap2D costmap;
 
 
-bool canMove();
-
 void rotateRand();
 void goStraight();
 void stop();
@@ -306,9 +304,6 @@ void Explore::stopExplore(){
 	  ac_.cancelAllGoals ();
 }
 
-bool canMove(){
-	return true;
-}
 
 
 void rotateRand(){
@@ -561,7 +556,7 @@ void Explore::robotFullRotate(){
 
 void Explore::testRotate(){
 
-	float d_x = 1.0, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get, x_map_get, y_map_get, goal_map_x, goal_map_y;
+	float d_x = 0.5, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get, x_map_get, y_map_get, goal_map_x, goal_map_y;
 	getRobotPositionInOdom(x_odom_get, y_odom_get);
 	getRobotPositionInMap(x_map_get, y_map_get);
 	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
@@ -597,8 +592,15 @@ void Explore::testRotate(){
 }
 
 void Explore::testForward(){
-	float x_odom_get, y_odom_get;
-	publishPose2(0.3, 0, 0);
+	float d_x = 0.1, d_y=0.0;
+	while (canMove(d_x, d_y)){
+
+		d_x += 0.1;
+		//d_y = 0;
+		//transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
+
+	}; 
+	//publishPose2(0.3, 0, 0);
 	
 	//getRobotPositionInMap(x_map_get, y_map_get);
 	//publishPose(x_map_get, y_map_get, angle);
@@ -802,14 +804,14 @@ bool canMove(float x, float y){
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
 	
-		ROS_INFO("!costmap x,y =%f, %f, cell_x,y = %i, %i ", x, y, cell_x, cell_y);
+			ROS_INFO("!costmap x,y =%f, %f, cell_x,y = %i, %i ", x, y, cell_x, cell_y);
 	 //   res.cost = -1.0;
 	 	return false;
 		 //return true;
 	  }
 
 	  double cost = double( costmap.getCost( cell_x, cell_y ));
-//	 ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
+		ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
 	 
 	  if(cost <= 1){
 		  return true;
