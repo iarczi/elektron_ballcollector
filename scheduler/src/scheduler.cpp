@@ -111,15 +111,17 @@ int main(int argc, char** argv) {
 	ros::init(argc, argv, "scheduler");
 
 	Scheduler scheduler;
+	scheduler.setSate(EXPLORE);
+
 	scheduler.sendStartExploreGoal();
 
 	ros::Rate loop_rate(1);
 
 	while (ros::ok()) {
-			
-			scheduler.sendStartExploreGoal();
 			scheduler.setSate(EXPLORE);
 			
+			scheduler.sendStartExploreGoal();
+						
 //			std::cout<<"deadlock: "<<scheduler.isDeadlock()<<"  ball visible: "<<scheduler.isBallVisible()<<"state: "<<scheduler.getState()<<std::endl;
 
 
@@ -305,12 +307,12 @@ void Scheduler::sendDeadlockGoal(){
 
 void Scheduler::sendStartExploreGoal(){
 	// send a goal to the action
-	ROS_INFO("send a goal to the explore action server");
+	//ROS_INFO("send a goal to the explore action server");
 	scheduler::SchedulerGoal goal;
 	goal.value = 1;
 	explore_action_client_.sendGoal(goal);
 
-	ROS_INFO("END send a goal to the explore action server");
+	//ROS_INFO("END send a goal to the explore action server");
 }
 
 void Scheduler::sendStopExploreGoal(){
