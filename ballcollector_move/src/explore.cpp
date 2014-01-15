@@ -811,7 +811,7 @@ void Explore::transfromRobotToOdomPosition(float x_robot, float y_robot, float &
 	 x_odom = tfOD.getOrigin ()[0];				//	wspolrzedna x_robot w ukladzie odom
 	 y_odom = tfOD.getOrigin ()[1];				//	wspolrzedna y_robot w ukladzie odom
 
-	 ROS_INFO("ROBOT TO ODOM x_odom = %f,  y_odom = %f", x_odom, y_odom);
+	// ROS_INFO("ROBOT TO ODOM x_odom = %f,  y_odom = %f", x_odom, y_odom);
 }
 
 void Explore::transfromRobotToMapPosition(float x_robot, float y_robot, float &x_map, float &y_map){
@@ -846,7 +846,7 @@ void Explore::transfromRobotToMapPosition(float x_robot, float y_robot, float &x
 	x_map = tfMD.getOrigin ()[0];				//	wspolrzedne docelowe w ukladzie mapy
 	y_map = tfMD.getOrigin ()[1];				//	wspolrzedne docelowe w ukladzie mapy
 
-	ROS_INFO("ROBOT TO MAP x_robot = %f,  y_robot = %f, x_map = %f,  y_map = %f", x_robot, y_robot, x_map, y_map);
+	//ROS_INFO("ROBOT TO MAP x_robot = %f,  y_robot = %f, x_map = %f,  y_map = %f", x_robot, y_robot, x_map, y_map);
 }
 
 
@@ -874,7 +874,7 @@ void Explore::transFromOdomToMapPosition(float x_odom_pose, float y_odom_pose, f
 	y_map_pose = tfMD.getOrigin ()[1];				//	wspolrzedne docelowe w ukladzie map
 	q = tfMD.getRotation();
 	
-	ROS_INFO("ODOM TO MAP x_odom = %f,  y_odom = %f, x_map = %f,  y_map = %f", x_odom_pose, y_odom_pose, x_map_pose, y_map_pose);
+	//ROS_INFO("ODOM TO MAP x_odom = %f,  y_odom = %f, x_map = %f,  y_map = %f", x_odom_pose, y_odom_pose, x_map_pose, y_map_pose);
 }
 
 

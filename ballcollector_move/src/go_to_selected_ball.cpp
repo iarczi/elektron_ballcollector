@@ -299,7 +299,7 @@ void GoToSelectedBall::publishPose(float x, float y){
 	}
 	move_base_msgs::MoveBaseGoal goal;
 
-	goal.target_pose.pose.position.x = x;
+	goal.target_pose.pose.position.x = 1.0;//x;
 	goal.target_pose.pose.position.y = y;
 
 	goal.target_pose.header.stamp = ros::Time::now();

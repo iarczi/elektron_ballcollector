@@ -308,7 +308,7 @@ void Scheduler::sendStopExploreGoal(){
 	ROS_INFO("send a STOP goal to the explore action server");
 //	scheduler::SchedulerGoal goal;
 //	goal.value = 0;
-
+	ac_.cancelAllGoals();
 	explore_action_client_.cancelAllGoals();
 }
 
