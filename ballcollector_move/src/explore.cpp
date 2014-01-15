@@ -187,6 +187,7 @@ int main(int argc, char** argv) {
 	 }
 
 
+        robot_explore.testForward();
 	//robot_explore.setExploreState(RANDOM_ROTATE);
 
 	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
@@ -195,7 +196,7 @@ int main(int argc, char** argv) {
 
 				if(robot_explore.isCurrentGoalDone()){
 					robot_explore.setExploreState(MAX_FORWARD);
-					robot_explore.testForward();
+		//			robot_explore.testForward();
 					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
 				}
 //ddddddddddddddddduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuupa
