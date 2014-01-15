@@ -169,16 +169,16 @@ public:
 
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "goToSelectedBall");
-	GoToSelectedBall goToSelectedBall(ros::this_node::getName());
+	GoToSelectedBall gtsb(ros::this_node::getName());
 
-	 while(!goToSelectedBall.ac.waitForServer(ros::Duration(5.0))){
+	 while(!gtsb.ac.waitForServer(ros::Duration(5.0))){
 	    ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
 	ros::Rate loop_rate(5);
 
 	int no_ball_counter = 0;
-	goToSelectedBall.publishPose(getCurrentPose().x, getCurrentPose().y);
+	gtsb.publishPose(gtsb.getCurrentPose().x, gtsb.getCurrentPose().y);
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
@@ -304,7 +304,7 @@ void GoToSelectedBall::publishPose(float x, float y){
 
 	goal.target_pose.header.stamp = ros::Time::now();
 
-	goal.target_pose.header.frame_id ="/odom";
+	goal.target_pose.header.frame_id ="/base_link";
 
 	ROS_INFO("Sending goal...");
 	ac.sendGoal(goal);
