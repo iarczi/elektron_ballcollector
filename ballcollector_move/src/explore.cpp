@@ -430,29 +430,7 @@ void Explore::publishPose(float x, float y, float theta, bool robot){
 
 }
 
-void Explore::publishPose2(float x, float y, float theta){
 
-	  move_base_msgs::MoveBaseGoal goal;
-
-	  goal.target_pose.pose.position.x = x;
-	  goal.target_pose.pose.position.y = y;
-
-	  geometry_msgs::Quaternion qMsg;
-	  setAngle(theta, qMsg);
-
-	  goal.target_pose.pose.orientation = qMsg;
-
-	  goal.target_pose.header.stamp = ros::Time::now();
-	  goal.target_pose.header.frame_id ="/base_link";
-
-	  ROS_INFO("Sending goal...");
-	  ac_.sendGoal(goal);
-	  ac_.waitForResult();
-
-	  ROS_INFO("END OF GOAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	  firstGoalSend = true;
-
-}
 
 float Explore::addPiToAngle(float angle){
 	angle += PI;								//	kąt od 0 do 2PI
@@ -564,7 +542,7 @@ void Explore::testRotate(){
 	angle += angle_in_odom;
 	getRobotPositionInOdom(x_odom_get, y_odom_get);
 	// 0, 0
-	publishPose2(x_odom_get, y_odom_get, angle);
+	//publishPose2(x_odom_get, y_odom_get, angle);
 	
 //	getRobotPositionInMap(x_map_get, y_map_get);
 //	publishPose(x_map_get, y_map_get, angle);
