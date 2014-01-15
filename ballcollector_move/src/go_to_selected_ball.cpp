@@ -178,47 +178,47 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(5);
 
 	int no_ball_counter = 0;
-	gtsb.publishPose(gtsb.getCurrentPose().x, gtsb.getCurrentPose().y);
+	//gtsb.publishPose(gtsb.getCurrentPose().x, gtsb.getCurrentPose().y);
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
 
 
-		//~ if( goToSelectedBall.getState() == STOP ){
-			//~ //ROS_INFO("STOP state");
-			//~ continue;
-		//~ }
-		//~ else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
-			//~ //	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-			//~ if(goToSelectedBall.isBallPoseSet == false){
-				//~ ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
-				//~ continue;
-			//~ }
-			//~ else{
-			//~ //	jest pileczka, sprwdzamy odleglosc
-				//~ if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
-//~ 
-					//~ ROS_INFO("FIRST_STEP_COLLECT - go to ball");
-			//~ //		float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
-					//~ //if(angleDiffRobotGoal > 2.5){
-						//~ //goToSelectedBall.publishAngle();
-						//~ if(goToSelectedBall.ac.isCurrentGoalDone()){
-							//~ goToSelectedBall.publishPose(getCurrentPose().x, getCurrentPose().y);
-							//~ goToSelectedBall.ac.waitForResult();
-						//~ }
-						//~ //goToSelectedBall.goForward(0.1);
-						//~ //goToSelectedBall.publishPose(0.1);
-			//~ //		}
-			//~ //		else{
-			//~ //			goToSelectedBall.publishPose(0.1);
-						//~ //goToSelectedBall.goForward(0.1);
-				//~ //	}
-				//~ }
-				//~ else{
-					//~ ROS_INFO("FIRST_STEP_COLLECT - ball too close");
-				//~ }
-			//~ }
-		//~ }
+		if( gtsb.getState() == STOP ){
+			//ROS_INFO("STOP state");
+			continue;
+		}
+		else if(gtsb.getState() == FIRST_STEP_COLLECT){
+			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
+			if(gtsb.isBallPoseSet == false){
+				ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
+				continue;
+			}
+			else{
+			//	jest pileczka, sprwdzamy odleglosc
+				if(gtsb.getDistanceFromSelectedBall() > 0.6){
+
+					ROS_INFO("FIRST_STEP_COLLECT - go to ball");
+			//		float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
+					//if(angleDiffRobotGoal > 2.5){
+						//goToSelectedBall.publishAngle();
+						if(gtsb.ac.isCurrentGoalDone()){
+							gtsb.publishPose(getCurrentPose().x, getCurrentPose().y);
+							gtsb.ac.waitForResult();
+						}
+						//goToSelectedBall.goForward(0.1);
+						//goToSelectedBall.publishPose(0.1);
+			//		}
+			//		else{
+			//			goToSelectedBall.publishPose(0.1);
+						//goToSelectedBall.goForward(0.1);
+				//	}
+				}
+				else{
+					ROS_INFO("FIRST_STEP_COLLECT - ball too close");
+				}
+			}
+		}
 
 
 		/*
