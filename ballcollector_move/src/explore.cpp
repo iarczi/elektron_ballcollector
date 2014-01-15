@@ -799,8 +799,18 @@ bool canMove(float x, float y){
 	  costmap_2d::Costmap2D costmap;
 	  costmap_ros->getCostmapCopy( costmap );
 
-	
 		
+		double x_size = costmap.getSizeInMetersX(); 
+		double y_size = costmap.getSizeInMetersY();
+		y_size = y_size/2;
+		x_size = x_size/2;
+		unsigned int cell_size_x, cell_size_y, cell_size_x2, cell_size_y2;;
+		costmap.worldToMap(0.5, y_size, cell_size_x, cell_size_y);
+		costmap.worldToMap(x_size, 0.5, cell_size_x2, cell_size_y2);
+		double cost2 = double(costmap.getCost( cell_size_x, cell_size_y ));
+		double cost3 = double(costmap.getCost( cell_size_x2, cell_size_y2 ));
+		ROS_INFO(" SIZE world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x_size, y_size, cell_size_x, cell_size_y,  cost2);
+		ROS_INFO(" SIZE world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x_size, y_size, cell_size_x2, cell_size_y2,  cost3);
 	  // Coordinate transform.
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
