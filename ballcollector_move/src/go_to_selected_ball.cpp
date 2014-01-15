@@ -98,7 +98,7 @@ public:
 	int moveStraightState;			// 0 - nic, 1 - jedzie, 2 - dojechal
 	bool moveStraightStateChange;
 
-
+	
 	void selectedBallCb(const geometry_msgs::PointConstPtr& selectedBallPose);
 	void robotGoStraightStateCb(const std_msgs::Int16& state);
 	void deadlockServiceStateCb(const std_msgs::String& state);
@@ -117,7 +117,6 @@ public:
 		go_forward_robot_state_sub_ = nh_.subscribe("/robot_go_straight_state", 1, &GoToSelectedBall::robotGoStraightStateCb, this);
 		alghoritm_state_pub_ = nh_.advertise<std_msgs::String> ("/alghoritm_state",1);
 		deadlock_service_state_sub = nh_.subscribe("/deadlock_service_state", 1, &GoToSelectedBall::deadlockServiceStateCb, this);
-
 
 		firstGoalSent = false;
 		isBallPoseSet = false;
@@ -140,6 +139,7 @@ public:
 	float getRobotAngleInOdom();
 	void transFromOdomToMapPosition(float x_odom_pose, float y_odom_pose, float theta,
 			float &x_map_pose, float &y_map_pose, tf::Quaternion& q);
+	void publishPose(float x, float y)
 	void publishPose(float dist_from_ball);
 	void publishAngle();
 	bool getFirstGoalSent(){return firstGoalSent;};
@@ -175,9 +175,6 @@ int main(int argc, char** argv) {
 	    ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
-
-
-
 	ros::Rate loop_rate(5);
 
 	int no_ball_counter = 0;
@@ -203,16 +200,17 @@ int main(int argc, char** argv) {
 
 					ROS_INFO("FIRST_STEP_COLLECT - go to ball");
 					float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
-					if(angleDiffRobotGoal > 2.5){
-						goToSelectedBall.publishAngle();
+					//if(angleDiffRobotGoal > 2.5){
+						//goToSelectedBall.publishAngle();
+						goToSelectedBall.publishPose(getCurrentPose().x, getCurrentPose().y);
 						goToSelectedBall.ac.waitForResult();
 						//goToSelectedBall.goForward(0.1);
-						goToSelectedBall.publishPose(0.1);
-					}
-					else{
-						goToSelectedBall.publishPose(0.1);
+						//goToSelectedBall.publishPose(0.1);
+			//		}
+			//		else{
+			//			goToSelectedBall.publishPose(0.1);
 						//goToSelectedBall.goForward(0.1);
-					}
+				//	}
 				}
 				else{
 					ROS_INFO("FIRST_STEP_COLLECT - ball too close");
@@ -291,6 +289,26 @@ int main(int argc, char** argv) {
 	}
 }
 
+void GoToSelectedBall::publishPose(float x, float y){
+
+	if(isBallPoseSet== false){
+		ROS_INFO("publishPose, wait for ball position, return");
+		return;
+	}
+	move_base_msgs::MoveBaseGoal goal;
+
+	goal.target_pose.pose.position.x = x;
+	goal.target_pose.pose.position.y = y;
+
+	goal.target_pose.header.stamp = ros::Time::now();
+
+	goal.target_pose.header.frame_id ="/odom";
+
+	ROS_INFO("Sending goal...");
+	ac.sendGoal(goal);
+	firstGoalSent = true;
+
+}
 
 float GoToSelectedBall::getDistanceFromSelectedBall(){
 
