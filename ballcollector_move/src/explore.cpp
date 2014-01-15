@@ -184,6 +184,7 @@ int main(int argc, char** argv) {
 		//ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
+	robot_explore.setExploreState(MAX_FORWARD);
 
         robot_explore.testForward();
 	//robot_explore.setExploreState(RANDOM_ROTATE);
@@ -192,11 +193,11 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(1);
 	while (ros::ok()) {
 
-				if(robot_explore.isCurrentGoalDone()){
-					robot_explore.setExploreState(MAX_FORWARD);
+			//	if(robot_explore.isCurrentGoalDone()){
+	///				robot_explore.setExploreState(MAX_FORWARD);
 		//			robot_explore.testForward();
-					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
-				}
+	//				ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
+	//			}
 //ddddddddddddddddduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuupa
 		/*if(robot_explore.canExplore() == false){
 	//		ROS_INFO("Robot move - no explore - start ...");
