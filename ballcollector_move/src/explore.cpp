@@ -194,7 +194,7 @@ int main(int argc, char** argv) {
 	while (ros::ok()) {
 
 			//	if(robot_explore.isCurrentGoalDone()){
-	///				robot_explore.setExploreState(MAX_FORWARD);
+	//			robot_explore.setExploreState(MAX_FORWARD);
 		//			robot_explore.testForward();
 	//				ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
 	//			}
@@ -593,11 +593,12 @@ void Explore::testRotate(){
 }
 
 void Explore::testForward(){
-	float d_x = 0.1, d_y=0.0;
-	while (canMove(d_x, d_y)){
-
+	float d_x = 0.5, d_y=0.0,x_odom, y_odom;
+	transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
+	while (canMove(x_odom, y_odom)){
 		d_x += 0.1;
 		//d_y = 0;
+		transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
 		//transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 
 	}; 
