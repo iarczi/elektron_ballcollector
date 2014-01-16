@@ -319,7 +319,7 @@ void GoToSelectedBall::publishPose(float x, float y){
 	goal.target_pose.pose.position.y = y;
 	
 	geometry_msgs::Quaternion qMsg;
-	setAngle(getRobotAngleInMap, qMsg);
+	setAngle(getRobotAngleInMap(), qMsg);
 	
 	
 	
@@ -344,7 +344,7 @@ void GoToSelectedBall::publishPoseBack(){
 	goal.target_pose.pose.position.y = 0;
 	
 	geometry_msgs::Quaternion qMsg;
-	setAngle(getRobotAngleInMap, qMsg);
+	setAngle(0, qMsg);
 	
 	goal.target_pose.pose.orientation = qMsg;
 	goal.target_pose.header.stamp = ros::Time::now();
@@ -583,7 +583,7 @@ float GoToSelectedBall::getRobotAngleInOdom(){
 
 //	return yaw;
 }
-float GoToSelectedBall::getRobotAngleInMap(){
+double GoToSelectedBall::getRobotAngleInMap(){
 
 	ros::Time now = ros::Time(0);
 	tf::StampedTransform tfOR;								//	robot w odom
