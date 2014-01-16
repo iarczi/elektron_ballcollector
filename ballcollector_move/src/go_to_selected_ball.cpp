@@ -338,7 +338,7 @@ void GoToSelectedBall::publishPose(float x, float y){
 
 	goal.target_pose.pose.position.x = 1.0;//x;
 	goal.target_pose.pose.position.y = y;
-
+	tf::Quaternion q;
 	geometry_msgs::Quaternion qMsg;
 	tf::quaternionTFToMsg(q, qMsg);
 
