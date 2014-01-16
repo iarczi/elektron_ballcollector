@@ -194,6 +194,8 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(1);
 	while (ros::ok()) {
 
+		ros::spinOnce();
+		loop_rate.sleep();
 		if (!robot_explore.isActionServerActive()){
 
 			//ROS_INFO("Explore server action isn't active!");
@@ -269,8 +271,7 @@ int main(int argc, char** argv) {
 
 		*/
 
-		ros::spinOnce();
-		loop_rate.sleep();
+		
 	}
 
 

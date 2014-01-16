@@ -185,13 +185,15 @@ int main(int argc, char** argv) {
 	int no_ball_counter = 0;
 
 	while (ros::ok()) {
-	/*	if (!goToSelectedBall.isActionServerActive()){
+		ros::spinOnce();
+		loop_rate.sleep();
+		if (!goToSelectedBall.isActionServerActive()){
  
 			ROS_INFO("go to ball server action isn't active!");
  
 			 continue;
 		 }
-		 else{*/
+		 else{
 		if( goToSelectedBall.getState() == STOP ){
 		//		ROS_INFO("STOP state");
 				continue;
@@ -215,9 +217,8 @@ int main(int argc, char** argv) {
 					}
 				}
 			}
-		// }
-		ros::spinOnce();
-		loop_rate.sleep();
+		 }
+		
 
 	}
 }
