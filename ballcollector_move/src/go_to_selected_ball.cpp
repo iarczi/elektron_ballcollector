@@ -178,15 +178,15 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(5);
 	while (ros::ok()) {
 
-		if (!gtsb.isActionServerActive()){
+/*		if (!gtsb.isActionServerActive()){
 
-			//ROS_INFO("Explore server action isn't active!");
+			ROS_INFO("go to ball server action isn't active!");
 
 			continue;
 		}
-		else{
+		else{*/
 			if( gtsb.getState() == STOP ){
-			//ROS_INFO("STOP state");
+				ROS_INFO("STOP state");
 				continue;
 			}
 			else if(gtsb.getState() == FIRST_STEP_COLLECT){
@@ -208,7 +208,7 @@ int main(int argc, char** argv) {
 					}
 				}
 			}
-		}
+		//}
 		ros::spinOnce();
 		loop_rate.sleep();
 	}
