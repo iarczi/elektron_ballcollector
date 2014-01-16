@@ -177,16 +177,16 @@ int main(int argc, char** argv) {
 
 	ros::Rate loop_rate(5);
 	while (ros::ok()) {
-
-		if (!gtsb.isActionServerActive()){
-
-			//ROS_INFO("Explore server action isn't active!");
-
-			continue;
-		}
-		else{
+//~ 
+		//~ if (!gtsb.isActionServerActive()){
+//~ 
+			//~ //ROS_INFO("Explore server action isn't active!");
+//~ 
+			//~ continue;
+		//~ }
+		//~ else{
 			if( gtsb.getState() == STOP ){
-			//ROS_INFO("STOP state");
+				ROS_INFO("STOP state");
 				continue;
 			}
 			else if(gtsb.getState() == FIRST_STEP_COLLECT){
@@ -208,7 +208,7 @@ int main(int argc, char** argv) {
 					}
 				}
 			}
-		}
+		//~ }
 		ros::spinOnce();
 		loop_rate.sleep();
 	}
@@ -338,6 +338,7 @@ void GoToSelectedBall::publishPose(float x, float y){
 
 	goal.target_pose.pose.position.x = 1.0;//x;
 	goal.target_pose.pose.position.y = y;
+	
 	tf::Quaternion q;
 	geometry_msgs::Quaternion qMsg;
 	tf::quaternionTFToMsg(q, qMsg);

@@ -308,30 +308,34 @@ void Scheduler::sendStopExploreGoal(){
 	ROS_INFO("send a STOP goal to the explore action server");
 //	scheduler::SchedulerGoal goal;
 //	goal.value = 0;
-	ac_.cancelAllGoals();
+	//ac_.cancelAllGoals();
 	explore_action_client_.cancelAllGoals();
 }
 
 
 void Scheduler::sendGoToBallStopGoal(){
+	ROS_INFO(" send goal GO TO STOP STEP");
 	scheduler::SchedulerGoal goal;
 	goal.value = 0;
 	go_to_ball_action_client_.sendGoal(goal);
 }
 
 void Scheduler::sendGoToBallFirstStepGoal(){
+	ROS_INFO(" send goal GO TO FIRST STEP");
 	scheduler::SchedulerGoal goal;
 	goal.value = 1;
 	go_to_ball_action_client_.sendGoal(goal);
 }
 
 void Scheduler::sendGoToBallSecondStepGoal(){
+	ROS_INFO(" send goal GO TO SECOND STEP");
 	scheduler::SchedulerGoal goal;
 	goal.value = 2;
 	go_to_ball_action_client_.sendGoal(goal);
 }
 
 bool Scheduler::isGoToBallServiceDone(){
+	ROS_INFO(" GO TO IS DONE");
 	bool is_done = go_to_ball_action_client_.getState().isDone();
 	return is_done;
 }
