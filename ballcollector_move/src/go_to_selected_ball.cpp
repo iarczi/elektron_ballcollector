@@ -133,13 +133,15 @@ public:
 
 	}
 
-
+	bool isActionServerActive(){return as_.isActive();};
+	
 	geometry_msgs::Point getCurrentPose();
 	float getAngle(float x1, float y1, float x2, float y2);
 	void getRobotPositionInOdom(float &x_odom_pose, float &y_odom_pose);
 	float getRobotAngleInOdom();
 	void transFromOdomToMapPosition(float x_odom_pose, float y_odom_pose, float theta,
 			float &x_map_pose, float &y_map_pose, tf::Quaternion& q);
+	void publishPose(float x, float y);
 	void publishPose(float dist_from_ball);
 	void publishAngle();
 	bool getFirstGoalSent(){return firstGoalSent;};
