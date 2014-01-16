@@ -139,7 +139,7 @@ public:
 	float getAngle(float x1, float y1, float x2, float y2);
 	void getRobotPositionInOdom(float &x_odom_pose, float &y_odom_pose);
 	float getRobotAngleInOdom();
-	float getRobotAngleInMap();
+	double getRobotAngleInMap();
 	void setAngle(double angle,  geometry_msgs::Quaternion& qMsg);
 	void transFromOdomToMapPosition(float x_odom_pose, float y_odom_pose, float theta,
 			float &x_map_pose, float &y_map_pose, tf::Quaternion& q);
@@ -216,8 +216,11 @@ int main(int argc, char** argv) {
 								ROS_INFO("wait for ball position");
 								continue;
 							}
+							goToSelectedBall.onHoover();
 							goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
 							goToSelectedBall.ac.waitForResult();
+							goToSelectedBall.offHoover();
+
 						}
 					}
 					else{
@@ -327,7 +330,7 @@ void GoToSelectedBall::publishPose(float x, float y){
 
 	goal.target_pose.header.stamp = ros::Time::now();
 
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/odom";
 
 	ROS_INFO("Sending goal...");
 	ac.sendGoal(goal);

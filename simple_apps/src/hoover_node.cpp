@@ -59,8 +59,8 @@ int main(int argc, char** argv) {
 		if (sp->isConnected()) {
 			if (ros::ok()) {
 				hn.number_of_balls = sp->getNumbeOfBalls();	//	zapytaj o liczbe pileczek
-			//	ROS_INFO("number_of_balls = %d", hn.number_of_balls);
-			}
+//			ROS_INFO("number_of_balls = %d", hn.number_of_balls);
+		}
 		} else {
 			ROS_ERROR("Connection to device  failed");
 		}
