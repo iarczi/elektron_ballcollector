@@ -169,6 +169,7 @@ int main(int argc, char** argv) {
 			else if(scheduler.getState() == GO_TO_BALL_FIRST_STEP){
 
 			ROS_INFO("go to ball 1  step");
+				scheduler.sendGoToBallFirstStepGoal();
 				if (scheduler.isDeadlock()) {
 					//	dojezdzal do pileczki, ale sie zakleszczyl
 
