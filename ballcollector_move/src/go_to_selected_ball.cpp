@@ -168,10 +168,10 @@ public:
 
 
 int main(int argc, char** argv) {
-	ros::init(argc, argv, "gtsb");
-	GoToSelectedBall gtsb(ros::this_node::getName());
+	ros::init(argc, argv, "goToSelectedBall");
+	GoToSelectedBall goToSelectedBall(ros::this_node::getName());
 
-	 while(!gtsb.ac_.waitForServer(ros::Duration(5.0))){
+	 while(!goToSelectedBall.ac_.waitForServer(ros::Duration(5.0))){
 	    ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
@@ -182,28 +182,28 @@ int main(int argc, char** argv) {
 
 //	    ROS_INFO("g for the move_base action server to come up");
 //~ 
-	/*	if (!gtsb.isActionServerActive()){
+	/*	if (!goToSelectedBall.isActionServerActive()){
  
 			ROS_INFO("go to ball server action isn't active!");
  
 			 continue;
 		 }
 		 else{*/
-			if( gtsb.getState() == STOP ){
+			if( goToSelectedBall.getState() == STOP ){
 		//		ROS_INFO("STOP state");
 				continue;
 			}
-			else if(gtsb.getState() == FIRST_STEP_COLLECT){
+			else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
 			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-				if(gtsb.isBallPoseSet == false){
+				if(goToSelectedBall.isBallPoseSet == false){
 					ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
 					continue;
 				}
 				else{
-					if(gtsb.getDistanceFromSelectedBall() > 0.6){
-						if(gtsb.ac_.getState().isDone()){
+					if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
+						if(goToSelectedBall.ac_.getState().isDone()){
 							ROS_INFO("FIRST_STEP_COLLECT sending pose");
-							gtsb.publishPose(gtsb.getCurrentPose().x, gtsb.getCurrentPose().y);
+							goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
 						}
 						ROS_INFO("FIRST_STEP_COLLECT ac isn't done");
 					}
@@ -218,33 +218,33 @@ int main(int argc, char** argv) {
 	}
 
 	//~ int no_ball_counter = 0;
-	//~ //gtsb.publishPose(gtsb.getCurrentPose().x, gtsb.getCurrentPose().y);
+	//~ //goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
 	//~ while (ros::ok()) {
 		//~ ros::spinOnce();
 		//~ loop_rate.sleep();
 //~ 
 //~ 
-		//~ if( gtsb.getState() == STOP ){
+		//~ if( goToSelectedBall.getState() == STOP ){
 			//~ //ROS_INFO("STOP state");
 			//~ continue;
 		//~ }
-		//~ else if(gtsb.getState() == FIRST_STEP_COLLECT){
+		//~ else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
 			//~ //	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-			//~ if(gtsb.isBallPoseSet == false){
+			//~ if(goToSelectedBall.isBallPoseSet == false){
 				//~ ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
 				//~ continue;
 			//~ }
 			//~ else{
 			//~ //	jest pileczka, sprwdzamy odleglosc
-				//~ if(gtsb.getDistanceFromSelectedBall() > 0.6){
+				//~ if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
 //~ 
 					//~ ROS_INFO("FIRST_STEP_COLLECT - go to ball");
 			//~ //		float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
 					//~ //if(angleDiffRobotGoal > 2.5){
 						//~ //goToSelectedBall.publishAngle();
-						//~ if(gtsb.ac.isCurrentGoalDone()){
-							//~ gtsb.publishPose(getCurrentPose().x, getCurrentPose().y);
-							//~ gtsb.ac.waitForResult();
+						//~ if(goToSelectedBall.ac.isCurrentGoalDone()){
+							//~ goToSelectedBall.publishPose(getCurrentPose().x, getCurrentPose().y);
+							//~ goToSelectedBall.ac.waitForResult();
 						//~ }
 						//~ //goToSelectedBall.goForward(0.1);
 						//~ //goToSelectedBall.publishPose(0.1);
