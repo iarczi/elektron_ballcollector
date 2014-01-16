@@ -178,7 +178,7 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(5);
 	while (ros::ok()) {
 
-		if (!gtsb.isActionServerActive()){
+		if (!gtsb.as_.isActive()){
 
 			//ROS_INFO("Explore server action isn't active!");
 
@@ -197,7 +197,7 @@ int main(int argc, char** argv) {
 				}
 				else{
 					if(gtsb.getDistanceFromSelectedBall() > 0.6){
-						if(gtsb.ac_.getState.isDone()){
+						if(gtsb.ac_.getState().isDone()){
 							ROS_INFO("FIRST_STEP_COLLECT sending pose");
 							gtsb.publishPose(gtsb.getCurrentPose().x, gtsb.getCurrentPose().y);
 						}
