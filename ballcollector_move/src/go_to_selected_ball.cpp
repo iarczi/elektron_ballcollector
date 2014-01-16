@@ -139,6 +139,8 @@ public:
 	float getAngle(float x1, float y1, float x2, float y2);
 	void getRobotPositionInOdom(float &x_odom_pose, float &y_odom_pose);
 	float getRobotAngleInOdom();
+	float getRobotAngleInMap();
+	void setAngle(double angle,  geometry_msgs::Quaternion& qMsg);
 	void transFromOdomToMapPosition(float x_odom_pose, float y_odom_pose, float theta,
 			float &x_map_pose, float &y_map_pose, tf::Quaternion& q);
 	void publishPose(float x, float y);
@@ -230,7 +232,13 @@ int main(int argc, char** argv) {
 
 	}
 }
+void GoToSelectedBall::setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
 
+	tf::Quaternion q_result;
+	q_result.setRPY(.0, .0, angle);
+	tf::quaternionTFToMsg(q_result, qMsg);
+
+}
 void GoToSelectedBall::goToBallSecondStep(){
 		state_ = SECOND_STEP_COLLECT;
 
@@ -310,9 +318,11 @@ void GoToSelectedBall::publishPose(float x, float y){
 	goal.target_pose.pose.position.x = x;
 	goal.target_pose.pose.position.y = y;
 	
-	tf::Quaternion q;
 	geometry_msgs::Quaternion qMsg;
-	tf::quaternionTFToMsg(q, qMsg);
+	setAngle(getRobotAngleInMap, qMsg);
+	
+	
+	
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
@@ -563,6 +573,23 @@ float GoToSelectedBall::getRobotAngleInOdom(){
 	tf::StampedTransform tfOR;								//	robot w odom
 	tf_listener_.waitForTransform("/odom", "/base_link", now, ros::Duration(1.0));
 	tf_listener_.lookupTransform ("/odom", "/base_link", now,  tfOR);
+
+//	x_odom_pose = tfOR.getOrigin ()[0];				//	wspolrzedne robota w ukladzie odom
+//	y_odom_pose = tfOR.getOrigin ()[1];				//	wspolrzedne robota w ukladzie odom
+
+	return tf::getYaw(tfOR.getRotation());
+
+//	float roll, pitch, yaw;
+//	btMatrix3x3( tfOR.getRotation() ).getRPY(roll, pitch, yaw);
+
+//	return yaw;
+}
+float GoToSelectedBall::getRobotAngleInMap(){
+
+	ros::Time now = ros::Time(0);
+	tf::StampedTransform tfOR;								//	robot w odom
+	tf_listener_.waitForTransform("/map", "/base_link", now, ros::Duration(1.0));
+	tf_listener_.lookupTransform ("/map", "/base_link", now,  tfOR);
 
 //	x_odom_pose = tfOR.getOrigin ()[0];				//	wspolrzedne robota w ukladzie odom
 //	y_odom_pose = tfOR.getOrigin ()[1];				//	wspolrzedne robota w ukladzie odom
