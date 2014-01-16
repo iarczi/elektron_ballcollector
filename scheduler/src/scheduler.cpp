@@ -142,8 +142,6 @@ int main(int argc, char** argv) {
 				else if(scheduler.isBallVisible()){
 					//	robot podczas eksploracji zobaczyl pileczke, przechodzimy do stanu
 					//	dojazdu do pileczki
-						ROS_INFO("ball visible");
-
 					if(scheduler.getDistanceFromSelectedBall() > 0.6){
 						//	pileczka jest dalej niz 0.6 m, przechodzimy do statnu GO_TO_BALL_FIRST_STEP
 
@@ -169,8 +167,6 @@ int main(int argc, char** argv) {
 			}
 			else if(scheduler.getState() == GO_TO_BALL_FIRST_STEP){
 
-			ROS_INFO("go to ball 1  step");
-				scheduler.sendGoToBallFirstStepGoal();
 				if (scheduler.isDeadlock()) {
 					//	dojezdzal do pileczki, ale sie zakleszczyl
 
