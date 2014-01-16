@@ -478,16 +478,38 @@ void Explore::testCanMove(){
 		d_x += 0.1;
 		transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
 	};
-	ROS_INFO("DX MAP %f", d_x);
+	ROS_INFO("DX MAP %f, x_odom %f", d_x, x_odom);
 	float d_x2 = 0.1, d_y2=0.0,x_odom2, y_odom2;
 	transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
 	while (canMove(x_odom2, y_odom2)){
 		d_x2 += 0.1;
 		transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
 	};
-	ROS_INFO("DX ODOM %f", d_x2);
+	ROS_INFO("DX ODOM %f, x_odom2 %f", d_x2, x_odom2);
+	d_x=0.1;
+	float d_x = 0.1, d_y=0.0,x_odom, y_odom;
+	transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
+	while (canMove(d_x, d_y)){
+		d_x += 0.1;
+		transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
+	};
+	ROS_INFO("DX  %f, x_odom %f", d_x, x_odom);
 	
+	d_x2 = 0.1;
+	//transFromOdomToMapPositionnsfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
+	getRobotPositionInOdom(x_odom2, y_odom2);
+	while (canMove(x_odom2, y_odom2)){
+		x_odom2 +=0.1
+		//transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
+	};
+	ROS_INFO("DX getODOM %f, x_odom2 %f", d_x2, x_odom2);
 	
+	getRobotPositionInMap(x_odom2, y_odom2);
+	while (canMove(x_odom2, y_odom2)){
+		x_odom2 +=0.1
+		//transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
+	};
+	ROS_INFO("DX getMap %f, x_odom2 %f", d_x2, x_odom2);
 }
 void Explore::randomRotate(){
 
