@@ -189,13 +189,13 @@ int main(int argc, char** argv) {
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
-		if (!goToSelectedBall.isActionServerActive()){
+/*		if (!goToSelectedBall.isActionServerActive()){
  
 			ROS_INFO("go to ball server action isn't active!");
  
 			 continue;
 		 }
-		 else{
+		 else{*/
 		if( goToSelectedBall.getState() == STOP ){
 		//		ROS_INFO("STOP state");
 				continue;
@@ -210,21 +210,22 @@ int main(int argc, char** argv) {
 					if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
 						if(goToSelectedBall.ac.getState().isDone()){
 							ROS_INFO("FIRST_STEP_COLLECT sending pose");
-							if(isBallPoseSet== false){
+							if(goToSelectedBall.isBallPoseSet== false){
 								ROS_INFO("wait for ball position");
 								continue;
 							}
 							goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
+							goToSelectedBall.ac.waitForResult();
 						}
 					}
 					else{
-						ac.cancelAllGoals();
-						goToBallSecondStep();
+						goToSelectedBall.ac.cancelAllGoals();
+						goToSelectedBall.goToBallSecondStep();
 						ROS_INFO("FIRST_STEP_COLLECT - ball too close");
 					}
 				}
 			}
-		 }
+		// }
 		
 
 	}
@@ -241,10 +242,10 @@ void GoToSelectedBall::goToBallSecondStep(){
 		//~ }
 		//~ float dist = getDistanceFromSelectedBall();
 		onHoover();
-		publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
-		ac_.waitForResult();
+		publishPose(getCurrentPose().x, getCurrentPose().y);
+		ac.waitForResult();
 		publishPoseBack();
-		ac_.waitForResult();
+		ac.waitForResult();
 		offHoover();
 		ROS_INFO("leave SECOND_STEP_COLLECT");
 }
@@ -312,6 +313,7 @@ void GoToSelectedBall::publishPose(float x, float y){
 	tf::Quaternion q;
 	geometry_msgs::Quaternion qMsg;
 	tf::quaternionTFToMsg(q, qMsg);
+	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
 
@@ -335,6 +337,7 @@ void GoToSelectedBall::publishPoseBack(){
 	geometry_msgs::Quaternion qMsg;
 	tf::quaternionTFToMsg(q, qMsg);
 
+	goal.target_pose.pose.orientation = qMsg;
 	goal.target_pose.header.stamp = ros::Time::now();
 
 	goal.target_pose.header.frame_id ="/base_link";
