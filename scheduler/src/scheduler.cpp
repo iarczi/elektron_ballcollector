@@ -111,10 +111,10 @@ int main(int argc, char** argv) {
 	ros::init(argc, argv, "scheduler");
 
 	Scheduler scheduler;
-	scheduler.setSate(EXPLORE);
+	
 
 	scheduler.sendStartExploreGoal();
-
+	scheduler.setSate(EXPLORE);
 	ros::Rate loop_rate(10);
 
 	while (ros::ok()) {
@@ -133,8 +133,9 @@ int main(int argc, char** argv) {
 					//	robot podczas eksploracji zakleszczyl sie
 					//	przechodzimy do stanu obslugi zakleszczenia
 					scheduler.sendStopExploreGoal();
-					scheduler.setSate(DEADLOCK);
+				
 					scheduler.sendDeadlockGoal();
+					scheduler.setSate(DEADLOCK);
 					ROS_INFO("EXPLORE ---> DEADLOCK");
 
 				}
@@ -147,16 +148,16 @@ int main(int argc, char** argv) {
 						//	pileczka jest dalej niz 0.6 m, przechodzimy do statnu GO_TO_BALL_FIRST_STEP
 
 						scheduler.sendStopExploreGoal();
-						scheduler.setSate(GO_TO_BALL_FIRST_STEP);
+						
 						scheduler.sendGoToBallFirstStepGoal();
-
+						scheduler.setSate(GO_TO_BALL_FIRST_STEP);
 						ROS_INFO("EXPLORE ---> GO_TO_BALL_FIRST_STEP");
 					}
 					else{
 						scheduler.sendStopExploreGoal();
-						scheduler.setSate(GO_TO_BALL_SECOND_STEP);
+						
 						scheduler.sendGoToBallSecondStepGoal();
-
+						scheduler.setSate(GO_TO_BALL_SECOND_STEP);
 						ROS_INFO("EXPLORE ---> GO_TO_BALL_SECOND_STEP");
 					}
 
@@ -174,32 +175,33 @@ int main(int argc, char** argv) {
 					//	dojezdzal do pileczki, ale sie zakleszczyl
 
 					scheduler.sendGoToBallStopGoal();
-					scheduler.setSate(DEADLOCK);
-					scheduler.sendDeadlockGoal();
 
+					scheduler.sendDeadlockGoal();
+					scheduler.setSate(DEADLOCK);
 					ROS_INFO("GO_TO_BALL_FIRST_STEP ---> DEADLOCK");
 				}
 				else if(!scheduler.isBallVisible()){
 					//	dojezdzal do pileczki, ale przestal ja widziec
 
 					scheduler.sendGoToBallStopGoal();
-					scheduler.setSate(EXPLORE);
 					scheduler.sendStartExploreGoal();
-					
+					scheduler.setSate(EXPLORE);
 					ROS_INFO("GO_TO_BALL_FIRST_STEP ---> EXPLORE");
 				}
 				else if(scheduler.getDistanceFromSelectedBall() < 0.6){
 					scheduler.sendGoToBallStopGoal();
-					scheduler.setSate(GO_TO_BALL_SECOND_STEP);
+					
 					scheduler.sendGoToBallSecondStepGoal();
+					scheduler.setSate(GO_TO_BALL_SECOND_STEP);
 					ROS_INFO("GO_TO_BALL_FIRST_STEP ---> GO_TO_BALL_SECOND_STEP");
 				}
 			}
 			else if(scheduler.getState() == GO_TO_BALL_SECOND_STEP){
 				if(scheduler.isGoToBallServiceDone()){
 					ROS_INFO("GO_TO_BALL_SECOND_STEP ---> EXPLORE");
-					scheduler.setSate(EXPLORE);
+					
 					scheduler.sendStartExploreGoal();
+					scheduler.setSate(EXPLORE);
 				}
 				else{
 					continue;
@@ -212,8 +214,9 @@ int main(int argc, char** argv) {
 				if(scheduler.isDeadlockServiceDone()){
 					//	zakonczono obsluge deadlocka
 					//	zaczynamy exploracje
-					scheduler.setSate(EXPLORE);
+					
 					scheduler.sendStartExploreGoal();		
+					scheduler.setSate(EXPLORE);
 					ROS_INFO("DEADLOCK ---> EXPLORE");
 				}
 			}
