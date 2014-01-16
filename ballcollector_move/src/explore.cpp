@@ -472,20 +472,20 @@ void Explore::testForward(){
 	//ac_.waitForResult();
 }
 void Explore::testCanMove(){
-	float d_x = 0.1, d_y=0.0,x_odom, y_odom
+	float d_x = 0.1, d_y=0.0,x_odom, y_odom;
 	transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
 	while (canMove(x_odom, y_odom)){
 		d_x += 0.1;
 		transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
 	};
 	ROS_INFO("DX MAP %f", d_x);
-	d_x = 0.1
-	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);	
-	while (canMove(x_odom, y_odom)){
-		d_x += 0.1;
-		transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);	
+	float d_x2 = 0.1, d_y2=0.0,x_odom2, y_odom2;
+	transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
+	while (canMove(x_odom2, y_odom2)){
+		d_x2 += 0.1;
+		transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
 	};
-	ROS_INFO("DX ODOM %f", d_x);
+	ROS_INFO("DX ODOM %f", d_x2);
 	
 	
 }
