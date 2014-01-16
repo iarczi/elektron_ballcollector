@@ -168,7 +168,7 @@ public:
 
 
 int main(int argc, char** argv) {
-	ros::init(argc, argv, "goToSelectedBall");
+	ros::init(argc, argv, "gtsb");
 	GoToSelectedBall gtsb(ros::this_node::getName());
 
 	 while(!gtsb.ac_.waitForServer(ros::Duration(5.0))){
@@ -177,6 +177,10 @@ int main(int argc, char** argv) {
 
 	ros::Rate loop_rate(1);
 	while (ros::ok()) {
+		
+//	    ROS_INFO("name %s",);
+
+//	    ROS_INFO("g for the move_base action server to come up");
 //~ 
 	/*	if (!gtsb.isActionServerActive()){
  
