@@ -91,14 +91,14 @@ private:
 
 public:
 	bool firstGoalSent;
-	MoveBaseClient ac;
+	MoveBaseClient ac_;
 	bool isBallPoseSet;
 	bool is_deadlock_service_run;
-
+	bool isActionServerActive(){return as_.isActive();};
 	int moveStraightState;			// 0 - nic, 1 - jedzie, 2 - dojechal
 	bool moveStraightStateChange;
 
-
+	
 	void selectedBallCb(const geometry_msgs::PointConstPtr& selectedBallPose);
 	void robotGoStraightStateCb(const std_msgs::Int16& state);
 	void deadlockServiceStateCb(const std_msgs::String& state);
@@ -109,7 +109,7 @@ public:
 	GoToSelectedBall(std::string name) :
 		as_(nh_, name, boost::bind(&GoToSelectedBall::executeCB, this, _1), false),
 		action_name_(name),
-		ac("move_base", true)
+		ac_("move_base", true)
 	{
 		selected_ball_sub_ = nh_.subscribe < geometry_msgs::Point > ("/one_selected_ball", 1, &GoToSelectedBall::selectedBallCb, this);
 		hoover_state_pub_ = nh_.advertise<std_msgs::Int16> ("hoover_state",1);
@@ -117,7 +117,6 @@ public:
 		go_forward_robot_state_sub_ = nh_.subscribe("/robot_go_straight_state", 1, &GoToSelectedBall::robotGoStraightStateCb, this);
 		alghoritm_state_pub_ = nh_.advertise<std_msgs::String> ("/alghoritm_state",1);
 		deadlock_service_state_sub = nh_.subscribe("/deadlock_service_state", 1, &GoToSelectedBall::deadlockServiceStateCb, this);
-
 
 		firstGoalSent = false;
 		isBallPoseSet = false;
@@ -140,6 +139,7 @@ public:
 	float getRobotAngleInOdom();
 	void transFromOdomToMapPosition(float x_odom_pose, float y_odom_pose, float theta,
 			float &x_map_pose, float &y_map_pose, tf::Quaternion& q);
+	void publishPose(float x, float y);
 	void publishPose(float dist_from_ball);
 	void publishAngle();
 	bool getFirstGoalSent(){return firstGoalSent;};
@@ -171,53 +171,94 @@ int main(int argc, char** argv) {
 	ros::init(argc, argv, "goToSelectedBall");
 	GoToSelectedBall goToSelectedBall(ros::this_node::getName());
 
-	 while(!goToSelectedBall.ac.waitForServer(ros::Duration(5.0))){
+	 while(!goToSelectedBall.ac_.waitForServer(ros::Duration(5.0))){
 	    ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
-
-
-
-	ros::Rate loop_rate(10);
-
-	int no_ball_counter = 0;
-
+	ros::Rate loop_rate(1);
 	while (ros::ok()) {
-		ros::spinOnce();
-		loop_rate.sleep();
+		
+//	    ROS_INFO("name %s",);
 
-
-		if( goToSelectedBall.getState() == STOP ){
-			ROS_INFO("STOP state");
-			continue;
-		}
-		else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
-			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-			if(goToSelectedBall.isBallPoseSet == false){
-				ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
+//	    ROS_INFO("g for the move_base action server to come up");
+//~ 
+	/*	if (!goToSelectedBall.isActionServerActive()){
+ 
+			ROS_INFO("go to ball server action isn't active!");
+ 
+			 continue;
+		 }
+		 else{*/
+			if( goToSelectedBall.getState() == STOP ){
+		//		ROS_INFO("STOP state");
 				continue;
 			}
-			else{
-			//	jest pileczka, sprwdzamy odleglosc
-				if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
-
-					ROS_INFO("FIRST_STEP_COLLECT - go to ball");
-					float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
-					if(angleDiffRobotGoal > 2.5){
-						goToSelectedBall.publishAngle();
-						goToSelectedBall.ac.waitForResult();
-						goToSelectedBall.goForward(0.1);
-					}
-					else{
-					//	goToSelectedBall.publishPose(0.2);
-						goToSelectedBall.goForward(0.1);
-					}
+			else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
+			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
+				if(goToSelectedBall.isBallPoseSet == false){
+					ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
+					continue;
 				}
 				else{
-					ROS_INFO("FIRST_STEP_COLLECT - ball too close");
+					if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
+						if(goToSelectedBall.ac_.getState().isDone()){
+							ROS_INFO("FIRST_STEP_COLLECT sending pose");
+							goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
+						}
+						ROS_INFO("FIRST_STEP_COLLECT ac isn't done");
+					}
+					else{
+						ROS_INFO("FIRST_STEP_COLLECT - ball too close");
+					}
 				}
 			}
-		}
+		// }
+		ros::spinOnce();
+		loop_rate.sleep();
+	}
+
+	//~ int no_ball_counter = 0;
+	//~ //goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
+	//~ while (ros::ok()) {
+		//~ ros::spinOnce();
+		//~ loop_rate.sleep();
+//~ 
+//~ 
+		//~ if( goToSelectedBall.getState() == STOP ){
+			//~ //ROS_INFO("STOP state");
+			//~ continue;
+		//~ }
+		//~ else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
+			//~ //	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
+			//~ if(goToSelectedBall.isBallPoseSet == false){
+				//~ ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
+				//~ continue;
+			//~ }
+			//~ else{
+			//~ //	jest pileczka, sprwdzamy odleglosc
+				//~ if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
+//~ 
+					//~ ROS_INFO("FIRST_STEP_COLLECT - go to ball");
+			//~ //		float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
+					//~ //if(angleDiffRobotGoal > 2.5){
+						//~ //goToSelectedBall.publishAngle();
+						//~ if(goToSelectedBall.ac.isCurrentGoalDone()){
+							//~ goToSelectedBall.publishPose(getCurrentPose().x, getCurrentPose().y);
+							//~ goToSelectedBall.ac.waitForResult();
+						//~ }
+						//~ //goToSelectedBall.goForward(0.1);
+						//~ //goToSelectedBall.publishPose(0.1);
+			//~ //		}
+			//~ //		else{
+			//~ //			goToSelectedBall.publishPose(0.1);
+						//~ //goToSelectedBall.goForward(0.1);
+				//~ //	}
+				//~ }
+				//~ else{
+					//~ ROS_INFO("FIRST_STEP_COLLECT - ball too close");
+				//~ }
+			//~ }
+		//~ }
 
 
 		/*
@@ -287,9 +328,34 @@ int main(int argc, char** argv) {
 
 		*/
 
-	}
+	
 }
 
+void GoToSelectedBall::publishPose(float x, float y){
+	ROS_INFO("Publish POSE!!!! joł");
+	if(isBallPoseSet== false){
+		ROS_INFO("publishPose, wait for ball position, return");
+		return;
+	}
+	
+	move_base_msgs::MoveBaseGoal goal;
+
+	goal.target_pose.pose.position.x = 1.0;//x;
+	goal.target_pose.pose.position.y = y;
+	
+	tf::Quaternion q;
+	geometry_msgs::Quaternion qMsg;
+	tf::quaternionTFToMsg(q, qMsg);
+
+	goal.target_pose.header.stamp = ros::Time::now();
+
+	goal.target_pose.header.frame_id ="/base_link";
+
+	ROS_INFO("Sending goal...");
+	ac_.sendGoal(goal);
+	firstGoalSent = true;
+
+}
 
 float GoToSelectedBall::getDistanceFromSelectedBall(){
 
@@ -380,7 +446,7 @@ void GoToSelectedBall::publishPose(float dist_from_ball){
 
 
 //	float roll, pitch, yaw;
-//	btMatrix3x3(q).getRPY(roll, pitch, yaw);
+//	tf::Matrix3x3(q).getRPY(roll, pitch, yaw);
 //	ROS_INFO("angle in map = %f ", yaw*180/PI);
 
 	geometry_msgs::Quaternion qMsg;
@@ -397,11 +463,11 @@ void GoToSelectedBall::publishPose(float dist_from_ball){
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/base_link";
 
 
 	ROS_INFO("Sending goal");
-	ac.sendGoal(goal);
+	ac_.sendGoal(goal);
 	firstGoalSent = true;
 
 /*
@@ -458,11 +524,11 @@ void GoToSelectedBall::publishAngle(){
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/base_link";
 
 
 	ROS_INFO("Sending goal");
-	ac.sendGoal(goal);
+	ac_.sendGoal(goal);
 	firstGoalSent = true;
 //	isBallPoseSet = false;
 
@@ -566,7 +632,7 @@ float GoToSelectedBall::getRobotAngleInOdom(){
 	return tf::getYaw(tfOR.getRotation());
 
 //	float roll, pitch, yaw;
-//	btMatrix3x3( tfOR.getRotation() ).getRPY(roll, pitch, yaw);
+//	tf::Matrix3x3( tfOR.getRotation() ).getRPY(roll, pitch, yaw);
 
 //	return yaw;
 }
@@ -632,13 +698,16 @@ void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 		float angleDiffRobotGoal = getAngleDiff()*180/(3.14);
 		if(angleDiffRobotGoal > 2.5){
 			publishAngle();
-			ac.waitForResult();
+			ac_.waitForResult();
 		}
 		float dist = getDistanceFromSelectedBall();
+			ROS_INFO("dist = %f", dist);
 		onHoover();
-		goForward(dist - 0.3);
+		publishPose(dist - 0.3);
+		//goForward(dist - 0.3);
 		ros::Duration(4.0).sleep();
-		goForward(-(dist - 0.3));
+		//goForward(-(dist - 0.3));//- 0.3s
+		publishPose(-(dist - 0.3));
 		ros::Duration(4.0).sleep();
 		offHoover();
 		ROS_INFO("leave SECOND_STEP_COLLECT");
