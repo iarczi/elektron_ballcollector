@@ -343,10 +343,9 @@ void GoToSelectedBall::publishPoseBack(){
 	goal.target_pose.pose.position.x = -0.4;
 	goal.target_pose.pose.position.y = 0;
 	
-	tf::Quaternion q;
 	geometry_msgs::Quaternion qMsg;
-	tf::quaternionTFToMsg(q, qMsg);
-
+	setAngle(getRobotAngleInMap, qMsg);
+	
 	goal.target_pose.pose.orientation = qMsg;
 	goal.target_pose.header.stamp = ros::Time::now();
 
