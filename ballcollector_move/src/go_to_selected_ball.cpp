@@ -94,7 +94,7 @@ public:
 	MoveBaseClient ac_;
 	bool isBallPoseSet;
 	bool is_deadlock_service_run;
-
+	bool isActionServerActive(){return as_.isActive();};
 	int moveStraightState;			// 0 - nic, 1 - jedzie, 2 - dojechal
 	bool moveStraightStateChange;
 
@@ -178,7 +178,7 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(5);
 	while (ros::ok()) {
 
-		if (!gtsb.as_.isActive()){
+		if (!gtsb.isActionServerActive()){
 
 			//ROS_INFO("Explore server action isn't active!");
 
@@ -191,7 +191,7 @@ int main(int argc, char** argv) {
 			}
 			else if(gtsb.getState() == FIRST_STEP_COLLECT){
 			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-				if(gtsb.isBallPoseSet == false){
+				: error: if(gtsb.isBallPoseSet == false){
 					ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
 					continue;
 				}
@@ -324,7 +324,7 @@ int main(int argc, char** argv) {
 
 		*/
 
-	}
+	
 }
 
 void GoToSelectedBall::publishPose(float x, float y){
