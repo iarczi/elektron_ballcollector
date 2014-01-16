@@ -183,109 +183,39 @@ int main(int argc, char** argv) {
 	int no_ball_counter = 0;
 
 	while (ros::ok()) {
-		ros::spinOnce();
-		loop_rate.sleep();
-
-
+		if (!goToSelectedBall.isActionServerActive()){
+ 
+			ROS_INFO("go to ball server action isn't active!");
+ 
+			 continue;
+		 }
+		 else{
 		if( goToSelectedBall.getState() == STOP ){
-			ROS_INFO("STOP state");
-			continue;
-		}
-		else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
-			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-			if(goToSelectedBall.isBallPoseSet == false){
-				ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
+		//		ROS_INFO("STOP state");
 				continue;
 			}
-			else{
-			//	jest pileczka, sprwdzamy odleglosc
-				if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
-
-					ROS_INFO("FIRST_STEP_COLLECT - go to ball");
-					float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
-					if(angleDiffRobotGoal > 2.5){
-						goToSelectedBall.publishAngle();
-						goToSelectedBall.ac.waitForResult();
-						goToSelectedBall.goForward(0.1);
+			else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
+			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
+				if(goToSelectedBall.isBallPoseSet == false){
+					ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
+					continue;
+				}
+				else{
+					if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
+						if(goToSelectedBall.ac.getState().isDone()){
+							ROS_INFO("FIRST_STEP_COLLECT sending pose");
+							goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
+						}
+						ROS_INFO("FIRST_STEP_COLLECT ac isn't done");
 					}
 					else{
-					//	goToSelectedBall.publishPose(0.2);
-						goToSelectedBall.goForward(0.1);
+						ROS_INFO("FIRST_STEP_COLLECT - ball too close");
 					}
 				}
-				else{
-					ROS_INFO("FIRST_STEP_COLLECT - ball too close");
-				}
 			}
-		}
-
-
-		/*
-
-
-		if(goToSelectedBall.isBallPoseSet == false){
-				//	brak piłeczki
-			++no_ball_counter;
-
-			if(no_ball_counter > 20){
-				goToSelectedBall.startExplore();
-				goToSelectedBall.alg_state_ = LOOKING_FOR_BALLS;
-				ROS_INFO("state = LOOKING_FOR_BALLS, wait for ball no_ball_counter = %d", no_ball_counter);
-			}
-			else{
-				goToSelectedBall.ac.cancelAllGoals ();
-				goToSelectedBall.alg_state_ = IDLE;
-				ROS_INFO("state = IDLE, wait for ball no_ball_counter = %d", no_ball_counter);
-			}
-
-			continue;
-		}
-		else{
-
-			if(goToSelectedBall.alg_state_ == IDLE || goToSelectedBall.alg_state_ == LOOKING_FOR_BALLS){
-				goToSelectedBall.ac.cancelAllGoals ();
-			}
-			goToSelectedBall.stopExplore();
-
-			goToSelectedBall.alg_state_ = GO_TO_BALL;
-
-			no_ball_counter = 0;
-				// jest piłeczka i nie jedzie prosto do piłeczki
-			ROS_INFO("state = GO_TO_BALL, Go to ball using NAV");
-
-			if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
-	//			goToSelectedBall.offHoover();
-
-				float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
-			//	ROS_INFO("angleDiffRobotGoal = %f", angleDiffRobotGoal);
-				if(angleDiffRobotGoal > 2.5){
-					goToSelectedBall.publishAngle();
-					goToSelectedBall.ac.waitForResult();
-					goToSelectedBall.goForward(0.1);
-				}
-				else{
-				//	goToSelectedBall.publishPose(0.2);
-					goToSelectedBall.goForward(0.1);
-				}
-			}
-
-			else{
-				float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
-				if(angleDiffRobotGoal > 2.5){
-					goToSelectedBall.publishAngle();
-					goToSelectedBall.ac.waitForResult();
-				}
-				float dist = goToSelectedBall.getDistanceFromSelectedBall();
-				goToSelectedBall.onHoover();
-				goToSelectedBall.goForward(dist - 0.3);
-				ros::Duration(4.0).sleep();
-				goToSelectedBall.goForward(-(dist - 0.3));
-				ros::Duration(4.0).sleep();
-			}
-		}
-
-
-		*/
+		 }
+		ros::spinOnce();
+		loop_rate.sleep();
 
 	}
 }
@@ -343,6 +273,31 @@ void GoToSelectedBall::deadlockServiceStateCb(const std_msgs::String& state){
 
 }
 
+void GoToSelectedBall::publishPose(float x, float y){
+	ROS_INFO("Publish POSE!!!! joł");
+	if(isBallPoseSet== false){
+		ROS_INFO("publishPose, wait for ball position, return");
+		return;
+	}
+	
+	move_base_msgs::MoveBaseGoal goal;
+
+	goal.target_pose.pose.position.x = x;
+	goal.target_pose.pose.position.y = y;
+	
+	tf::Quaternion q;
+	geometry_msgs::Quaternion qMsg;
+	tf::quaternionTFToMsg(q, qMsg);
+
+	goal.target_pose.header.stamp = ros::Time::now();
+
+	goal.target_pose.header.frame_id ="/base_link";
+
+	ROS_INFO("Sending goal...");
+	ac.sendGoal(goal);
+	firstGoalSent = true;
+
+}
 
 void GoToSelectedBall::publishPose(float dist_from_ball){
 
