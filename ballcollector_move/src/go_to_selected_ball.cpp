@@ -191,7 +191,7 @@ int main(int argc, char** argv) {
 			}
 			else if(gtsb.getState() == FIRST_STEP_COLLECT){
 			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-				: error: if(gtsb.isBallPoseSet == false){
+				if(gtsb.isBallPoseSet == false){
 					ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
 					continue;
 				}
