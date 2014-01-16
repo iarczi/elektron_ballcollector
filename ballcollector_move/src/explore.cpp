@@ -146,6 +146,8 @@ public:
 	void randomRotate();
 	void testRotate();
 	void testForward();
+	void testCanMove();
+
 	void randomForward();
 	void robotFullRotate();
 	void maxForward();
@@ -187,7 +189,7 @@ int main(int argc, char** argv) {
 
 	robot_explore.setExploreState(MAX_FORWARD);
 
-        robot_explore.testForward();
+        robot_explore.testCanMove();
 	//robot_explore.setExploreState(RANDOM_ROTATE);
 
 	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
@@ -196,82 +198,44 @@ int main(int argc, char** argv) {
 
 		ros::spinOnce();
 		loop_rate.sleep();
-		if (!robot_explore.isActionServerActive()){
-
-			//ROS_INFO("Explore server action isn't active!");
-
-			continue;
-		}
-		else{
-			if(robot_explore.getExploreState() == STOP){
-					robot_explore.setExploreState(FULL_ROTATE);
-					robot_explore.robotFullRotate();
-					ROS_INFO("Start Explore STOP --> FULL_ROTATE");
-			}
-			else if(robot_explore.getExploreState() == FULL_ROTATE){
-
-				if(robot_explore.isCurrentGoalDone()){
-					robot_explore.setExploreState(RANDOM_ROTATE);
-					robot_explore.randomRotate();
-					ROS_INFO("go to FULL_ROTATE --> RANDOM_ROTATE");
-				}
-
-			}
-			else if(robot_explore.getExploreState() == RANDOM_ROTATE){
-
-				if(robot_explore.isCurrentGoalDone()){
-					robot_explore.setExploreState(MAX_FORWARD);
-					robot_explore.maxForward();
-					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
-				}
-			}
-			else if(robot_explore.getExploreState() == MAX_FORWARD){
-
-				if(robot_explore.isCurrentGoalDone()){
-					robot_explore.setExploreState(RANDOM_ROTATE);
-					robot_explore.randomRotate();
-					ROS_INFO("go to   MAX_FORWARD --> RANDOM_ROTATE");
-				}
-			}
-		}
-
-
-		/*
-
-		robot_explore.robotFullRotate();
-
-
-
-
-		while(explore == true){
-
-			robot_explore.randomRotate();
-			std::cout<<"state randomRotate = "<<robot_explore.ac_.getState().toString()<<std::endl;
-
-			if (robot_explore.ac_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-				ROS_INFO("Rotate  Hooray, the base moved");
-			} else {
-				ROS_INFO("Rotate  The base failed to move for some reason");
-			}
-
-			//robotMove.randomForward();
-			robot_explore.maxForward();
-			std::cout<<"state maxForward = "<<robot_explore.ac_.getState().toString()<<std::endl;
-			if (robot_explore.ac_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-				ROS_INFO("Forward  Hooray, the base moved");
-			} else {
-				ROS_INFO("Forward  The base failed to move for some reason");
-			}
-		//	std::cout<<"1 explore = "<<explore<<std::endl;
-			ros::spinOnce();
-			loop_rate.sleep();
-		//	std::cout<<"2 explore = "<<explore<<std::endl;
-
-		}
-
-		*/
-
-		
+		//~ if (!robot_explore.isActionServerActive()){
+//~ 
+			//~ //ROS_INFO("Explore server action isn't active!");
+//~ 
+			//~ continue;
+		//~ }
+		//~ else{
+			//~ if(robot_explore.getExploreState() == STOP){
+					//~ robot_explore.setExploreState(FULL_ROTATE);
+					//~ robot_explore.robotFullRotate();
+					//~ ROS_INFO("Start Explore STOP --> FULL_ROTATE");
+			//~ }
+			//~ else if(robot_explore.getExploreState() == FULL_ROTATE){
+//~ 
+				//~ if(robot_explore.isCurrentGoalDone()){
+					//~ robot_explore.setExploreState(RANDOM_ROTATE);
+					//~ robot_explore.randomRotate();
+					//~ ROS_INFO("go to FULL_ROTATE --> RANDOM_ROTATE");
+				//~ }
+//~ 
+			//~ }
+			//~ else if(robot_explore.getExploreState() == RANDOM_ROTATE){
+//~ 
+				//~ if(robot_explore.isCurrentGoalDone()){
+					//~ robot_explore.setExploreState(MAX_FORWARD);
+					//~ robot_explore.maxForward();
+					//~ ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
+				//~ }
+			//~ }
+			//~ else if(robot_explore.getExploreState() == MAX_FORWARD){
+//~ 
+				//~ if(robot_explore.isCurrentGoalDone()){
+					//~ robot_explore.setExploreState(RANDOM_ROTATE);
+					//~ robot_explore.randomRotate();
+					//~ ROS_INFO("go to   MAX_FORWARD --> RANDOM_ROTATE");
+				//~ }
+			//~ }
+		//~ }		
 	}
 
 
@@ -447,75 +411,6 @@ float Explore::addPiToAngle(float angle){
 void Explore::robotFullRotate(){
 	float angle = (360 * PI) / 180.0;
 	publishPose(0, 0, angle, USE_ROBOT);
-
-	//~ ROS_INFO("enter robotFullRotate ");
-	//~ float robot_odom_x, robot_odom_y;
-	//~ getRobotPositionInOdom(robot_odom_x, robot_odom_y);
-//~ 
-//~ 
-	//~ float angle_in_odom = getRobotAngleInOdom();		//	kat od -PI do + PI
-	//~ float anglePlusPI = addPiToAngle(angle_in_odom);
-//~ 
-	//~ tf::Quaternion q;
-	//~ float goal_map_x, goal_map_y;
-	//~ transFromOdomToMapPosition(robot_odom_x, robot_odom_y, anglePlusPI, goal_map_x, goal_map_y, q);
-//~ 
-	//~ geometry_msgs::Quaternion qMsg;
-	//~ tf::quaternionTFToMsg(q, qMsg);
-//~ 
-//~ 
-	//~ move_base_msgs::MoveBaseGoal goal;
-//~ 
-	//~ goal.target_pose.pose.position.x = goal_map_x;
-	//~ goal.target_pose.pose.position.y = goal_map_y;
-	//~ goal.target_pose.pose.position.z = 0;
-//~ 
-	//~ ROS_INFO("x= %f, y= %f ", goal.target_pose.pose.position.x, goal.target_pose.pose.position.y);
-//~ 
-	//~ goal.target_pose.pose.orientation = qMsg;
-//~ 
-	//~ goal.target_pose.header.stamp = ros::Time::now();
-	//~ goal.target_pose.header.frame_id ="/map";
-//~ 
-	//~ ROS_INFO("Sending goal 1");
-	//~ ac_.sendGoal(goal);
-//~ 
-	//~ 
-//~ 
-	//~ ROS_INFO("wait for result");
-//~ //	ac_.waitForResult();
-//~ 
-//~ 
-	//~ getRobotPositionInOdom(robot_odom_x, robot_odom_y);
-//~ 
-//~ 
-	//~ angle_in_odom = getRobotAngleInOdom();		//	kat od -PI do + PI
-	//~ anglePlusPI = addPiToAngle(angle_in_odom);
-//~ 
-	//~ transFromOdomToMapPosition(robot_odom_x, robot_odom_y, anglePlusPI, goal_map_x, goal_map_y, q);
-//~ 
-	//~ tf::quaternionTFToMsg(q, qMsg);
-//~ 
-//~ 
-	//~ goal.target_pose.pose.position.x = goal_map_x;
-	//~ goal.target_pose.pose.position.y = goal_map_y;
-	//~ goal.target_pose.pose.position.z = 0;
-//~ 
-//~ 
-	//~ goal.target_pose.pose.orientation = qMsg;
-//~ 
-	//~ goal.target_pose.header.stamp = ros::Time::now();
-	//~ goal.target_pose.header.frame_id ="/map";
-//~ 
-	//~ ROS_INFO("Sending goal 2");
-	//~ ac_.sendGoal(goal);
-//~ 
-	//~ ROS_INFO("wait for result");
-//~ //	ac_.waitForResult();
-//~ 
-//~ 
-//~ 
-	//~ ROS_INFO("leave robotFullRotate");
 }
 
 void Explore::testRotate(){
@@ -575,6 +470,24 @@ void Explore::testForward(){
 
 //	ROS_INFO("wait for result");
 	//ac_.waitForResult();
+}
+void Explore::testCanMove(){
+	float d_x = 0.1, d_y=0.0,x_odom, y_odom
+	transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
+	while (canMove(x_odom, y_odom)){
+		d_x += 0.1;
+		transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
+	};
+	ROS_INFO("DX MAP %f", d_x);
+	d_x = 0.1
+	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);	
+	while (canMove(x_odom, y_odom)){
+		d_x += 0.1;
+		transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);	
+	};
+	ROS_INFO("DX ODOM %f", d_x);
+	
+	
 }
 void Explore::randomRotate(){
 
@@ -761,8 +674,6 @@ bool canMove(float x, float y){
 	  }
 	  else{
 		 return false;
-	
-		 // return true;
 	  }
 	 
 }

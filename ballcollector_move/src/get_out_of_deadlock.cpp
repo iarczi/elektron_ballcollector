@@ -97,15 +97,10 @@ public:
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "get_out_of_deadlock");
 
-
-
 	GetOutOfDeadlock good(ros::this_node::getName());
 
-
-
-
 //	int deadlock_service_counter = 0;
-	ros::Rate loop_rate(110);
+	ros::Rate loop_rate(10);
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
@@ -260,7 +255,6 @@ void GetOutOfDeadlock::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 	collect_prev_position_ = false;	//	przestajemy zbierac dane o poprzednich pozycjach robota
 	prev_positions_.clear();		//	czyscimy historie zmian pozycji robota
 
-
 	run_deadlock_service_ = true;
 	ros::Rate r(1);
 	// push_back the seeds for the fibonacci sequence
@@ -311,6 +305,9 @@ bool GetOutOfDeadlock::canGoForward(float dist){
 	float d_x = dist, d_y = 0, x_odom, y_odom;
 	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 
+	//transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
+		
+	
 	if(canMove(x_odom, y_odom)){
 		ROS_INFO("leave maxForward");
 		return true;
@@ -398,18 +395,21 @@ bool GetOutOfDeadlock::canMove(float x, float y){
 	  // Coordinate transform.
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
-	 //   res.cost = -1.0;
-	    return false;
+	
+			ROS_INFO("!costmap x,y =%f, %f, cell_x,y = %i, %i ", x, y, cell_x, cell_y);
+	 	return false;
 	  }
 
 	  double cost = double( costmap.getCost( cell_x, cell_y ));
+	 // ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
+	 
 	  if(cost <= 1){
 		  return true;
 	  }
 	  else{
-		  return false;
+		 return false;
 	  }
-	 //ROS_INFO(" world pose = (%f, %f)   map pose = (%d, %d)  cost =%f", x, y, cell_x, cell_y,  cost);
+	 
 }
 
 
