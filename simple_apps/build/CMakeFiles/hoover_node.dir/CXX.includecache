@@ -14,6 +14,26 @@ std_msgs/Int16.h
 serialswitch.hpp
 /home/robot/ros/elektron_ballcollector/simple_apps/src/serialswitch.hpp
 
+/home/robot/ros/elektron_ballcollector/simple_apps/src/serialswitch.cpp
+ros/ros.h
+-
+math.h
+-
+unistd.h
+-
+fcntl.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+cstring
+-
+iostream
+-
+serialswitch.hpp
+/home/robot/ros/elektron_ballcollector/simple_apps/src/serialswitch.hpp
+
 /home/robot/ros/elektron_ballcollector/simple_apps/src/serialswitch.hpp
 stdint.h
 -

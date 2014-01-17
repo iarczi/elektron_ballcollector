@@ -370,7 +370,7 @@ void GoToSelectedBall::goToBall(){
 	goal.target_pose.header.frame_id ="/odom";
 
 	ROS_INFO("Sending goal...");
-	ac.sendGoalAndWait(goal,ros::Duration(120,ros::Duration(0.1);
+	ac.sendGoalAndWait(goal,ros::Duration(120),ros::Duration(0.1));
 	firstGoalSent = true;
 
 }
@@ -693,11 +693,12 @@ void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 	else if(goal->value == 1){
 		state_ = FIRST_STEP_COLLECT;
 		//aaaaa
-		as_.publishFeedback(feedback_);
-		result_.value = feedback_.value;
+		goToBallFirstStep();
+		//as_.publishFeedback(feedback_);
+//		result_.value = feedback_.value;
 
-		as_.setSucceeded(result_);
-		ROS_INFO("leave executeCB");
+//		as_.setSucceeded(result_);
+//		ROS_INFO("leave executeCB");
 		//aaaaa
 	}
 	else if(goal->value == 2){

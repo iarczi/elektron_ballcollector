@@ -177,7 +177,7 @@ int main(int argc, char** argv) {
 				}
 				//else if(!scheduler.isBallVisible()){
 					//	dojezdzal do pileczki, ale przestal ja widziec
-				else if(scheduler.isGoToBallServiceDone()){
+				else if(scheduler.ac_.getState().isDone()){
 					scheduler.sendGoToBallStopGoal();
 					scheduler.sendStartExploreGoal();
 					scheduler.setSate(EXPLORE);
