@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
 	MoveRobotStraight mrs;
 	ros::Rate loop_rate(5);
 	while(ros::ok()){
-		//mrs.publish();
+		mrs.publish();
 		ros::spinOnce();
 		loop_rate.sleep();
 	}
@@ -64,8 +64,9 @@ int main(int argc, char** argv) {
 	return 0;
 }
 void MoveRobotStraight::publish(){
-	cmd_vel_publisher_.publish(vel);
-	
+	if(vel.linear.x > 0 ){
+		cmd_vel_publisher_.publish(vel);
+	}
 }
 void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 
@@ -109,11 +110,14 @@ void MoveRobotStraight::requestCb(const std_msgs::Float32& request ){
 	//geometry_msgs::Twist vel;
 	vel.angular.z = 0;
 	if(distance_ > 0){
-		vel.linear.x = 0.11;
+		vel.linear.x = 0.1;
+	}
+	else if (distance_ < 0){
+		vel.linear.x = -0.1;
+		distance_ = -distance_;
 	}
 	else{
-		vel.linear.x = -0.11;
-		distance_ = -distance_;
+		vel.linear.x = 0;
 	}
 	//cmd_vel_publisher_.publish(vel);
 

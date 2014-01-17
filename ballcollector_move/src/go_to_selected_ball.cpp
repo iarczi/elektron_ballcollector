@@ -194,49 +194,47 @@ int main(int argc, char** argv) {
 	while (ros::ok()) {
 		ros::spinOnce();
 		loop_rate.sleep();
-/*		if (!goToSelectedBall.isActionServerActive()){
- 
-			ROS_INFO("go to ball server action isn't active!");
- 
-			 continue;
-		 }
-		 else{*/
-		//~ if( goToSelectedBall.getState() == STOP ){
-		//~ //		ROS_INFO("STOP state");
-				//~ continue;
-			//~ }
-			//~ else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
-			//~ //	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-				//~ if(goToSelectedBall.isBallPoseSet == false){
-					//~ ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
-					//~ continue;
-				//~ }
-				//~ else{
-					//~ if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
-						//~ if(goToSelectedBall.ac.getState().isDone()){
-							//~ ROS_INFO("FIRST_STEP_COLLECT sending pose");
-							//~ if(goToSelectedBall.isBallPoseSet== false){
-								//~ ROS_INFO("wait for ball position");
-								//~ continue;
-							//~ }
-							//~ goToSelectedBall.onHoover();
-							//~ goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
-							//~ goToSelectedBall.ac.waitForResult();
-							//~ goToSelectedBall.offHoover();
-//~ 
-						//~ }
-					//~ }
-					//~ else{
-						//~ goToSelectedBall.ac.cancelAllGoals();
-						//~ goToSelectedBall.goToBallSecondStep();
-						//~ ROS_INFO("FIRST_STEP_COLLECT - ball too close");
-					//~ }
-				//~ }
-			//~ }
-		//~ // }
-		//~ 
-//~ 
-	//~ }
+//~ /*		if (!goToSelectedBall.isActionServerActive()){
+ //~ 
+			//~ ROS_INFO("go to ball server action isn't active!");
+ //~ 
+			 //~ continue;
+		 //~ }
+		 //~ else{*/
+		if( goToSelectedBall.getState() == STOP ){
+		//		ROS_INFO("STOP state");
+				continue;
+			}
+			else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
+			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
+				if(goToSelectedBall.isBallPoseSet == false){
+					ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
+					continue;
+				}
+				else{
+					if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
+
+					ROS_INFO("FIRST_STEP_COLLECT - go to ball");
+					float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
+					if(angleDiffRobotGoal > 2.5){
+						goToSelectedBall.publishAngle();
+						goToSelectedBall.ac.waitForResult();
+						goToSelectedBall.goForward(0.1);
+					}
+					else{
+					//	goToSelectedBall.publishPose(0.2);
+						goToSelectedBall.goForward(0.1);
+					}
+				}
+					else{
+						ROS_INFO("FIRST_STEP_COLLECT - ball too close");
+					}
+				}
+			}
+
+		
+
+	}
 	}
 }
 void GoToSelectedBall::setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
@@ -271,6 +269,23 @@ void GoToSelectedBall::goToBallFirstStep(){
 	goToBall();
 	offHoover();
 }
+float GoToSelectedBall::getFirstGoal(){
+
+	float a,b,robot_odom_x, robot_odom_y, ball_odom_x, ball_odom_y;
+	getRobotPositionInOdom(robot_odom_x, robot_odom_y);
+
+	ball_odom_x = current_pose_.x;
+	ball_odom_y = current_pose_.y;
+	a = (ball_odom_y-robo_odom_y)/(ball_odom_x -robot_odom_x)
+	b = robo_odom_y - robot_odom_x *a;
+//	ROS_INFO("robot (x, y) i odom = (%f, %f)", robot_odom_x, robot_odom_y);
+//	ROS_INFO("ball (x, y) i odom = (%f, %f)", ball_odom_x, ball_odom_y);
+
+
+	float dist = getDistanceFromSelectedBall();
+	
+}
+
 float GoToSelectedBall::getDistanceFromSelectedBall(){
 
 	float robot_odom_x, robot_odom_y, ball_odom_x, ball_odom_y;
@@ -704,7 +719,23 @@ void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 	else if(goal->value == 2){
 		// TODO: sprawdza, czy jest ustawiona pozycja pileczki, albo przesylac ja razem z goalem
 		// TODO: dopisac serwer do jazdy do przodu a nie na sleep tak jak teraz
-		goToBallSecondStep();
+		state_ = SECOND_STEP_COLLECT;
+		goForward(0);
+		ROS_INFO("enter SECOND_STEP_COLLECT");
+		float angleDiffRobotGoal = getAngleDiff()*180/(3.14);
+		if(angleDiffRobotGoal > 2.5){
+			publishAngle();
+			ac.waitForResult();
+		}
+		float dist = getDistanceFromSelectedBall();
+		onHoover();
+		goForward(dist - 0.3);
+		ros::Duration(4.0).sleep();
+		goForward(-(dist - 0.3));
+		ros::Duration(4.0).sleep();
+		goForward(0);
+		offHoover();
+		ROS_INFO("leave SECOND_STEP_COLLECT");
 	}
 
 

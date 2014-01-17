@@ -142,7 +142,7 @@ int main(int argc, char** argv) {
 				else if(scheduler.isBallVisible()){
 					//	robot podczas eksploracji zobaczyl pileczke, przechodzimy do stanu
 					//	dojazdu do pileczki
-					//if(scheduler.getDistanceFromSelectedBall() > 0.6){
+					if(scheduler.getDistanceFromSelectedBall() > 0.6){
 						//	pileczka jest dalej niz 0.6 m, przechodzimy do statnu GO_TO_BALL_FIRST_STEP
 
 						scheduler.sendStopExploreGoal();
@@ -150,18 +150,18 @@ int main(int argc, char** argv) {
 						scheduler.sendGoToBallFirstStepGoal();
 						scheduler.setSate(GO_TO_BALL_FIRST_STEP);
 						ROS_INFO("EXPLORE ---> GO_TO_BALL_FIRST_STEP");
-					//~ }
-					//~ else{
-						//~ scheduler.sendStopExploreGoal();
-						//~ 
-						//~ scheduler.sendGoToBallSecondStepGoal();
-						//~ scheduler.setSate(GO_TO_BALL_SECOND_STEP);
-						//~ ROS_INFO("EXPLORE ---> GO_TO_BALL_SECOND_STEP");
-					//~ }
+					}
+					else{
+						scheduler.sendStopExploreGoal();
+						
+						scheduler.sendGoToBallSecondStepGoal();
+						scheduler.setSate(GO_TO_BALL_SECOND_STEP);
+						ROS_INFO("EXPLORE ---> GO_TO_BALL_SECOND_STEP");
+					}
 
-				//	scheduler.sendGoToBallGoal();
-				//	scheduler.setSate(GO_TO_BALL);
-				//	ROS_INFO("EXPLORE ---> GO_TO_BALL");
+				//~ //	scheduler.sendGoToBallGoal();
+				//~ //	scheduler.setSate(GO_TO_BALL);
+				//~ //	ROS_INFO("EXPLORE ---> GO_TO_BALL");
 				}
 
 			}
@@ -175,21 +175,21 @@ int main(int argc, char** argv) {
 					scheduler.setSate(DEADLOCK);
 					ROS_INFO("GO_TO_BALL_FIRST_STEP ---> DEADLOCK");
 				}
-				//else if(!scheduler.isBallVisible()){
+				else if(!scheduler.isBallVisible()){
 					//	dojezdzal do pileczki, ale przestal ja widziec
-				else if(scheduler.ac_.getState().isDone()){
+				
 					scheduler.sendGoToBallStopGoal();
 					scheduler.sendStartExploreGoal();
 					scheduler.setSate(EXPLORE);
 					ROS_INFO("GO_TO_BALL_FIRST_STEP ---> EXPLORE");
 				}
-				//~ else if(scheduler.getDistanceFromSelectedBall() < 0.6){
-					//~ scheduler.sendGoToBallStopGoal();
-					//~ 
-					//~ scheduler.sendGoToBallSecondStepGoal();
-					//~ scheduler.setSate(GO_TO_BALL_SECOND_STEP);
-					//~ ROS_INFO("GO_TO_BALL_FIRST_STEP ---> GO_TO_BALL_SECOND_STEP");
-				//~ }
+				 else if(scheduler.getDistanceFromSelectedBall() < 0.6){
+					scheduler.sendGoToBallStopGoal();
+					
+					scheduler.sendGoToBallSecondStepGoal();
+					scheduler.setSate(GO_TO_BALL_SECOND_STEP);
+					ROS_INFO("GO_TO_BALL_FIRST_STEP ---> GO_TO_BALL_SECOND_STEP");
+				 }
 			}
 			else if(scheduler.getState() == GO_TO_BALL_SECOND_STEP){
 				if(scheduler.isGoToBallServiceDone()){
