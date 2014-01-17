@@ -115,7 +115,7 @@ int main(int argc, char** argv) {
 
 	scheduler.sendStartExploreGoal();
 	scheduler.setSate(EXPLORE);
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(100);
 
 	while (ros::ok()) {
 			
@@ -128,28 +128,28 @@ int main(int argc, char** argv) {
 			//	metoda isDeadlock jest nadrzedna wzgledem isBallVisible, gdyz jesli robot jest zakleszczony,
 			//	to nawet jesli widzi pileczke, to nie powinien do niej dojezdzac tylko wykonac obsluge zakleszczenia
 //DUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUuu
-			//~ if(scheduler.getState() == EXPLORE){
-				//~ if (scheduler.isDeadlock()) {
-					//~ //	robot podczas eksploracji zakleszczyl sie
-					//~ //	przechodzimy do stanu obslugi zakleszczenia
-					//~ scheduler.sendStopExploreGoal();
-				//~ 
-					//~ scheduler.sendDeadlockGoal();
-					//~ scheduler.setSate(DEADLOCK);
-					//~ ROS_INFO("EXPLORE ---> DEADLOCK");
-//~ 
-				//~ }
-				//~ else if(scheduler.isBallVisible()){
-					//~ //	robot podczas eksploracji zobaczyl pileczke, przechodzimy do stanu
-					//~ //	dojazdu do pileczki
-					//~ if(scheduler.getDistanceFromSelectedBall() > 0.6){
-						//~ //	pileczka jest dalej niz 0.6 m, przechodzimy do statnu GO_TO_BALL_FIRST_STEP
-//~ 
-						//~ scheduler.sendStopExploreGoal();
-						//~ 
-						//~ scheduler.sendGoToBallFirstStepGoal();
-						//~ scheduler.setSate(GO_TO_BALL_FIRST_STEP);
-						//~ ROS_INFO("EXPLORE ---> GO_TO_BALL_FIRST_STEP");
+			if(scheduler.getState() == EXPLORE){
+				if (scheduler.isDeadlock()) {
+					//	robot podczas eksploracji zakleszczyl sie
+					//	przechodzimy do stanu obslugi zakleszczenia
+					scheduler.sendStopExploreGoal();
+				
+					scheduler.sendDeadlockGoal();
+					scheduler.setSate(DEADLOCK);
+					ROS_INFO("EXPLORE ---> DEADLOCK");
+
+				}
+				else if(scheduler.isBallVisible()){
+					//	robot podczas eksploracji zobaczyl pileczke, przechodzimy do stanu
+					//	dojazdu do pileczki
+					//if(scheduler.getDistanceFromSelectedBall() > 0.6){
+						//	pileczka jest dalej niz 0.6 m, przechodzimy do statnu GO_TO_BALL_FIRST_STEP
+
+						scheduler.sendStopExploreGoal();
+						
+						scheduler.sendGoToBallFirstStepGoal();
+						scheduler.setSate(GO_TO_BALL_FIRST_STEP);
+						ROS_INFO("EXPLORE ---> GO_TO_BALL_FIRST_STEP");
 					//~ }
 					//~ else{
 						//~ scheduler.sendStopExploreGoal();
@@ -158,32 +158,31 @@ int main(int argc, char** argv) {
 						//~ scheduler.setSate(GO_TO_BALL_SECOND_STEP);
 						//~ ROS_INFO("EXPLORE ---> GO_TO_BALL_SECOND_STEP");
 					//~ }
-//~ 
-				//~ //	scheduler.sendGoToBallGoal();
-				//~ //	scheduler.setSate(GO_TO_BALL);
-				//~ //	ROS_INFO("EXPLORE ---> GO_TO_BALL");
-				//~ }
-//~ 
-			//~ }
-			//~ else if(scheduler.getState() == GO_TO_BALL_FIRST_STEP){
-//~ 
-				//~ if (scheduler.isDeadlock()) {
-					//~ //	dojezdzal do pileczki, ale sie zakleszczyl
-//~ 
-					//~ scheduler.sendGoToBallStopGoal();
-//~ 
-					//~ scheduler.sendDeadlockGoal();
-					//~ scheduler.setSate(DEADLOCK);
-					//~ ROS_INFO("GO_TO_BALL_FIRST_STEP ---> DEADLOCK");
-				//~ }
-				//~ else if(!scheduler.isBallVisible()){
-					//~ //	dojezdzal do pileczki, ale przestal ja widziec
-//~ 
-					//~ scheduler.sendGoToBallStopGoal();
-					//~ scheduler.sendStartExploreGoal();
-					//~ scheduler.setSate(EXPLORE);
-					//~ ROS_INFO("GO_TO_BALL_FIRST_STEP ---> EXPLORE");
-				//~ }
+
+				//	scheduler.sendGoToBallGoal();
+				//	scheduler.setSate(GO_TO_BALL);
+				//	ROS_INFO("EXPLORE ---> GO_TO_BALL");
+				}
+
+			}
+			else if(scheduler.getState() == GO_TO_BALL_FIRST_STEP){
+
+				if (scheduler.isDeadlock()) {
+					//	dojezdzal do pileczki, ale sie zakleszczyl
+
+					scheduler.sendGoToBallStopGoal();
+					scheduler.sendDeadlockGoal();
+					scheduler.setSate(DEADLOCK);
+					ROS_INFO("GO_TO_BALL_FIRST_STEP ---> DEADLOCK");
+				}
+				//else if(!scheduler.isBallVisible()){
+					//	dojezdzal do pileczki, ale przestal ja widziec
+				else if(scheduler.isGoToBallServiceDone()){
+					scheduler.sendGoToBallStopGoal();
+					scheduler.sendStartExploreGoal();
+					scheduler.setSate(EXPLORE);
+					ROS_INFO("GO_TO_BALL_FIRST_STEP ---> EXPLORE");
+				}
 				//~ else if(scheduler.getDistanceFromSelectedBall() < 0.6){
 					//~ scheduler.sendGoToBallStopGoal();
 					//~ 
@@ -191,33 +190,33 @@ int main(int argc, char** argv) {
 					//~ scheduler.setSate(GO_TO_BALL_SECOND_STEP);
 					//~ ROS_INFO("GO_TO_BALL_FIRST_STEP ---> GO_TO_BALL_SECOND_STEP");
 				//~ }
-			//~ }
-			//~ else if(scheduler.getState() == GO_TO_BALL_SECOND_STEP){
-				//~ if(scheduler.isGoToBallServiceDone()){
-					//~ ROS_INFO("GO_TO_BALL_SECOND_STEP ---> EXPLORE");
-					//~ scheduler.sendStartExploreGoal();
-					//~ scheduler.setSate(EXPLORE);
-				//~ }
-				//~ else{
-					//~ continue;
-				//~ }
-			//~ }
-//~ 
-			//~ // 	ze stanu obslugi zakleszczenia wychodzmy tylko po zakonczeniu
-			//~ //	obslugi zakleszczenia. Przechodzimy wowczas do eksploracji
-			//~ else if(scheduler.getState() == DEADLOCK){
-				//~ if(scheduler.isDeadlockServiceDone()){
-					//~ //	zakonczono obsluge deadlocka
-					//~ //	zaczynamy exploracje
-					//~ 
-					//~ scheduler.sendStartExploreGoal();		
-					//~ scheduler.setSate(EXPLORE);
-					//~ ROS_INFO("DEADLOCK ---> EXPLORE");
-				//~ }
-			//~ }
-//~ 
-			//~ ros::spinOnce();
-			//~ loop_rate.sleep();
+			}
+			else if(scheduler.getState() == GO_TO_BALL_SECOND_STEP){
+				if(scheduler.isGoToBallServiceDone()){
+					ROS_INFO("GO_TO_BALL_SECOND_STEP ---> EXPLORE");
+					scheduler.sendStartExploreGoal();
+					scheduler.setSate(EXPLORE);
+				}
+				else{
+					continue;
+				}
+			}
+
+			// 	ze stanu obslugi zakleszczenia wychodzmy tylko po zakonczeniu
+			//	obslugi zakleszczenia. Przechodzimy wowczas do eksploracji
+			else if(scheduler.getState() == DEADLOCK){
+				if(scheduler.isDeadlockServiceDone()){
+					//	zakonczono obsluge deadlocka
+					//	zaczynamy exploracje
+					
+					scheduler.sendStartExploreGoal();		
+					scheduler.setSate(EXPLORE);
+					ROS_INFO("DEADLOCK ---> EXPLORE");
+				}
+			}
+
+			ros::spinOnce();
+			loop_rate.sleep();
 	
 	}
 
@@ -291,6 +290,7 @@ void Scheduler::sendGoToBallStopGoal(){
 	//ROS_INFO(" send goal GO TO STOP STEP");
 	scheduler::SchedulerGoal goal;
 	goal.value = 0;
+	ac_.cancelAllGoals();
 	go_to_ball_action_client_.sendGoal(goal);
 }
 

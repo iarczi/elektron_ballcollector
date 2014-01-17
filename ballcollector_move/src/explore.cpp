@@ -189,7 +189,7 @@ int main(int argc, char** argv) {
 
 	robot_explore.setExploreState(MAX_FORWARD);
 
-        robot_explore.testCanMove();
+       // robot_explore.testCanMove();
 	//robot_explore.setExploreState(RANDOM_ROTATE);
 
 	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
@@ -198,44 +198,44 @@ int main(int argc, char** argv) {
 
 		ros::spinOnce();
 		loop_rate.sleep();
-		//~ if (!robot_explore.isActionServerActive()){
-//~ 
-			//~ //ROS_INFO("Explore server action isn't active!");
-//~ 
-			//~ continue;
-		//~ }
-		//~ else{
-			//~ if(robot_explore.getExploreState() == STOP){
-					//~ robot_explore.setExploreState(FULL_ROTATE);
-					//~ robot_explore.robotFullRotate();
-					//~ ROS_INFO("Start Explore STOP --> FULL_ROTATE");
-			//~ }
-			//~ else if(robot_explore.getExploreState() == FULL_ROTATE){
-//~ 
-				//~ if(robot_explore.isCurrentGoalDone()){
-					//~ robot_explore.setExploreState(RANDOM_ROTATE);
-					//~ robot_explore.randomRotate();
-					//~ ROS_INFO("go to FULL_ROTATE --> RANDOM_ROTATE");
-				//~ }
-//~ 
-			//~ }
-			//~ else if(robot_explore.getExploreState() == RANDOM_ROTATE){
-//~ 
-				//~ if(robot_explore.isCurrentGoalDone()){
-					//~ robot_explore.setExploreState(MAX_FORWARD);
-					//~ robot_explore.maxForward();
-					//~ ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
-				//~ }
-			//~ }
-			//~ else if(robot_explore.getExploreState() == MAX_FORWARD){
-//~ 
-				//~ if(robot_explore.isCurrentGoalDone()){
-					//~ robot_explore.setExploreState(RANDOM_ROTATE);
-					//~ robot_explore.randomRotate();
-					//~ ROS_INFO("go to   MAX_FORWARD --> RANDOM_ROTATE");
-				//~ }
-			//~ }
-		//~ }		
+		if (!robot_explore.isActionServerActive()){
+
+			//ROS_INFO("Explore server action isn't active!");
+
+			continue;
+		}
+		else{
+			if(robot_explore.getExploreState() == STOP){
+					robot_explore.setExploreState(FULL_ROTATE);
+					robot_explore.robotFullRotate();
+					ROS_INFO("Start Explore STOP --> FULL_ROTATE");
+			}
+			else if(robot_explore.getExploreState() == FULL_ROTATE){
+
+				if(robot_explore.isCurrentGoalDone()){
+					robot_explore.setExploreState(RANDOM_ROTATE);
+					robot_explore.randomRotate();
+					ROS_INFO("go to FULL_ROTATE --> RANDOM_ROTATE");
+				}
+
+			}
+			else if(robot_explore.getExploreState() == RANDOM_ROTATE){
+
+				if(robot_explore.isCurrentGoalDone()){
+					robot_explore.setExploreState(MAX_FORWARD);
+					robot_explore.maxForward();
+					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
+				}
+			}
+			else if(robot_explore.getExploreState() == MAX_FORWARD){
+
+				if(robot_explore.isCurrentGoalDone()){
+					robot_explore.setExploreState(RANDOM_ROTATE);
+					robot_explore.randomRotate();
+					ROS_INFO("go to   MAX_FORWARD --> RANDOM_ROTATE");
+				}
+			}
+		}		
 	}
 
 
@@ -390,7 +390,7 @@ void Explore::publishPose(float x, float y, float theta, bool robot){
 	  
 	  ROS_INFO("Sending goal...");
 	  ac_.sendGoal(goal);
-
+	  //ac_.cancelGoalsAtAndBeforeTime(ros::Time minutka(120)):
 	  firstGoalSend = true;
 
 }

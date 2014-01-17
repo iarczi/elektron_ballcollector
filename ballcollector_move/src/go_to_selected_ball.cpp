@@ -162,7 +162,10 @@ public:
 
 	void startExplore();
 	void stopExplore();
+	
 	void goToBallSecondStep();
+	void goToBallFirstStep();
+	void goToBall();
 
 	State getState(){return state_;};
 	void setState(State state){state_ = state;};
@@ -198,41 +201,42 @@ int main(int argc, char** argv) {
 			 continue;
 		 }
 		 else{*/
-		if( goToSelectedBall.getState() == STOP ){
-		//		ROS_INFO("STOP state");
-				continue;
-			}
-			else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
-			//	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
-				if(goToSelectedBall.isBallPoseSet == false){
-					ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
-					continue;
-				}
-				else{
-					if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
-						if(goToSelectedBall.ac.getState().isDone()){
-							ROS_INFO("FIRST_STEP_COLLECT sending pose");
-							if(goToSelectedBall.isBallPoseSet== false){
-								ROS_INFO("wait for ball position");
-								continue;
-							}
-							goToSelectedBall.onHoover();
-							goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
-							goToSelectedBall.ac.waitForResult();
-							goToSelectedBall.offHoover();
-
-						}
-					}
-					else{
-						goToSelectedBall.ac.cancelAllGoals();
-						goToSelectedBall.goToBallSecondStep();
-						ROS_INFO("FIRST_STEP_COLLECT - ball too close");
-					}
-				}
-			}
-		// }
-		
-
+		//~ if( goToSelectedBall.getState() == STOP ){
+		//~ //		ROS_INFO("STOP state");
+				//~ continue;
+			//~ }
+			//~ else if(goToSelectedBall.getState() == FIRST_STEP_COLLECT){
+			//~ //	scheduler zezwolil na jazde, ale node nie ma wspolrzednych pileczki
+				//~ if(goToSelectedBall.isBallPoseSet == false){
+					//~ ROS_INFO("FIRST_STEP_COLLECT - no ball visible");
+					//~ continue;
+				//~ }
+				//~ else{
+					//~ if(goToSelectedBall.getDistanceFromSelectedBall() > 0.6){
+						//~ if(goToSelectedBall.ac.getState().isDone()){
+							//~ ROS_INFO("FIRST_STEP_COLLECT sending pose");
+							//~ if(goToSelectedBall.isBallPoseSet== false){
+								//~ ROS_INFO("wait for ball position");
+								//~ continue;
+							//~ }
+							//~ goToSelectedBall.onHoover();
+							//~ goToSelectedBall.publishPose(goToSelectedBall.getCurrentPose().x, goToSelectedBall.getCurrentPose().y);
+							//~ goToSelectedBall.ac.waitForResult();
+							//~ goToSelectedBall.offHoover();
+//~ 
+						//~ }
+					//~ }
+					//~ else{
+						//~ goToSelectedBall.ac.cancelAllGoals();
+						//~ goToSelectedBall.goToBallSecondStep();
+						//~ ROS_INFO("FIRST_STEP_COLLECT - ball too close");
+					//~ }
+				//~ }
+			//~ }
+		//~ // }
+		//~ 
+//~ 
+	//~ }
 	}
 }
 void GoToSelectedBall::setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
@@ -259,6 +263,13 @@ void GoToSelectedBall::goToBallSecondStep(){
 		ac.waitForResult();
 		offHoover();
 		ROS_INFO("leave SECOND_STEP_COLLECT");
+}
+void GoToSelectedBall::goToBallFirstStep(){
+	onHoover();
+	//publishPose(getCurrentPose().x, getCurrentPose().y);
+	//ac.waitForResult();
+	goToBall();
+	offHoover();
 }
 float GoToSelectedBall::getDistanceFromSelectedBall(){
 
@@ -318,6 +329,8 @@ void GoToSelectedBall::publishPose(float x, float y){
 	
 	move_base_msgs::MoveBaseGoal goal;
 
+
+
 	goal.target_pose.pose.position.x = x;
 	goal.target_pose.pose.position.y = y;
 	
@@ -334,6 +347,30 @@ void GoToSelectedBall::publishPose(float x, float y){
 
 	ROS_INFO("Sending goal...");
 	ac.sendGoal(goal);
+	firstGoalSent = true;
+
+}
+void GoToSelectedBall::goToBall(){
+	ROS_INFO("Publish POSE!!!! joł");
+	
+	
+	move_base_msgs::MoveBaseGoal goal;
+
+	goal.target_pose.pose.position.x = getCurrentPose().x;
+	goal.target_pose.pose.position.y = getCurrentPose().y;
+	
+	geometry_msgs::Quaternion qMsg;
+	setAngle(getRobotAngleInMap(), qMsg);
+	
+	
+	
+	goal.target_pose.pose.orientation = qMsg;
+
+	goal.target_pose.header.stamp = ros::Time::now();
+	goal.target_pose.header.frame_id ="/odom";
+
+	ROS_INFO("Sending goal...");
+	ac.sendGoalAndWait(goal,ros::Duration(120,ros::Duration(0.1);
 	firstGoalSent = true;
 
 }
@@ -655,6 +692,13 @@ void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 	}
 	else if(goal->value == 1){
 		state_ = FIRST_STEP_COLLECT;
+		//aaaaa
+		as_.publishFeedback(feedback_);
+		result_.value = feedback_.value;
+
+		as_.setSucceeded(result_);
+		ROS_INFO("leave executeCB");
+		//aaaaa
 	}
 	else if(goal->value == 2){
 		// TODO: sprawdza, czy jest ustawiona pozycja pileczki, albo przesylac ja razem z goalem
