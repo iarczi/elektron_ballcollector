@@ -187,9 +187,9 @@ int main(int argc, char** argv) {
 
 
 
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(1);
 
-	int no_ball_counter = 0;
+	int speed = 0;
 
 	while (ros::ok()) {
 		ros::spinOnce();
@@ -216,14 +216,16 @@ int main(int argc, char** argv) {
 
 					ROS_INFO("FIRST_STEP_COLLECT - go to ball");
 					float angleDiffRobotGoal = goToSelectedBall.getAngleDiff()*180/(3.14);
-					if(angleDiffRobotGoal > 2.5){
+					if(angleDiffRobotGoal > 2.0){						
+						//goToSelectedBall.goForward(0);	
+						
 						goToSelectedBall.publishAngle();
 						goToSelectedBall.ac.waitForResult();
 						goToSelectedBall.goForward(0.1);
 					}
 					else{
-						goToSelectedBall.publishAngle();
-					//	goToSelectedBall.publishPose(0.2);
+					//	goToSelectedBall.publishAngle();
+					//	goToSelectedBall.publishPose();
 						goToSelectedBall.goForward(0.1);
 					}
 				}
@@ -368,7 +370,7 @@ void GoToSelectedBall::publishPose(float x, float y){
 
 }
 void GoToSelectedBall::goToBall(){
-	ROS_INFO("Publish POSE!!!! joł");
+	ROS_INFO("Publish POSE!!!! jo");
 	
 	
 	move_base_msgs::MoveBaseGoal goal;
@@ -510,25 +512,25 @@ void GoToSelectedBall::publishAngle(){
 
 	float angle = getAngle(robot_odom_x, robot_odom_y, ball_odom_x, ball_odom_y);
 
-	tf::Quaternion q;
-	float goal_map_x, goal_map_y;
-	transFromOdomToMapPosition(goal_odom_x, goal_odom_y, angle, goal_map_x, goal_map_y, q);
+//tf::Quaternion q;
+//float goal_map_x, goal_map_y;
+//transFromOdomToMapPosition(goal_odom_x, goal_odom_y, angle, goal_map_x, goal_map_y, q);
 
 	geometry_msgs::Quaternion qMsg;
-	tf::quaternionTFToMsg(q, qMsg);
-
+//	tf::quaternionTFToMsg(q, qMsg);
+	setAngle(angle, qMsg);
 
 	move_base_msgs::MoveBaseGoal goal;
 
-	goal.target_pose.pose.position.x = goal_map_x;
-	goal.target_pose.pose.position.y = goal_map_y;
+	goal.target_pose.pose.position.x = goal_odom_x;
+	goal.target_pose.pose.position.y = goal_odom_y;
 	goal.target_pose.pose.position.z = 0;
 
 
 	goal.target_pose.pose.orientation = qMsg;
 
 	goal.target_pose.header.stamp = ros::Time::now();
-	goal.target_pose.header.frame_id ="/map";
+	goal.target_pose.header.frame_id ="/odom";
 
 
 	ROS_INFO("Sending goal");
@@ -724,20 +726,27 @@ void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 		state_ = SECOND_STEP_COLLECT;
 		goForward(0);
 		ROS_INFO("enter SECOND_STEP_COLLECT");
-		float angleDiffRobotGoal = getAngleDiff()*180/(3.14);
+	////	float angleDiffRobotGoal = getAngleDiff()*180/(3.14);
 		publishAngle();
 		ac.waitForResult();
+
+		ROS_INFO("ddaaaaaaaaaaaaaaaaaa");
 		float dist = getDistanceFromSelectedBall();
 		onHoover();
-		goForward(0.1);
-		while(getDistanceFromSelectedBall()  <0.05){
-		}
+		goForward(dist -0.3);
+		//while(getDistanceFromSelectedBall()  >0.05){
+		// ROS_INFO("DUPA");
+	//	}
 		//getDistanceFromSelectedBall() 
-		//ros::Duration(4.0).sleep();
-		goForward(-0.1));
-		//ros::Duration(5.0).sleep();
-		while(getDistanceFromSelectedBall()  >0.6){
-		}
+		ros::Duration(4.0).sleep();
+
+		 ROS_INFO("DUPA");
+		goForward(-(dist-0.3));
+		ros::Duration(5.0).sleep();
+	//	while(getDistanceFromSelectedBall()  <0.5){
+		
+		 ROS_INFO("DUPA2");
+	//	}
 		goForward(0);
 		
 		offHoover();

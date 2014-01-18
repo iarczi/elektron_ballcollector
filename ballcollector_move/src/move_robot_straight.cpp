@@ -54,7 +54,7 @@ public:
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "move_robot_straight");
 	MoveRobotStraight mrs;
-	ros::Rate loop_rate(5);
+	ros::Rate loop_rate(10);
 	while(ros::ok()){
 		mrs.publish();
 		ros::spinOnce();
