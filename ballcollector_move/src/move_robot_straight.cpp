@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
 	return 0;
 }
 void MoveRobotStraight::publish(){
-	if(vel.linear.x > 0 ){
+	if(vel.linear.x != 0 ){
 		cmd_vel_publisher_.publish(vel);
 	}
 }
