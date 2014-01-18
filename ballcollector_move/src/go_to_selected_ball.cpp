@@ -219,11 +219,11 @@ int main(int argc, char** argv) {
 					if(angleDiffRobotGoal > 2.5){
 						goToSelectedBall.publishAngle();
 						goToSelectedBall.ac.waitForResult();
-						goToSelectedBall.goForward(0.1);
+						goToSelectedBall.goForward(0.5);
 					}
 					else{
 					//	goToSelectedBall.publishPose(0.2);
-						goToSelectedBall.goForward(0.1);
+						goToSelectedBall.goForward(0.5);
 					}
 				}
 					else{
@@ -235,7 +235,7 @@ int main(int argc, char** argv) {
 		
 
 	}
-	}
+	
 }
 void GoToSelectedBall::setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
 
@@ -269,6 +269,7 @@ void GoToSelectedBall::goToBallFirstStep(){
 	goToBall();
 	offHoover();
 }
+/*
 float GoToSelectedBall::getFirstGoal(){
 
 	float a,b,robot_odom_x, robot_odom_y, ball_odom_x, ball_odom_y;
@@ -285,7 +286,7 @@ float GoToSelectedBall::getFirstGoal(){
 	float dist = getDistanceFromSelectedBall();
 	
 }
-
+*/
 float GoToSelectedBall::getDistanceFromSelectedBall(){
 
 	float robot_odom_x, robot_odom_y, ball_odom_x, ball_odom_y;
@@ -729,10 +730,10 @@ void GoToSelectedBall::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 		}
 		float dist = getDistanceFromSelectedBall();
 		onHoover();
-		goForward(dist - 0.3);
+		goForward(0.5);
 		ros::Duration(4.0).sleep();
-		goForward(-(dist - 0.3));
-		ros::Duration(4.0).sleep();
+		goForward(-(0.5));
+		ros::Duration(5.0).sleep();
 		goForward(0);
 		offHoover();
 		ROS_INFO("leave SECOND_STEP_COLLECT");
