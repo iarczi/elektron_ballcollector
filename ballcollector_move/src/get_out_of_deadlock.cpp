@@ -303,9 +303,9 @@ bool GetOutOfDeadlock::canGoForward(float dist){
 	ROS_INFO("enter canGoForward ");
 
 	float d_x = dist, d_y = 0, x_odom, y_odom;
-	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
+	//tansfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
 
-	//transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
+	transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);
 		
 	
 	if(canMove(x_odom, y_odom)){
@@ -451,6 +451,7 @@ void GetOutOfDeadlock::publishPose(float x, float y, float theta){
 void GetOutOfDeadlock::setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
 
 	tf::Quaternion q_result;
+	q_result.setRPY(.0, .0, angle);
 	q_result.setRPY(.0, .0, angle);
 	tf::quaternionTFToMsg(q_result, qMsg);
 
