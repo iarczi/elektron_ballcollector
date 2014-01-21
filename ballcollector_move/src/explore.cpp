@@ -187,10 +187,10 @@ int main(int argc, char** argv) {
 		//ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
-	robot_explore.setExploreState(MAX_FORWARD);
+	//bot_explore.setExploreState(MAX_FORWARD);
 
-       // robot_explore.testCanMove();
-	//robot_explore.setExploreState(RANDOM_ROTATE);
+       	// robot_explore.testCanMove();
+	robot_explore.setExploreState(RANDOM_ROTATE);
 
 	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
 	ros::Rate loop_rate(1);
@@ -198,6 +198,9 @@ int main(int argc, char** argv) {
 
 		ros::spinOnce();
 		loop_rate.sleep();
+	//	if(1){
+	//		continue;
+	//	}
 		if (!robot_explore.isActionServerActive()){
 
 			//ROS_INFO("Explore server action isn't active!");
@@ -236,12 +239,12 @@ int main(int argc, char** argv) {
 				}
 			}
 		}		
-	}
+	
 
 
 	return 0;
 }
-
+}
 
 void Explore::stopExplore(){
 
@@ -599,6 +602,7 @@ void Explore::randomForward(){
 
 void Explore::maxForward(){
 	// MAP CZY ODOM
+	ROS_INFO("MAX_FORWARD");
 	float d_x = 0.1, d_y=0.0, x_map, y_map;
 	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
 		
