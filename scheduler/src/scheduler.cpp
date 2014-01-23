@@ -115,10 +115,10 @@ int main(int argc, char** argv) {
 
 	scheduler.sendStartExploreGoal();
 	scheduler.setSate(EXPLORE);
-	ros::Rate loop_rate(100);
+	ros::Rate loop_rate(10);
 
 	while (ros::ok()) {
-			
+//			continue;
 			
 //			std::cout<<"deadlock: "<<scheduler.isDeadlock()<<"  ball visible: "<<scheduler.isBallVisible()<<"state: "<<scheduler.getState()<<std::endl;
 

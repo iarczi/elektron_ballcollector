@@ -188,9 +188,9 @@ int main(int argc, char** argv) {
 	 }
 
 	//bot_explore.setExploreState(MAX_FORWARD);
-
+	ROS_INFO("DUPA1");
        	// robot_explore.testCanMove();
-	robot_explore.setExploreState(RANDOM_ROTATE);
+	robot_explore.setExploreState(STOP);
 
 	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
 	ros::Rate loop_rate(1);
@@ -227,6 +227,7 @@ int main(int argc, char** argv) {
 				if(robot_explore.isCurrentGoalDone()){
 					robot_explore.setExploreState(MAX_FORWARD);
 					robot_explore.maxForward();
+				//	robot_explore.randomForward();
 					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
 				}
 			}
@@ -241,9 +242,9 @@ int main(int argc, char** argv) {
 		}		
 	
 
-
+	}
 	return 0;
-}
+	
 }
 
 void Explore::stopExplore(){
@@ -336,7 +337,7 @@ double getAngle(const geometry_msgs::Quaternion& qMsg){
 	  tf::quaternionMsgToTF(qMsg, q_pose);
 	  tf::Matrix3x3 m_pose(q_pose);
 	  m_pose.getRPY(unused, unused, yaw);
-	 // yaw = yaw * 180 / PI;
+	 // yaw = yaw * 180 / PI;}
 	  return yaw;
 }
 
@@ -392,7 +393,7 @@ void Explore::publishPose(float x, float y, float theta, bool robot){
 	  }
 	  
 	  ROS_INFO("Sending goal...");
-	  ac_.sendGoal(goal);
+	  ac_.sendGoalAndWait(goal,ros::Duration(20.0),ros::Duration(0.1) );
 	  //ac_.cancelGoalsAtAndBeforeTime(ros::Time minutka(120)):
 	  firstGoalSend = true;
 
@@ -519,8 +520,8 @@ void Explore::randomRotate(){
 	//~ ROS_INFO("enter randomRotate ");
 	//~ float robot_odom_x, robot_odom_y;
 	//~ getRobotPositionInOdom(robot_odom_x, robot_odom_y);
-	
-	float angle = (((rand() % 360) - 180) * PI) / 180.0;
+	float angle = 70 + ((360-90+1)*rand()/(RAND_MAX+1.0));
+	angle = ((angle) * PI) / 180.0;
 	publishPose(0, 0, angle, USE_ROBOT);
 
 
@@ -564,7 +565,9 @@ void Explore::randomRotate(){
 void Explore::randomForward(){
 	
 	
-
+	double forward = 0.5 + ((2.0-0.3+1)*rand()/RAND_MAX+1.0);
+	ROS_INFO("forward %f", forward);
+	publishPose(forward, 0, 0, USE_ROBOT);
 	//~ ROS_INFO("enter randomForward ");
 //~ 
 	//~ 
@@ -617,7 +620,7 @@ void Explore::maxForward(){
 	//~ transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
 	//~ ROS_INFO("robot move to (%f,%f)", x_map, y_map);
 
-	publishPose(d_x, d_y, 0, USE_ROBOT);
+	publishPose(x_map, y_map, 0, USE_MAP);
 
 	//ROS_INFO("wait for result");
 	//ac_.waitForResult();

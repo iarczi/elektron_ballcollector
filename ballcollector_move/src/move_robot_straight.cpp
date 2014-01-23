@@ -77,7 +77,7 @@ void MoveRobotStraight::odomCb(const nav_msgs::OdometryConstPtr& odometry){
 //		publishStateNothing();
 		return;
 	}
-
+	
 	float distFromStart = getDistanceFromStart();
 //	ROS_INFO("distFromStart = %f", distFromStart);
 //	ROS_INFO("distance to go = %f", fabs(distance_ - distFromStart));
@@ -108,7 +108,7 @@ void MoveRobotStraight::requestCb(const std_msgs::Float32& request ){
 
 
 	//geometry_msgs::Twist vel;
-	vel.angular.z = 0;
+	//vel.angular.z = 0;
 	vel.linear.x=distance_;
 	/*if(distance_ > 0){
 		vel.linear.x = distance;
