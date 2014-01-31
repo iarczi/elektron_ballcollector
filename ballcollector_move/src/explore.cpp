@@ -29,7 +29,7 @@
 
 
 #define PI 3.14159265
-
+#define TIME_FOR_GOAL 20.0
 
 
 typedef enum
@@ -48,34 +48,17 @@ typedef enum
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-
-//geometry_msgs::PoseStamped currPose;
-
 geometry_msgs::Pose2D currPose;
 
 costmap_2d::Costmap2DROS* costmap_ros;
 costmap_2d::Costmap2D costmap;
 
 
-void rotateRand();
-void goStraight();
-void stop();
-double getRandomAngle();
-double getRandomLenght();
-
-void obstaclesMapCallback(const nav_msgs::GridCells& msg);
-
-
-
 double getAngle(const geometry_msgs::Quaternion& qMsg);
 void setAngle(double angle,  geometry_msgs::Quaternion& qMsg);
-void publishPose(geometry_msgs::Pose2D pose2d);
-
 
 bool canMove(float x, float y);
 double getCost(float x, float y);
-
-
 
 
 class Explore{
@@ -114,9 +97,6 @@ public:
 		as_.registerPreemptCallback(boost::bind(&Explore::preemptCB, this));
 
 		as_.start();
-		
-
-		//all_balls = nh_.subscribe < geometry_msgs::PoseArray > ("allBalls", 10, &ChooseAccessibleBalls::allBallsCb, this);
 
 		alghoritm_state_sub_ =   nh_.subscribe("alghoritm_state", 1, &Explore::alghoritmStateCallBack, this);
 		posSub = nh_.subscribe("/amcl_pose", 1, &Explore::poseCallback, this);
@@ -144,10 +124,6 @@ public:
 	float addPiToAngle(float angle);
 
 	void randomRotate();
-	void testRotate();
-	void testForward();
-	void testCanMove();
-
 	void randomForward();
 	void robotFullRotate();
 	void maxForward();
@@ -172,35 +148,22 @@ int main(int argc, char** argv) {
 
 	Explore robot_explore(ros::this_node::getName());
 	
-//	ros::Subscriber obsMapSub = nh_.subscribe("/move_base/local_costmap/inflated_obstacles", 1, obstaclesMapCallback);
-
 	costmap_ros = new costmap_2d::Costmap2DROS("local_costmap", robot_explore.tf_listener_);
-	//costmap_ros->getCostmapCopy(costmap);
 
 	double infRad = costmap_ros->getInflationRadius();
 	ROS_INFO("infRad =%f",infRad);
-
-//	float rand_theta;
-//	double x_odom, y_odom, rand_x, rand_y, x_map, y_map;
 
 	 while (!robot_explore.ac_.waitForServer(ros::Duration(5.0))) {
 		//ROS_INFO("Waiting for the move_base action server to come up");
 	 }
 
-	//bot_explore.setExploreState(MAX_FORWARD);
-	ROS_INFO("DUPA1");
-       	// robot_explore.testCanMove();
 	robot_explore.setExploreState(STOP);
 
-	//ROS_INFO("dupa 1, %i", robot_explore.getExploreState());
-	ros::Rate loop_rate(1);
+		ros::Rate loop_rate(1);
 	while (ros::ok()) {
 
 		ros::spinOnce();
 		loop_rate.sleep();
-	//	if(1){
-	//		continue;
-	//	}
 		if (!robot_explore.isActionServerActive()){
 
 			//ROS_INFO("Explore server action isn't active!");
@@ -209,25 +172,15 @@ int main(int argc, char** argv) {
 		}
 		else{
 			if(robot_explore.getExploreState() == STOP){
-					robot_explore.setExploreState(FULL_ROTATE);
-					robot_explore.robotFullRotate();
-					ROS_INFO("Start Explore STOP --> FULL_ROTATE");
-			}
-			else if(robot_explore.getExploreState() == FULL_ROTATE){
-
-				if(robot_explore.isCurrentGoalDone()){
 					robot_explore.setExploreState(RANDOM_ROTATE);
 					robot_explore.randomRotate();
-					ROS_INFO("go to FULL_ROTATE --> RANDOM_ROTATE");
-				}
-
+					ROS_INFO("Start Explore STOP --> RANDOM_ROTATE");
 			}
 			else if(robot_explore.getExploreState() == RANDOM_ROTATE){
 
 				if(robot_explore.isCurrentGoalDone()){
 					robot_explore.setExploreState(MAX_FORWARD);
 					robot_explore.maxForward();
-				//	robot_explore.randomForward();
 					ROS_INFO("go to   RANDOM_ROTATE -->  MAX_FORWARD");
 				}
 			}
@@ -254,20 +207,6 @@ void Explore::stopExplore(){
 
 
 
-void rotateRand(){
-
-}
-
-
-double getRandomAngle(){
-	return 180.0;
-}
-
-double getRandomLenght(){
-	return 0.3;
-}
-
-
 void Explore::poseCallback(const geometry_msgs::PoseWithCovarianceStampedConstPtr& msg)
 {
  // ROS_INFO("I heard pose (x, y) = (%f, %f)", msg->pose.pose.position.x, msg->pose.pose.position.y);
@@ -282,52 +221,6 @@ void Explore::poseCallback(const geometry_msgs::PoseWithCovarianceStampedConstPt
 
 }
 
-void obstaclesMapCallback(const nav_msgs::GridCells& msg){
-//	ROS_INFO("obstaclesMapCallback");
-}
-
-void Explore::alghoritmStateCallBack(const std_msgs::String& msg){
-
-	/*
-	ROS_INFO("alghoritmStateCallBack ");
-	std::cout<<msg.data<<std::endl;
-	if(msg.data.compare("SEARCH_BALLS") ==0 ){
-		ROS_INFO("explore == true");
-
-		explore = true;
-	}else if(msg.data.compare("GO_TO_BALL") == 0 ){
-		ROS_INFO("explore == false");
-
-		if(explore == true){
-			//	pierwsza zmiana
-			stopExplore();
-		}
-
-		explore = false;
-	}*/
-}
-
-void Explore::deadlockServiceStateCb(const std_msgs::String& state){
-
-	/*
-	ROS_INFO("deadlockServiceStateCb ");
-	if(state.data.compare("RUNNING") ==0 ){
-		ROS_INFO("explore == true");
-		explore = true;
-	}
-	else if(state.data.compare("NOT_RUNNING") == 0 ){
-		ROS_INFO("explore == false");
-		if(explore == true){
-			//	pierwsza zmiana
-			stopExplore();
-		}
-		explore = false;
-	}
-
-	*/
-}
-
-
 
 double getAngle(const geometry_msgs::Quaternion& qMsg){
 
@@ -337,7 +230,6 @@ double getAngle(const geometry_msgs::Quaternion& qMsg){
 	  tf::quaternionMsgToTF(qMsg, q_pose);
 	  tf::Matrix3x3 m_pose(q_pose);
 	  m_pose.getRPY(unused, unused, yaw);
-	 // yaw = yaw * 180 / PI;}
 	  return yaw;
 }
 
@@ -348,27 +240,6 @@ void setAngle(double angle,  geometry_msgs::Quaternion& qMsg){
 	tf::Quaternion q_result;
 	q_result.setRPY(.0, .0, angle);
 	tf::quaternionTFToMsg(q_result, qMsg);
-
-}
-
-
-void publishPose(geometry_msgs::Pose2D pose2d ){
-/*
-	  move_base_msgs::MoveBaseGoal goal;
-
-	  goal.target_pose.pose.position.x = x;
-	  goal.target_pose.pose.position.y = y;
-
-	  goal.target_pose.pose.orientation = qMsg;
-
-	  goal.target_pose.header.stamp = ros::Time::now();
-	  goal.target_pose.header.frame_id ="/map";
-
-
-	  ROS_INFO("Sending goal");
-	  ac_.sendGoal(goal);
-
-*/
 
 }
 
@@ -393,8 +264,7 @@ void Explore::publishPose(float x, float y, float theta, bool robot){
 	  }
 	  
 	  ROS_INFO("Sending goal...");
-	  ac_.sendGoalAndWait(goal,ros::Duration(20.0),ros::Duration(0.1) );
-	  //ac_.cancelGoalsAtAndBeforeTime(ros::Time minutka(120)):
+	  ac_.sendGoalAndWait(goal,ros::Duration(TIME_FOR_GOAL),ros::Duration(0.1) );
 	  firstGoalSend = true;
 
 }
@@ -417,195 +287,29 @@ void Explore::robotFullRotate(){
 	publishPose(0, 0, angle, USE_ROBOT);
 }
 
-void Explore::testRotate(){
 
-	float d_x = 0.5, d_y=0.0, x_map, y_map, x_odom, y_odom, x_odom_get, y_odom_get, x_map_get, y_map_get, goal_map_x, goal_map_y;
-	getRobotPositionInOdom(x_odom_get, y_odom_get);
-	getRobotPositionInMap(x_map_get, y_map_get);
-	transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
-
-	
-	ROS_INFO(" GET x_odom = %f, y_odom = %f,  x_odom_get = %f, y_odom_get = %f  x_map_get = %f, y_map_get = %f", x_odom, y_odom,x_odom_get, y_odom_get, x_map_get, y_map_get);
-	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
-	float robotAngleInMap = getRobotAngleInMap();
-	float angle_in_odom = getRobotAngleInOdom();		//	kat od -PI do + PI
-	float anglePlusPI = addPiToAngle(angle_in_odom);
-	tf::Quaternion q;
-	
-	transFromOdomToMapPosition(x_odom_get, y_odom_get, anglePlusPI, goal_map_x, goal_map_y, q);
-	
-	ROS_INFO("x_map = %f, y_map = %f,  robotAngleInMap = %f, angle_in_odom  = %f, anglePlusPI = %f, goal_map_x  = %f, goal_map_y  = %f, robotAngleInMap  = %f" , x_map, y_map, robotAngleInMap,  angle_in_odom, anglePlusPI, goal_map_x, goal_map_y, robotAngleInMap);
-
-	ROS_INFO("enter randomRotate ");
-	
-	float angle = (90 * PI)/180;
-	angle += angle_in_odom;
-	getRobotPositionInOdom(x_odom_get, y_odom_get);
-	// 0, 0
-	//publishPose2(x_odom_get, y_odom_get, angle);
-	
-//	getRobotPositionInMap(x_map_get, y_map_get);
-//	publishPose(x_map_get, y_map_get, angle);
-
-//	ROS_INFO("Sending goal");
-	//ac_.sendGoal(goal);
-
-//	ROS_INFO("wait for result");
-	//ac_.waitForResult();
-}
-
-void Explore::testForward(){
-	float d_x = 0.5, d_y=0.0,x_odom, y_odom;
-	transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
-	while (canMove(x_odom, y_odom)){
-		d_x += 0.1;
-		//d_y = 0;
-		transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
-		//transfromRobotToOdomPosition(d_x, d_y, x_odom, y_odom);
-
-	}; 
-	//publishPose2(0.3, 0, 0);
-	
-	//getRobotPositionInMap(x_map_get, y_map_get);
-	//publishPose(x_map_get, y_map_get, angle);
-
-//	ROS_INFO("Sending goal");
-	//ac_.sendGoal(goal);
-
-//	ROS_INFO("wait for result");
-	//ac_.waitForResult();
-}
-void Explore::testCanMove(){
-	float d_x = 0.1, d_y=0.0,x_odom, y_odom;
-	transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
-	while (canMove(x_odom, y_odom)){
-		d_x += 0.1;
-		transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
-	};
-	ROS_INFO("DX MAP %f, x_odom %f", d_x, x_odom);
-	float d_x2 = 0.1, d_y2=0.0,x_odom2, y_odom2;
-	transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
-	while (canMove(x_odom2, y_odom2)){
-		d_x2 += 0.1;
-		transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
-	};
-	ROS_INFO("DX ODOM %f, x_odom2 %f", d_x2, x_odom2);
-	d_x=0.1;
-
-	transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
-	while (canMove(d_x, d_y)){
-		d_x += 0.1;
-		transfromRobotToMapPosition(d_x, d_y, x_odom, y_odom);	
-	};
-	ROS_INFO("DX  %f, x_odom %f", d_x, x_odom);
-	
-	d_x2 = 0.1;
-	//transFromOdomToMapPositionnsfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
-	getRobotPositionInOdom(x_odom2, y_odom2);
-	while (canMove(x_odom2, y_odom2)){
-		x_odom2 +=0.1;
-		//transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
-	};
-	ROS_INFO("DX getODOM %f, x_odom2 %f", d_x2, x_odom2);
-	
-	getRobotPositionInMap(x_odom2, y_odom2);
-	while (canMove(x_odom2, y_odom2)){
-		x_odom2 +=0.1;
-		//transfromRobotToOdomPosition(d_x2, d_y2, x_odom2, y_odom2);	
-	};
-	ROS_INFO("DX getMap %f, x_odom2 %f", d_x2, x_odom2);
-}
 void Explore::randomRotate(){
 
-	//~ ROS_INFO("enter randomRotate ");
-	//~ float robot_odom_x, robot_odom_y;
-	//~ getRobotPositionInOdom(robot_odom_x, robot_odom_y);
 	float angle = 70 + ((360-90+1)*rand()/(RAND_MAX+1.0));
 	angle = ((angle) * PI) / 180.0;
 	publishPose(0, 0, angle, USE_ROBOT);
-
-
-	//~ float angle = (((rand() % 360) - 180) * PI) / 180.0;
-//~ 
-	//~ tf::Quaternion q;
-	//~ float goal_map_x, goal_map_y;
-	//~ transFromOdomToMapPosition(robot_odom_x, robot_odom_y, angle, goal_map_x, goal_map_y, q);
-//~ 
-	//~ geometry_msgs::Quaternion qMsg;
-	//~ tf::quaternionTFToMsg(q, qMsg);
-	//~ ROS_INFO("randomRotate robot_odom_x = %f, robot_odom_y = %f, angle = %f, goal_map_x = %f, goal_map_y = %f", robot_odom_x, robot_odom_y, angle, goal_map_x, goal_map_y);
-//~ 
-	//~ move_base_msgs::MoveBaseGoal goal;
-//~ 
-	//~ goal.target_pose.pose.position.x = goal_map_x;
-	//~ goal.target_pose.pose.position.y = goal_map_y;
-	//~ goal.target_pose.pose.position.z = 0;
-//~ 
-	//~ goal.target_pose.pose.orientation = qMsg;
-//~ 
-	//~ goal.target_pose.header.stamp = ros::Time::now();
-	//~ goal.target_pose.header.frame_id ="/map";
-//~ 
-	//~ getRobotPositionInMap(x_map_get, y_map_get);
-	//~ publishPose(x_map_get, y_map_get, angle);
-//~ 
-//~ //	ROS_INFO("Sending goal");
-	//~ ac_.sendGoal(goal);
-//~ 
-//~ //	ROS_INFO("wait for result");
-//~ //	ac_.waitForResult();
-	//~ ROS_INFO("leave randomRotate");
-//~ 
-
 
 }
 
 
 
 void Explore::randomForward(){
-	
-	
+
 	double forward = 0.5 + ((2.0-0.3+1)*rand()/RAND_MAX+1.0);
 	ROS_INFO("forward %f", forward);
 	publishPose(forward, 0, 0, USE_ROBOT);
-	//~ ROS_INFO("enter randomForward ");
-//~ 
-	//~ 
-//~ 
-	//~ int counter = 0;
-//~ 
-	//~ float rand_x, rand_y, x_odom, y_odom, x_map, y_map;
-	//~ do {
-		//~ rand_x = (rand() % 10) / 20.0;
-		//~ rand_y = 0;
-		//~ transfromRobotToOdomPosition(rand_x, rand_y, x_odom, y_odom);
-		//~ ++counter;
-		//~ if(counter > 10){
-			//~ ROS_INFO("leave randomForward, can not move forward");
-			//~ return;
-		//~ }
-//~ 
-	//~ } while (!canMove(x_odom, y_odom));
-//~ 
-//~ 
-	//~ float robotAngleInMap = getRobotAngleInMap();
-//~ 
-	//~ transfromRobotToMapPosition(rand_x, rand_y, x_map, y_map);
-//~ //	ROS_INFO("robot move to (%f,%f)", x_map, y_map);
-//~ 
-	//~ publishPose(x_map, y_map, robotAngleInMap);
-//~ 
-//~ //	ROS_INFO("wait for result");
-//~ //	ac_.waitForResult();
-//~ 
-	//~ ROS_INFO("leave randomForward");
+	
 }
 
 
 
 void Explore::maxForward(){
-	// MAP CZY ODOM
-	ROS_INFO("MAX_FORWARD");
+
 	float d_x = 0.1, d_y=0.0, x_map, y_map;
 	transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
 		
@@ -617,13 +321,8 @@ void Explore::maxForward(){
 	}; 
 	ROS_INFO("d_x = %f", d_x);
 
-	//~ transfromRobotToMapPosition(d_x, d_y, x_map, y_map);
-	//~ ROS_INFO("robot move to (%f,%f)", x_map, y_map);
+	publishPose(x_map, y_map, get, getRobotAngleInMap(), USE_MAP);
 
-	publishPose(x_map, y_map, 0, USE_MAP);
-
-	//ROS_INFO("wait for result");
-	//ac_.waitForResult();
 }
 
 
@@ -673,9 +372,6 @@ float Explore::getRobotAngleInOdom(){
 	tf::StampedTransform tfOR;								//	robot w odom
 	tf_listener_.waitForTransform("/odom", "/base_link", now, ros::Duration(1.0));
 	tf_listener_.lookupTransform ("/odom", "/base_link", now,  tfOR);
-
-//	x_odom_pose = tfOR.getOrigin ()[0];				//	wspolrzedne robota w ukladzie odom
-//	y_odom_pose = tfOR.getOrigin ()[1];				//	wspolrzedne robota w ukladzie odom
 
 	return tf::getYaw(tfOR.getRotation());
 
@@ -727,7 +423,6 @@ double getCost(float x, float y){
 void Explore::transfromRobotToOdomPosition(float x_robot, float y_robot, float &x_odom, float &y_odom){
 
 // 	ROS_INFO(" enter transfromRobotToOdomPosition  robot pose (%f, %f)", x_robot, y_robot);
-
 
 	ros::Time now = ros::Time::now();
 
@@ -853,16 +548,13 @@ void Explore::executeCB(const scheduler::SchedulerGoalConstPtr &goal){
 
 
 void Explore::goalCB(){
-//	explore_ = true;
-    // accept the new goal
-    //goal_ =
+
 	explore_state_ = FULL_ROTATE;
 	as_.acceptNewGoal();
   }
 
 void Explore::preemptCB(){
 	ROS_INFO("%s: Preempted", action_name_.c_str());
-// TEST
 	explore_ = false;
 	explore_state_ = STOP;
 	ac_.cancelAllGoals ();

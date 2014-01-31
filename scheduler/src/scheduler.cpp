@@ -53,8 +53,6 @@ public:
 	bool isBallVisible();
 
 	void sendDeadlockGoal();
-//	void sendExploreGoal();
-	void sendGoToBallGoal();
 
 	void sendStartExploreGoal();
 	void sendStopExploreGoal();
@@ -118,16 +116,12 @@ int main(int argc, char** argv) {
 	ros::Rate loop_rate(10);
 
 	while (ros::ok()) {
-//			continue;
-			
-//			std::cout<<"deadlock: "<<scheduler.isDeadlock()<<"  ball visible: "<<scheduler.isBallVisible()<<"state: "<<scheduler.getState()<<std::endl;
-
 
 			//	eksploracja moze byc przerwana w dowolnym momencie tylko
 			//	na podstawie wartosci zwracanych przez metody isDeadlock i isBallVisible
 			//	metoda isDeadlock jest nadrzedna wzgledem isBallVisible, gdyz jesli robot jest zakleszczony,
 			//	to nawet jesli widzi pileczke, to nie powinien do niej dojezdzac tylko wykonac obsluge zakleszczenia
-//DUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUuu
+
 			if(scheduler.getState() == EXPLORE){
 				if (scheduler.isDeadlock()) {
 					//	robot podczas eksploracji zakleszczyl sie
@@ -159,9 +153,6 @@ int main(int argc, char** argv) {
 						ROS_INFO("EXPLORE ---> GO_TO_BALL_SECOND_STEP");
 					}
 
-				//~ //	scheduler.sendGoToBallGoal();
-				//~ //	scheduler.setSate(GO_TO_BALL);
-				//~ //	ROS_INFO("EXPLORE ---> GO_TO_BALL");
 				}
 
 			}
@@ -273,7 +264,6 @@ void Scheduler::sendStartExploreGoal(){
 	goal.value = 1;
 	explore_action_client_.sendGoal(goal);
 
-	//ROS_INFO("END send a goal to the explore action server");
 }
 
 void Scheduler::sendStopExploreGoal(){

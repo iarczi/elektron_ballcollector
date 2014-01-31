@@ -70,9 +70,6 @@ public:
 		image_sub_ = it_.subscribe("/camera/rgb/image_color", 1,
 				&ImageConverter::imageCb, this);
 
-	//	image_depth_sub_ = it_.subscribe("/camera/depth/image_raw", 1,
-	//			&ImageConverter::imageCb, this);
-
 		vel_pub_ = nh_.advertise<geometry_msgs::Twist> ("cmd_vel", 1);
 
 
@@ -135,10 +132,6 @@ public:
 
 
 	void imageCb(const sensor_msgs::ImageConstPtr& msg) {
-//	  ROS_INFO("I heard Image");
-
-
-
 		cv_bridge::CvImagePtr cv_ptr;
 		try {
 			cv_ptr = cv_bridge::toCvCopy(msg, enc::BGR8  );
@@ -156,25 +149,12 @@ public:
 
 		threshold(gray, trash, 130, 255, THRESH_BINARY);
 
-
-
-	//	adaptiveThreshold(gray, trash, 80, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY, 5, 2.0);
-
 		Mat elem = (Mat_<int>(3, 3) << 1, 1, 1, 1, 1, 1, 1, 1, 1);
 		Point anchor = Point(-1, -1);
-//		erode(trash, trash, elem, anchor, 1);
-//		dilate(trash, gray, elem, anchor, 1);
-//		dilate(trash, trash, elem, anchor, 1);
-//		dilate(trash, trash, elem, anchor, 1);
-//		dilate(gray, gray, elem, anchor, 1);
-
-
-//		GaussianBlur( gray, gray, Size(9, 9), 2, 2 );
 
 		Mat countMap = trash.clone();
 
 		threshold(gray, empty, 255, 255, THRESH_BINARY);
-
 
 		std::vector < std::vector<Point> > contours;
 		findContours(countMap, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
@@ -191,18 +171,6 @@ public:
 		double x=0.0;
 		double y=0.0;
 		double maxArea=0.0;
-/*
-		for (int i = 0; i < contours.size(); i++) {
-			 area = contourArea(contours[i]);
-			if (area < 100 ) {
-					drawContours(gray, contours, i, 255);
-			}
-		}
-
-
-*/
-
-
 
 		for (int i = 0; i < contours.size(); i++) {
 		//	drawContours(gray, contours, i, 255);
@@ -257,44 +225,6 @@ public:
 			//	ROS_INFO("M7 = %f",M7);
 			}
 		}
-
-/*
-
-
-
-		if(count == 1 ){
-			robotRun = 1;
-
-					geometry_msgs::Twist vel;
-					vel.angular.z = (320 - x)/500;
-					vel.linear.x = (0.1 - (abs(320 - x) )/3200)*(1 - pow(y/460, 1) );
-
-					vel_pub_.publish(vel);
-
-					ROS_INFO("circle area1 =%f", maxArea);
-					if(maxArea > 850 && abs(320 - x) < 50 ){
-						ROS_INFO("start hoover");
-						onHoover();
-					//	vel.linear.x = 0;
-						vel.linear.x = 0.2;
-						vel_pub_.publish(vel);
-						ros::Duration(1.0).sleep();
-						vel.linear.x = 0;
-						vel_pub_.publish(vel);
-						ros::Duration(1.0).sleep();
-						ROS_INFO("stop hoover");
-					}
-					else if(maxArea < 800 ){
-						offHoover();
-					}
-		}
-		else{
-			offHoover();
-			stopRobot();
-		}
-
-*/
-
 
 	//	ROS_INFO("There are %d balls", count);
 

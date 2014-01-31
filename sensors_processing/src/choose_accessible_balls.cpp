@@ -104,38 +104,13 @@ int main(int argc, char** argv) {
 
 }
 
-void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& all_balls_msg){
-//	ROS_INFO("enter Choose accessible balls");
-
-	/*
-
-	if(explore == true){
-		return;
-	}
-
-	*/
+void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& all_balls_msg){/
 	ros::Time start = ros::Time::now();
 
 
 	double robot_odom_x, robot_odom_y;
 	getRobotPositionInOdom(robot_odom_x, robot_odom_y);
-//	ROS_INFO("(robot_odom_x, robot_odom_y) (%f, %f)", robot_odom_x, robot_odom_y);
-
 	std::vector<geometry_msgs::Pose> allBalls = all_balls_msg->poses;
-//	ROS_INFO("number of balls = %d", (int)allBalls.size());
-
-/*	if(first != false){
-		return;
-	}*/
-
-	/*
-	if(allBalls.size() != 1){
-		return;
-	}
-	first = true;
-
-*/
-
 
 	geometry_msgs::PoseArray accesibleBallsMsg;
 	accesibleBallsMsg.header.frame_id ="/odom";
@@ -158,22 +133,14 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 		double y = allBalls[i].position.y;
 		double z = allBalls[i].position.z;
 
-		ROS_INFO("choose accesible baalls (x, y, z) (%f, %f, %f)", x, y,z);
-
-
-
 		double ball_odom_x, ball_odom_y, ball_odom_z;
 
 
 		transFromCameraToOdomPosition(x, y, z, ball_odom_x, ball_odom_y, ball_odom_z, tfOC);
 
-		ROS_INFO("accesible baalls odom position (x, y, z) (%f, %f, %f)", ball_odom_x, ball_odom_y, ball_odom_z);
-
 		if(ball_odom_z < 0.01 ||ball_odom_z > 0.1){
 			continue;
 		}
-
-//		ROS_INFO("(x_odom, y_odom) (%f, %f)", x_odom, y_odom);
 
 		float goal_odom_x, goal_odom_y;
 
@@ -199,13 +166,9 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 		poses.push_back(pose);
 
 
-
-
-
 		bool canMove1 = canMove(goal_odom_x, goal_odom_y);
 
 		if(canMove1==true){
-			ROS_INFO("              can move to ball at (%f, %f)", goal_odom_x, goal_odom_y);
 
 			geometry_msgs::Pose pose;
 
@@ -219,7 +182,6 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 
 		}
 		else{
-			ROS_INFO("              can not move to ball at (%f, %f)",goal_odom_x, goal_odom_y);
 		}
 
 
@@ -230,14 +192,9 @@ void ChooseAccessibleBalls::allBallsCb(const geometry_msgs::PoseArrayConstPtr& a
 	double durSec = duration.toNSec()/1000000;
 	double avgDur = durSec/allBalls.size();
 
-	ROS_INFO("dur = %f [ms]", durSec);
-	ROS_INFO("ball size = %d, average dur = %f [ms]", (int)allBalls.size(), avgDur);
-
-
-//	if(poses.size() > 0 ){
 		accesibleBallsMsg.poses = poses;
 		accesible_balls.publish(accesibleBallsMsg);
-//	}
+
 }
 
 void ChooseAccessibleBalls::publishPose(float x, float y, geometry_msgs::Quaternion qMsg){
@@ -272,12 +229,6 @@ void ChooseAccessibleBalls::setAngle(double angle,  geometry_msgs::Quaternion& q
 void ChooseAccessibleBalls::transFromCameraToOdomPosition(double x_cam_pose, double y_cam_pose, double z_cam_pose,
 		double &x_robot_pose, double &y_robot_pose, double &z_robot_pose, tf::Transform& tfOC){
 
-//	tf::TransformListener tf_listener;
-//	ros::Time now = ros::Time(0);
-//	tf::StampedTransform tfOC;								//	kamera w odom
-//	tf_listener.waitForTransform("/odom", "/openni_rgb_optical_frame", now, ros::Duration(1.0));
-//	tf_listener.lookupTransform ("/odom", "/openni_rgb_optical_frame", now,  tfOC);
-
 	tf::Transform tfCP;
 	tfCP.setOrigin(tf::Vector3(x_cam_pose, y_cam_pose, z_cam_pose));			//	pileczka w kamerze
 
@@ -293,14 +244,12 @@ void ChooseAccessibleBalls::transFromCameraToOdomPosition(double x_cam_pose, dou
 bool ChooseAccessibleBalls::canMove(float x, float y){
 	return true;
 
-	  ROS_INFO("enter canMove");
+	
 	  // Get a copy of the current costmap to test. (threadsafe)
 	  costmap_2d::Costmap2D costmap;
-//	  ROS_INFO("aaa");
 	  if(costmap_ros != NULL)
 		  costmap_ros->getCostmapCopy( costmap );
 
-//	  ROS_INFO("bbb");
 	  // Coordinate transform.
 	  unsigned int cell_x, cell_y;
 	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
@@ -371,80 +320,4 @@ void alghoritmStateCallBack(const std_msgs::String& msg){
 	}
 }
 
-
-
-/**
- * Metoda sprawdza, czy pilka jest osiagalna. Wynzaczany jest okrag o srodku
- * w punkcie (x, y) a nastepnie sprawdzane jest, czy robot moze dojechac do tego okregu w odstepach
- *
- */
-
-/*
-bool ChooseAccessibleBalls::isBallAccessible(float x, float y){
-	  // Get a copy of the current costmap to test. (threadsafe)
-	  costmap_2d::Costmap2D costmap;
-
-	  if(costmap_ros != NULL)
-		  costmap_ros->getCostmapCopy( costmap );
-
-	  // Coordinate transform.
-	  unsigned int cell_x, cell_y;
-	  if( !costmap.worldToMap( x, y, cell_x, cell_y )){
-	    return false;
-	  }
-
-	  double cost = double( costmap.getCost( cell_x, cell_y ));
-	  if(cost <= 127){
-		  return true;
-	  }
-	  else{
-		  return false;
-	  }
-}
-
-*/
-
-
-
-
-/*
-
-
-double goal_map_x, goal_map_y, robot_map_x, robot_map_y;
-tf::Quaternion q;
-float angle = getAngle(robot_odom_x, robot_odom_y, ball_odom_x, ball_odom_y);
-
-ROS_INFO("angle in odom = %f ", angle*180/PI);
-
-transFromOdomToMapPosition(robot_odom_x, robot_odom_y, 0.0, robot_map_x, robot_map_y, q);
-ROS_INFO("(robot_map_x, robot_map_y) (%f, %f)", robot_map_x, robot_map_y);
-
-
-transFromOdomToMapPosition(goal_odom_x, goal_odom_y, angle, goal_map_x, goal_map_y, q);
-ROS_INFO("(goal_odom_x, goal_odom_y) (%f, %f)", goal_odom_x, goal_odom_y);
-ROS_INFO("(goal_map_x, goal_map_y) (%f, %f)", goal_map_x, goal_map_y);
-
-//	ROS_INFO("angle in map = %f ", angle*180/PI);
-
-
-double roll, pitch, yaw;
-tf::Matrix3x3(q).getRPY(roll, pitch, yaw);
-ROS_INFO("angle in map = %f ", yaw*180/PI);
-
-
-geometry_msgs::Quaternion qMsg;
-tf::quaternionTFToMsg(q, qMsg);
-
-//		ROS_INFO(" (x, y, z, w) =  (%f, %f, %f, %f)", qMsg.x, qMsg.y, qMsg.z, qMsg.w );
-publishPose(goal_map_x, goal_map_y, qMsg);
-
-ac.waitForResult();
-
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-    ROS_INFO("Hooray, the base moved 1 meter forward");
-  else
-    ROS_INFO("The base failed to move forward 1 meter for some reason");
-
-
-  */
 
